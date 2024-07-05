@@ -1,0 +1,90 @@
+.form { 
+    overflow: auto;
+    height: 12rem;
+    margin: 1rem 0;
+}
+
+.control {
+    margin-bottom: 1.5rem;
+}
+
+.input {
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.input label {
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
+.input input,
+.input textarea {
+  width: 20rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font: inherit;
+  padding-left: 0.5rem;
+}
+
+.input input:focus,
+.input input:active,
+.input textarea:focus,
+.input textarea:active {
+  outline: none;
+  border: 1px solid #ccc;;
+}
+
+.error-text {
+  color: red;
+}
+
+.tlabel, .input-field label {
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.input-field textarea, .input-field input {
+  width: 20rem;
+  max-width: 100%;
+}
+
+.invalid input,
+.invalid textarea {
+    border: 1px solid #b40e0e;
+    background-color: #fddddd;
+}
+
+.invalid label {
+  color: #ca3e51;
+}
+
+.button {
+  text-align: right;
+}
+
+.button button {
+  padding: 0.5rem 2rem;
+  background-color: brown;
+  border: 1px solid brown;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  border-radius: 25px;
+  margin-left: 1rem;
+}
+
+.button .cancel {
+  color: brown;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.button button:disabled,
+.button button:disabled {
+  background-color: #ccc;
+  border: 1px solid #ccc;
+  color: #292929;
+  cursor: not-allowed;
+}

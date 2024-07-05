@@ -1,0 +1,16 @@
+.products {
+    max-width: 60rem;
+    width: 90%;
+    margin: 2rem auto;
+}
+  
+.products ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.isLoading ,
+.try-again {
+    text-align: center;
+}

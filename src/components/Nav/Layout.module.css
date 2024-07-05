@@ -1,0 +1,22 @@
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #8a2b06;
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    z-index: 60;
+}
+
+@media(max-width: 768px) {
+    .section {
+        position: fixed;
+        top: 5%;
+        right: 10%;
+        transform: scale(0.6);
+    }
+}

@@ -1,0 +1,30 @@
+footer {
+    width: 100%;
+    padding-bottom: 3%;
+}
+  
+.center {
+    text-align: center;
+    background-color: #8a2b06;
+}
+  
+.list {
+      display: inline-flex;
+      list-style: none;
+}
+  
+.list-item {
+      position: relative;
+      width: 120px;
+      margin: 18px;
+      padding: 18px;
+      text-align: left;
+}
+  
+.list-link {
+      text-decoration: none;
+}
+  
+.bg {
+    background-color: cornsilk;
+}

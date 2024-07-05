@@ -1,0 +1,141 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway&display=swap");
+
+.checkout-container button {
+  background-color: #635bff;
+}
+
+.checkout-container button {
+  background: #635bff;
+  border-radius: 3px;
+  color: white;
+  border: 0;
+  padding: 12px 16px;
+  margin-top: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: block;
+}
+
+.checkout-container button:hover {
+  filter: contrast(115%);
+}
+
+.checkout-container button:active {
+  transform: translateY(0px) scale(0.98);
+  filter: brightness(0.9);
+}
+
+.checkout-container button:disabled {
+  opacity: 0.5;
+  cursor: none;
+}
+
+.checkout-container input,
+.checkout-container select {
+  display: block;
+  font-size: 1.1em;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.checkout-container label {
+  display: block;
+}
+
+.checkout-container small {
+  font-size: 0.6em;
+}
+
+.checkout-container fieldset,
+.checkout-container input,
+.checkout-container select {
+  border: 1px solid #efefef;
+}
+
+.checkout-container #payment-form {
+  border: #f6f9fc solid 1px;
+  border-radius: 3px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 30px 50px -20px rgb(50 50 93 / 25%),
+    0 30px 60px -30px rgb(0 0 0 / 30%);
+}
+
+.checkout-container #messages {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New";
+  display: none; /* hide initially, then show once the first message arrives */
+  background-color: #0a253c;
+  color: #00d924;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 3px;
+  font-size: 0.7em;
+}
+
+/* src/components/Checkout.css */
+.checkout-container {
+  align-items: center;
+  padding: 2rem;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-height: 14rem;
+  overflow: auto;
+  margin: 2rem auto;
+}
+
+.checkout-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.customer-details {
+  margin-bottom: 20px;
+  background-color: #fff;
+}
+
+.card-element-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.card-element {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.checkout-button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.checkout-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.checkout-button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 1rem;
+}
+
+.success-message {
+  color: green;
+  margin-top: 1rem;
+}
