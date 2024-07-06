@@ -1,26 +1,57 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
 
-import RootLayout from './pages/Root.jsx'
-import HomePage from './pages/Home.jsx';
-import AboutPage from './pages/About.jsx';
-import ContactPage from './pages/Contact.jsx';
-import DetailPage from './pages/Detail.jsx';
-import ProductsPage from './pages/Products.jsx';
-import ErrorPage from './pages/Error.jsx';
-import CheckoutPage from './pages/Checkout.jsx';
+import RootLayout from './pages/Root.jsx';
+import LoadingSpinner from './components/UI/LoadingSpinner/LoadingSpinner.jsx';
+
+const HomePage = lazy(() => import('./pages/Home.jsx'));
+const AboutPage = lazy(() => import('./pages/About.jsx'));
+const ContactPage = lazy(() => import('./pages/Contact.jsx'));
+const DetailPage = lazy(() => import('./pages/Detail.jsx'));
+const ProductsPage = lazy(() => import('./pages/Products.jsx'));
+const CheckoutPage = lazy(() => import('./pages/Checkout.jsx'));
+const ErrorPage = lazy(() => import('./pages/Error.jsx'));
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
-    errorElement: <ErrorPage />,
+    errorElement: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <ErrorPage />
+      </Suspense>
+    ),
     children: [
-      { path: '/' , element: <HomePage /> },
-      { path: '/about', element: <AboutPage /> },
-      { path: '/contact', element: <ContactPage /> },
-      { path: '/checkout', element: <CheckoutPage /> },
-      { path: '/products', element: <ProductsPage /> },
-      { path: '/products/:id', element: <DetailPage /> }
+      { path: '/' , element: (
+        <Suspense fallback={<LoadingSpinner />}>
+          <HomePage />
+        </Suspense>
+      ) },
+      { path: '/about', element: (
+        <Suspense fallback={<LoadingSpinner />}>
+          <AboutPage />
+        </Suspense>
+      ) },
+      { path: '/contact', element: (
+        <Suspense fallback={<LoadingSpinner />}>
+          <ContactPage />
+        </Suspense>
+      ) },
+      { path: '/checkout', element: (
+        <Suspense fallback={<LoadingSpinner />}>
+          <CheckoutPage />
+        </Suspense>
+      ) },
+      { path: '/products', element: (
+        <Suspense fallback={<LoadingSpinner />}>
+          <ProductsPage />
+        </Suspense>
+      ) },
+      { path: '/products/:id', element: (
+        <Suspense fallback={<LoadingSpinner />}>
+          <DetailPage />
+        </Suspense>
+      ) }
     ]
   }
 ]);

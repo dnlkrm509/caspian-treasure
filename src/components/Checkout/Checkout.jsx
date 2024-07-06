@@ -199,7 +199,7 @@ const CheckoutForm = () => {
         for (const item of cartCTX.items) {
           try {
             let orderId = null;
-            if (orders.data.rows[ orders.data.rows - 1 ].order_id !== undefined) {
+            if (orders[ orders.length - 1 ].order_id !== undefined) {
               const lastOrder = orders[orders.length - 1];
               console.log("Last order fetched:", lastOrder); // Debugging log
 
@@ -307,7 +307,7 @@ const CheckoutForm = () => {
             </label>
             <input type="hidden" name="orderId" value={order ? order.rows[order.rows.length - 1].order_id : ''} />
             {cartCTX.items.map((item) => (
-              <div>
+              <div key={item.product_id}>
                 <input type="hidden" name="productId" value={item.product_id} ></input>
                 <input type="hidden" name="productName" value={item.name} ></input>
                 <input type="hidden" name="amount" value={item.amount} ></input>
