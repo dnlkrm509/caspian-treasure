@@ -100,8 +100,6 @@ const ContactForm = () => {
       return;
     }
 
-    console.log(e.target)
-
     try {
        emailjs.sendForm(serviceId, templateId, e.target, publicKey)
        .then((result) => {
