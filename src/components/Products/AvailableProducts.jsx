@@ -17,7 +17,7 @@ const AvailableProducts = () => {
         setIsFetching(true);
         
         try {
-          const response = await axios.get('/api/products');
+          const response = await axios.get('/products');
           setProducts(response.data.rows);
         } catch (error) {
           setError('Could not fetch products.' );
