@@ -11,6 +11,8 @@ const serviceId = import.meta.env.VITE_SERVICE_ID;
 const templateId = import.meta.env.VITE_TEMPLATE_ID1;
 const publicKey = import.meta.env.VITE_PUBLIC_KEY;
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 const ContactForm = () => {
   const [formData, setFormData] = useState({
     subject: '',
@@ -108,7 +110,7 @@ const ContactForm = () => {
          console.log(error.text);
        });
 
-      await axios.post('/api/message-from', { data: formData });
+      await axios.post(`${apiUrl}/api/message-from`, { data: formData });
 
       setFormData({
         subject: '',

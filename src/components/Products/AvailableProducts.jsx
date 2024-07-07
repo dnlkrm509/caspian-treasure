@@ -19,7 +19,6 @@ const AvailableProducts = () => {
         setIsFetching(true);
         
         try {
-          console.log('Making request to:', `${apiUrl}/api/products`);
           const response = await axios.get(`${apiUrl}/api/products`);
           setProducts(response.data.rows);
         } catch (error) {

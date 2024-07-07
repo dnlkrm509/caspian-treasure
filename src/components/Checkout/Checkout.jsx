@@ -22,6 +22,8 @@ const serviceId = import.meta.env.VITE_SERVICE_ID;
 const templateId = import.meta.env.VITE_TEMPLATE_ID2;
 const publicKey = import.meta.env.VITE_PUBLIC_KEY;
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 const CARD_ELEMENT_OPTIONS = {
   style: {
     base: {
@@ -62,7 +64,7 @@ const CheckoutForm = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const orders = await axios.get('/api/orders');
+        const orders = await axios.get(`${apiUrl}/api/orders`);
         setOrder(orders.data);
       } catch (err) {
         console.error(err);
@@ -76,7 +78,7 @@ const CheckoutForm = () => {
 
   const createPaymentIntent = async () => {
     try {
-      const { data } = await axios.post('/api/checkout', {
+      const { data } = await axios.post(`${apiUrl}/api/checkout`, {
         amount: +(+cartCTX.totalAmount.toFixed(2) * 100).toFixed(0), // Amount in pence (e.g., £10.00)
         ...customerDetails,
         paymentMethodType,
@@ -191,7 +193,7 @@ const CheckoutForm = () => {
 
 
       try {
-        const ordersResponse = await axios.get('/api/orders');
+        const ordersResponse = await axios.get(`${apiUrl}/api/orders`);
         const orders = ordersResponse.data.rows;
 
         console.log("Fetched orders:", orders); // Debugging log
@@ -210,7 +212,7 @@ const CheckoutForm = () => {
 
             console.log("Order ID to be used:", orderId); // Debugging log
             
-            await axios.post('/api/orders', {
+            await axios.post(`${apiUrl}/api/orders`, {
               newProduct: item,
               ...customerDetails,
               orderId,
@@ -224,7 +226,7 @@ const CheckoutForm = () => {
               console.log(error.text);
             });
   
-            await axios.delete(`/api/all-cart-products/${item.product_id}`);
+            await axios.delete(`${apiUrl}/api/all-cart-products/${item.product_id}`);
             
           } catch (error) {
             setError(error.message);

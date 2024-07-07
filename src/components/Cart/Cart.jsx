@@ -8,6 +8,8 @@ import CartItem from "./CartItem";
 import Checkout from "../Checkout/Checkout.jsx";
 import axios from "axios";
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 const Cart = (props) => {
     const cartCtx = useContext(CartContext);
     const [isHidden, setIsHidden] = useState(true);
@@ -31,11 +33,11 @@ const Cart = (props) => {
 
         if(existingCartItem.amount === 1) {
             try {
-                const cart = await axios.get('/api/cart-products');
+                const cart = await axios.get(`${apiUrl}/api/cart-products`);
                 const itemToDelete = cart.data.rows.find(item => item.product_id === id);
 
                 if (itemToDelete) {
-                  await axios.delete(`/api/cart-products/${itemToDelete.product_id}`);
+                  await axios.delete(`${apiUrl}/api/cart-products/${itemToDelete.product_id}`);
                   if (cartCtx.items.length === 0) {
                     updatedTotalAmount = 0;
                   }
@@ -43,7 +45,7 @@ const Cart = (props) => {
                 
                 for (const row of cart.data.rows) {
                   if (row.product_id !== id) {
-                    await axios.put(`/api/cart-products/${row.product_id}`, {
+                    await axios.put(`${apiUrl}/api/cart-products/${row.product_id}`, {
                       totalAmount: updatedTotalAmount.toFixed(2)
                     });
                   }
@@ -62,16 +64,16 @@ const Cart = (props) => {
             updatedItem = {...existingCartItem, 
                 amount: existingCartItem.amount - 1};
             try {
-                const cart = await axios.get('/api/cart-products');
+                const cart = await axios.get(`${apiUrl}/api/cart-products`);
                 const itemToDelete = cart.data.rows.find(item => item.product_id === id);
                 
-                await axios.put(`/api/cart-products/${itemToDelete.product_id}`, {
+                await axios.put(`${apiUrl}/api/cart-products/${itemToDelete.product_id}`, {
                     newProduct: updatedItem,
                     totalAmount: `${updatedTotalAmount.toFixed(2)}`
                 });
 
                 for (const row of cart.data.rows) {
-                  await axios.put(`/api/cart-products/${row.product_id}`, {
+                  await axios.put(`${apiUrl}/api/cart-products/${row.product_id}`, {
                     totalAmount: updatedTotalAmount.toFixed(2)
                   });
                 }
@@ -95,18 +97,18 @@ const Cart = (props) => {
         const updatedTotalAmount = cartCtx.totalAmount + existingCartItem.price;
 
         try {
-            const cart = await axios.get('/api/cart-products');
+            const cart = await axios.get(`${apiUrl}/api/cart-products`);
             const itemToAdd = cart.data.rows.find(item => item.product_id === existingCartItem.product_id);
             
             const updatedProduct = { ...newItem, amount: existingCartItem.amount + 1 };
 
-            await axios.put(`/api/cart-products/${itemToAdd.product_id}`, {
+            await axios.put(`${apiUrl}/api/cart-products/${itemToAdd.product_id}`, {
               newProduct: updatedProduct,
               totalAmount: updatedTotalAmount.toFixed(2)
             });
 
             for (const row of cart.data.rows) {
-              await axios.put(`/api/cart-products/${row.product_id}`, {
+              await axios.put(`${apiUrl}/api/cart-products/${row.product_id}`, {
                 totalAmount: updatedTotalAmount.toFixed(2)
               });
             }
