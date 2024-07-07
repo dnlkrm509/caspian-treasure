@@ -43,7 +43,7 @@ const AvailableProducts = () => {
         <Error body={error} isNextLine={false} button /></li>;
     };
 
-    if (products) {
+    if (products.length > 0) {
       productsList = products.map((product) => (
         <ProductItem
           id={product.id} 
