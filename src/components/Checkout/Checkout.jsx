@@ -231,9 +231,8 @@ const CheckoutForm = () => {
               orderId: newLastOrder.order_id,
               totalAmount: cartCTX.totalAmount
             })
-  
+
             await axios.delete(`${apiUrl}/api/all-cart-products/${item.product_id}`);
-            cartCTX.clearCart();
             
           } catch (error) {
             setError(error.message);
@@ -249,6 +248,8 @@ const CheckoutForm = () => {
           }, (error) => {
             console.log(error.text);
           });
+
+          cartCTX.clearCart();
 
       } catch (error) {
         console.log('Error ocurred attemting to fetch orders!')
