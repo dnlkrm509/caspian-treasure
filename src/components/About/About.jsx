@@ -2,7 +2,7 @@ import classes from './About.module.css';
 
 function About() {
     return (
-        <div className="mt-[20%] md:mt-[3%]">
+        <div className="mt-[20%] md:mt-[-3%]">
             <section className={classes.summary}>
                 <h2>About Us</h2>
                 <p>
