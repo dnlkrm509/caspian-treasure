@@ -193,12 +193,13 @@ const CheckoutForm = () => {
 
 
       try {
+        const ordersResponse = await axios.get(`${apiUrl}/api/orders`);
+        const orders = ordersResponse.data.rows;
+
+        console.log("Fetched orders:", orders); // Debugging log
+
         for (const item of cartCTX.items) {
           try {
-            const ordersResponse = await axios.get(`${apiUrl}/api/orders`);
-            const orders = ordersResponse.data.rows;
-
-            console.log("Fetched orders:", orders); // Debugging log
             let orderId = null;
             if (orders[ orders.length - 1 ].order_id !== undefined) {
               const lastOrder = orders[orders.length - 1];
@@ -218,11 +219,15 @@ const CheckoutForm = () => {
               totalAmount: cartCTX.totalAmount
             })
 
+            const newOrdersResponse = await axios.get(`${apiUrl}/api/orders`);
+            const newOrders = newOrdersResponse.data.rows;
+            const newLastOrder = newOrders[newOrders.length - 1];
+
             await axios.post(`${apiUrl}/api/message-to`, {
               ...item,
               productName: item.name,
               ...customerDetails,
-              orderId,
+              orderId: newLastOrder.order_id,
               totalAmount: cartCTX.totalAmount
             })
   
