@@ -3,7 +3,7 @@ import classes from './Contact.module.css';
 
 function Contact() {
     return (
-        <div className="mt-[20%] md:mt-{-3%]">
+        <div className="mt-[20%] md:mt-0">
             <section className={classes.summary}>
                 <h2>Contact Us</h2>
                 <p>

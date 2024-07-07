@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import Cookies from 'js-cookie';
 import About from "../components/About/About.jsx";
 import CartContext from "../store/cart-context.js";
 import axios from "axios";

@@ -1,5 +1,4 @@
 import Products from "../components/Products/Products.jsx";
-import Cookies from 'js-cookie';
 import classes from './Products.module.css';
 import img from '../../public/image3.jpg';
 import { useContext, useEffect, useState } from "react";
