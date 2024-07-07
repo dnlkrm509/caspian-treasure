@@ -7,6 +7,8 @@ import CartProvider from "../store/CartProvider";
 import CartContext from "../store/cart-context";
 import axios from "axios";
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 function HomePage(props) {
   const cartCTX = useContext(CartContext);
 
@@ -30,10 +32,10 @@ function HomePage(props) {
           const newUserId = Math.random().toString();
           Cookies.set('userId', newUserId);
           setUserId(newUserId);
-          await axios.post('/api/cart-products', { newProduct: [], totalAmount: '0.00' } );
+          await axios.post(`${apiUrl}/api/cart-products`, { newProduct: [], totalAmount: '0.00' } );
         }
 
-        const products = await axios.get('/api/cart-products');
+        const products = await axios.get(`${apiUrl}/api/cart-products`);
         cartCTX.setCart({ items: products.data.rows, totalAmount: +products.data.rows[ products.data.rows.length -1 ].totalAmount });
       } catch (error) {
         setError({ message: "Failed to fetch cart products." });

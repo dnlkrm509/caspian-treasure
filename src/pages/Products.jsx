@@ -5,6 +5,8 @@ import { useContext, useEffect, useState } from "react";
 import CartContext from "../store/cart-context.js";
 import axios from "axios";
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 function ProductsPage() {
     const cartCTX = useContext(CartContext);
 
@@ -16,7 +18,7 @@ function ProductsPage() {
         setIsFetching(true);
 
         try {
-            const products = await axios.get(`/api/cart-products`);
+            const products = await axios.get(`${apiUrl}/api/cart-products`);
             cartCTX.setCart({ items: products.data.rows, totalAmount: +products.data.rows[ products.data.rows.length -1 ].totalAmount });
         } catch (error) {
             setError({ message: "Failed to fetch cart products." });
