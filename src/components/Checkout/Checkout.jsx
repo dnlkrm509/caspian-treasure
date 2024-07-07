@@ -219,12 +219,14 @@ const CheckoutForm = () => {
               totalAmount: cartCTX.totalAmount
             })
 
-            emailjs.sendForm(serviceId, templateId, event.target, publicKey)
-            .then((result) => {
-              console.log(result.text);
-            }, (error) => {
-              console.log(error.text);
-            });
+            await axios.post(`${apiUrl}/api/message_to`, {
+              data: {
+                item,
+                ...customerDetails,
+                orderId,
+                totalAmount: cartCTX.totalAmount
+              }
+            })
   
             await axios.delete(`${apiUrl}/api/all-cart-products/${item.product_id}`);
             
@@ -235,6 +237,14 @@ const CheckoutForm = () => {
           }
           
         }
+
+        emailjs.sendForm(serviceId, templateId, event.target, publicKey)
+          .then((result) => {
+            console.log(result.text);
+          }, (error) => {
+            console.log(error.text);
+          });
+
       } catch (error) {
         console.log('Error ocurred attemting to fetch orders!')
       }
