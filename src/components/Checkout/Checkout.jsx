@@ -221,7 +221,7 @@ const CheckoutForm = () => {
 
             await axios.post(`${apiUrl}/api/message_to`, {
               data: {
-                item,
+                ...item,
                 ...customerDetails,
                 orderId,
                 totalAmount: cartCTX.totalAmount
