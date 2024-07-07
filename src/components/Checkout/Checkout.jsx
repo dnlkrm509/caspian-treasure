@@ -220,12 +220,10 @@ const CheckoutForm = () => {
             })
 
             await axios.post(`${apiUrl}/api/message-to`, {
-              data: {
-                ...item,
-                ...customerDetails,
-                orderId,
-                totalAmount: cartCTX.totalAmount
-              }
+              ...item,
+              ...customerDetails,
+              orderId,
+              totalAmount: cartCTX.totalAmount
             })
   
             await axios.delete(`${apiUrl}/api/all-cart-products/${item.product_id}`);
