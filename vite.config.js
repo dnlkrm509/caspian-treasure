@@ -13,7 +13,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://caspian-treasure-1ccbeed4e13a.herokuapp.com',
+        target: process.env.VITE_API_URL,
         changeOrigin: true
       },
     },
