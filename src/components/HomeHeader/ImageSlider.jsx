@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const ImageSlider = ({ slides, onNextImage }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    const { scrollY } = useScroll();
-
-    const opacityIMG = useTransform(scrollY, [0, 200, 300, 500], [1, 0.5, 0.5, 0])
 
     let intervalTime = 3000;
 

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faInstagram } from '@fortawesome/free-brands-svg-icons';
 
+const instagram = import.meta.env.VITE_INSTAGRAM_ADDRESS;
 
 function Footer() {
   const date = new Date();
@@ -36,7 +37,7 @@ function Footer() {
                 className={classes['list-item']}>
                   <Link
                     className={classes['list-link']}
-                    to="https://www.instagram.com/caspiantreasure_caviar?igsh=ZDZtcnN5cmxrbjc5&utm_source=qr"
+                    to={instagram}
                   >
                       <span className='fa-stack fa-lg hover:text-[#F00AC9]'>
                         <FontAwesomeIcon icon={faInstagram} />
