@@ -229,6 +229,7 @@ const CheckoutForm = () => {
             })
   
             await axios.delete(`${apiUrl}/api/all-cart-products/${item.product_id}`);
+            cartCTX.clearCart();
             
           } catch (error) {
             setError(error.message);
@@ -248,8 +249,6 @@ const CheckoutForm = () => {
       } catch (error) {
         console.log('Error ocurred attemting to fetch orders!')
       }
-
-      cartCTX.clearCart();
   
 
       setPaymentSuccessful(true);
