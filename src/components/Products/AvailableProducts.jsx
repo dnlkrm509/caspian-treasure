@@ -7,6 +7,8 @@ import LoadingSpinner from '../UI/LoadingSpinner/LoadingSpinner';
 import Error from '../UI/Error';
 import axios from 'axios';
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 const AvailableProducts = () => {
     const [products, setProducts] = useState([]);
     const [isFetching, setIsFetching] = useState(false);
@@ -17,7 +19,8 @@ const AvailableProducts = () => {
         setIsFetching(true);
         
         try {
-          const response = await axios.get('/api/products');
+          console.log('Making request to:', `${apiUrl}/api/products`);
+          const response = await axios.get(`${apiUrl}/api/products`);
           setProducts(response.data.rows);
         } catch (error) {
           setError('Could not fetch products.' );
