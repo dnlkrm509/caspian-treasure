@@ -193,13 +193,12 @@ const CheckoutForm = () => {
 
 
       try {
-        const ordersResponse = await axios.get(`${apiUrl}/api/orders`);
-        const orders = ordersResponse.data.rows;
-
-        console.log("Fetched orders:", orders); // Debugging log
-
         for (const item of cartCTX.items) {
           try {
+            const ordersResponse = await axios.get(`${apiUrl}/api/orders`);
+            const orders = ordersResponse.data.rows;
+
+            console.log("Fetched orders:", orders); // Debugging log
             let orderId = null;
             if (orders[ orders.length - 1 ].order_id !== undefined) {
               const lastOrder = orders[orders.length - 1];
