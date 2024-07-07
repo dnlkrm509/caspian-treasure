@@ -72,7 +72,7 @@ const CheckoutForm = () => {
     };
 
     fetchOrders();
-  }, []);
+  }, [order]);
 
   const cartCTX = useContext(CartContext);
 
@@ -220,8 +220,9 @@ const CheckoutForm = () => {
             })
 
             const newOrdersResponse = await axios.get(`${apiUrl}/api/orders`);
-            const newOrders = newOrdersResponse.data.rows;
-            const newLastOrder = newOrders[newOrders.length - 1];
+            const newOrders = newOrdersResponse.data;
+            const newLastOrder = newOrders.rows[newOrders.rows.length - 1];
+            setOrder(newOrders);
 
             await axios.post(`${apiUrl}/api/message-to`, {
               ...item,
