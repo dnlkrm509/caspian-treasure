@@ -31,6 +31,6 @@
     .modal {
       top: 40hv;
       width: 25rem;
-      left: calc(50% - 7rem);
+      left: calc(50% - 15rem);
     }
 }
