@@ -19,7 +19,7 @@ const NavSmScreen = () => {
 
 
             {/* Links */}
-            <div className={`${classes.overlay} h-full w-full invisible fixed top-0 left-0 z-[50] ${isShow ? classes.open : ''}`}>
+            <div className={`${classes.overlay} h-full w-full fixed top-0 left-0 z-[50] ${isShow ? classes.open : ''}`}>
                 <nav>
                     <ul className={`${classes.links} flex w-full justify-around ${isShow ? classes.active : ''}`}>
                         <li onClick={() => setIsShow(false)}><Link to="/">Home</Link></li>
