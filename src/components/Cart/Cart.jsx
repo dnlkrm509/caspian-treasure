@@ -172,7 +172,7 @@ const Cart = (props) => {
     return (
             <Modal onHideCart={props.onHideCart}>
                 <AnimatePresence mode="wait">
-                    {isHidden ? CartItems : null}
+                    {CartItems}
                     <motion.div
                         key='total'
                         initial={{ opacity: 0, y: -20 }}
