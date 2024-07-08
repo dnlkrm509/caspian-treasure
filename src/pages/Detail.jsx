@@ -1,7 +1,12 @@
+import { useParams } from "react-router-dom";
+
 function DetailPage() {
+    const { productId } = useParams();
+
     return (
         <div>
-            <p>Product Detail Page</p>
+            <h2>Product Detail Page</h2>
+            <p>{productId}</p>
         </div>
     )
 }
