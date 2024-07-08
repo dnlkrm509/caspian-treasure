@@ -151,16 +151,6 @@ a:after {
   transition: all 0.35s ease;
 }
 
-.overlay {
-  visibility: hidden;
-}
-
-.open {
-  visibility: visible;
-  height: 100%;
-  opacity: 0.9;
-}
-
 .open:after{
   right: 0;
 }
