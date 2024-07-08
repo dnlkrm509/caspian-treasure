@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CartContext from "../store/cart-context";
+import Detail from "../components/Detail/Detail";
 
 function DetailPage() {
     const { productId } = useParams();
@@ -30,8 +31,7 @@ function DetailPage() {
 
     return (
         <div>
-            <h2>Product Detail Page</h2>
-            <p>{productId}</p>
+            <Detail productId={productId} />
         </div>
     )
 }
