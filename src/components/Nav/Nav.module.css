@@ -151,16 +151,7 @@ a:after {
   transition: all 0.35s ease;
 }
 
-.open:after{
-  right: 0;
-}
-
-.open:before{
-  left: 0;
-}
-
 .btn {
-  display: none;
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
@@ -198,7 +189,7 @@ a:after {
     margin-bottom: 2px;
   }
 }
-  
+
 @keyframes fadeInRight {
   0% {
     opacity: 0;
@@ -211,7 +202,7 @@ a:after {
 }
   
 @media (max-width: 768px) {
-  .btn {flex-direction: column; margin-right: 45px;}
+  .btn {display: flex;flex-direction: column; margin-right: 45px;}
   .links {display: none;}
 }
   

@@ -35,6 +35,22 @@ code {
     monospace;
 }
 
+.open {
+  visibility: visible;
+  height: '100%';
+  opacity: 0.9;
+}
+
+.open:after{
+  right: 0;
+}
+
+.open:before{
+  left: 0;
+}
+
+.active {display: flex;}
+
 .logo {
   height: 6em;
   padding: 1.5em;
