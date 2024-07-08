@@ -12,6 +12,7 @@ function AboutPage() {
     const [error, setError] = useState();
 
     useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         async function fetchCartProduct() {
             setIsFetching(true);
 
