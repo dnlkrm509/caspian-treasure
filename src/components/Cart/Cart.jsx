@@ -122,6 +122,7 @@ const Cart = (props) => {
 
     const hideFormHandler = () => {
         setIsHidden(true);
+        props.onHideCart();
     };
 
     const showFormHandler = () => {
