@@ -8,6 +8,7 @@ const CartItem = (props) => {
   return (
     <motion.li
       className={classes['cart-item']}
+      layout
       exit={{ y: '-1.5rem', opacity: 0 }}
     >
       <div>
