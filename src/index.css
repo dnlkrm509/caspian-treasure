@@ -143,8 +143,6 @@ a:after {
   left: 0;
 }
 
-.active {display: flex;}
-
 .logo {
   height: 6em;
   padding: 1.5em;
