@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import classes from './Nav.module.css';
 
 const NavSmScreen = () => {
     const [isShow, setIsShow] = useState(false);
