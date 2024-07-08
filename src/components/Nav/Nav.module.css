@@ -129,10 +129,6 @@ a:after {
   background-color: #fff;
 }
 
-.overlay {
-  visibility: hidden;
-}
-
 .overlay:before {
   content: '';
   background-color: #ff5252;
@@ -155,17 +151,17 @@ a:after {
   transition: all 0.35s ease;
 }
 
-.open {
+.overlay.open {
   visibility: visible;
   height: 100%;
   opacity: 0.9;
 }
 
-.open:after{
+.overlay.open:after{
   right: 0;
 }
 
-.open:before{
+.overlay.open:before{
   left: 0;
 }
 
