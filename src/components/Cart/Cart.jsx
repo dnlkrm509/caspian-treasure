@@ -140,7 +140,6 @@ const Cart = (props) => {
                             {cartCtx.items.map(item => (
                             <CartItem 
                                 key={item.product_id}
-                                productId={item.product_id}
                                 price={+item.price} 
                                 amount={item.amount} 
                                 name={item.name} 

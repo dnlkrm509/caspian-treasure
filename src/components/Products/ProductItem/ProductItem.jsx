@@ -5,6 +5,7 @@ import axios from 'axios';
 import CartContext from "../../../store/cart-context.js";
 import classes from './ProductItem.module.css';
 import ProductItemForm from "./ProductItemForm.jsx";
+import { Link } from "react-router-dom";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -88,14 +89,16 @@ const ProductItem = (props) => {
     
     return (
         <li className={classes.product}>
-            <div>
-                <h3>{props.name}</h3>
-                <div className={classes.description}>{props.description}</div>
-                <div className={classes.price}>{price}</div>
-            </div>
-            <div>
-                <ProductItemForm id={props.id} onAddToCart={addToCartHandler} />
-            </div>
+            <Link to={`/product/${props.id}`} >
+                <div>
+                    <h3>{props.name}</h3>
+                    <div className={classes.description}>{props.description}</div>
+                    <div className={classes.price}>{price}</div>
+                </div>
+                <div>
+                    <ProductItemForm id={props.id} onAddToCart={addToCartHandler} />
+                </div>
+            </Link>
         </li>
     );
 };
