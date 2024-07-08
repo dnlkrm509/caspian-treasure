@@ -129,10 +129,6 @@ a:after {
   background-color: #fff;
 }
 
-.overlay {
-  visibility: hidden;
-}
-
 .overlay:before {
   content: '';
   background-color: #ff5252;
@@ -155,17 +151,19 @@ a:after {
   transition: all 0.35s ease;
 }
 
-.overlay.open {
+.active {display: flex;}
+
+.open {
   visibility: visible;
   height: 100%;
   opacity: 0.9;
 }
 
-.overlay.open:after{
+.open:after{
   right: 0;
 }
 
-.overlay.open:before{
+.open:before{
   left: 0;
 }
 
@@ -181,8 +179,6 @@ a:after {
   cursor: pointer;
   transition: border-color 0.25s;
 }
-
-.btn.active {display: flex;}
 
 .btn:hover {
   border-color: #646cff;
