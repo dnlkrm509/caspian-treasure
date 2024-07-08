@@ -11,7 +11,7 @@ const NavSmScreen = () => {
     return (
         <header className="text-center w-full mt-[20px] mb-[70px] relative fixed top-0 left-0">
             {/* Button */}
-                <button onClick={showNavHandler} className={`${classes.btn} hidden fixed top-[5%] right-[2%] h-[27px] w-[35px] cursor-pointer z-[100] ${isShow ? classes.active : ''}`}>
+                <button onClick={showNavHandler} className={`${classes.btn} fixed top-[5%] right-[2%] h-[27px] w-[35px] cursor-pointer z-[100] ${isShow ? classes.active : ''}`}>
                     <span className="top"></span>
                     <span className="middle"></span>
                     <span className="bottom"></span>
