@@ -37,7 +37,7 @@ function Detail (props) {
     const cartCtx = useContext(CartContext);
     const item = cartCtx.items.find(item => item.product_id === props.productId);
     setProduct(item);
-    
+
     return (
         <motion.div initial='initial' animate='animate' exit={{ opacity: 0 }}>
             <div className={classes.fullscreen}>
@@ -46,7 +46,7 @@ function Detail (props) {
                 className={classes.img}
                 animate={{ opacity: 1 }}
                 initial={{ opacity: 0 }}>
-                <motion.img
+                {/* <motion.img
                     key={props.product.image}
                     src={props.product.image}
                     animate={{ x: 0, opacity: 1 }}
@@ -54,7 +54,8 @@ function Detail (props) {
                     exit={{ opacity: 0 }}
                     transition={{ delay: 0.2 }}
                 />
-                </motion.div>
+                 */}
+                 </motion.div>
                 <div className={classes['product-details']}>
                 <motion.div variants={stagger} className={classes.inner}>
                     <Link href='/products'>
