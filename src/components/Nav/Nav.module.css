@@ -217,6 +217,7 @@ a:after {
   
 @media (max-width: 768px) {
   .btn {display: flex; flex-direction: column; margin-right: 45px;}
+  .btn.active {display: flex;}
   .links {display: none;}
 }
   
