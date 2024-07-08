@@ -182,8 +182,6 @@ a:after {
   transition: border-color 0.25s;
 }
 
-.active {display: flex;}
-
 .btn:hover {
   border-color: #646cff;
 }
