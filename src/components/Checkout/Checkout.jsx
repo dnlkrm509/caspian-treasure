@@ -42,7 +42,7 @@ const CARD_ELEMENT_OPTIONS = {
   },
 };
 
-const CheckoutForm = () => {
+const CheckoutForm = (props) => {
   const [order, setOrder] = useState();
   const stripe = useStripe();
   const elements = useElements();
@@ -75,6 +75,12 @@ const CheckoutForm = () => {
   }, [order]);
 
   const cartCTX = useContext(CartContext);
+
+  if (paymentSuccessful) {
+    setTimeout(() => {
+      props.onHide();
+    }, 2000);
+  }
 
   const createPaymentIntent = async () => {
     try {
@@ -365,10 +371,10 @@ const CheckoutForm = () => {
   );
 };
 
-const Checkout = () => (
+const Checkout = (props) => (
   <Elements stripe={stripePromise}>
     <Card>
-      <CheckoutForm />
+      <CheckoutForm onHide={props.onHide} />
     </Card>
   </Elements>
 );

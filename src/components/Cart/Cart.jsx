@@ -172,7 +172,7 @@ const Cart = (props) => {
     return (
             <Modal onHideCart={props.onHideCart}>
                 <AnimatePresence mode="wait">
-                    {CartItems}
+                    {isHidden ? CartItems : null}
                     <motion.div
                         key='total'
                         initial={{ opacity: 0, y: -20 }}
@@ -183,7 +183,7 @@ const Cart = (props) => {
                         <span>Total Amount</span>
                         <span>{totalAmount}</span>
                     </motion.div>
-                    {!isHidden && <Checkout/>}
+                    {!isHidden && <Checkout onHide={hideFormHandler} />}
                     {isHidden && modalActions}
                 </AnimatePresence>
             </Modal>
