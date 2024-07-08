@@ -37,12 +37,6 @@
     flex-direction: column;
 }
   
-@media (min-width: 768px) {
-    .actions {
-      flex-direction: row;
-    }
-}
-  
 .cart-item button {
     font: inherit;
     font-weight: bold;
@@ -62,4 +56,10 @@
 .cart-item button:active {
     background-color: #8a2b06;
     color: white;
+}
+
+@media (min-width: 768px) {
+    .actions {
+      flex-direction: row;
+    }
 }
