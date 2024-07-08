@@ -29,7 +29,7 @@
 
 @media (max-width: 768px) {
     .modal {
-      width: 30rem;
+      width: 15rem;
       left: calc(50% - 15rem);
     }
 }
