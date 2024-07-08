@@ -20,6 +20,7 @@
 }
 
 body {
+  padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -34,6 +35,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+* {
+  box-sizing: border-box;
+}
+
+
 
 .btn span {
   width: 100%;
@@ -250,6 +257,16 @@ h1 {
   }
 }
 
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+  body {
+    color: white;
+    background: black;
+  }
+}
+
 @media screen and (max-height: 450px) {
   nav {overflow-y: auto; overflow-x: hidden;}
   ul {
@@ -300,3 +317,4 @@ h1 {
     left: 0;
   }
 }
+
