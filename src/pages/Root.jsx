@@ -2,16 +2,14 @@ import { Outlet } from "react-router-dom";
 import Layout from "../components/Nav/Layout.jsx";
 import CartProvider from "../store/CartProvider.jsx";
 import Cart from "../components/Cart/Cart.jsx";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import Footer from '../components/Footer/Footer.jsx';
 
 function RootLayout() {
   const [cartIsShown, setCartIsShown] = useState(false);
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [])
+
   const showCartHandler = () => {
     setCartIsShown(true);
   };

@@ -24,6 +24,10 @@ function HomePage(props) {
   const scaleContent = useTransform(scrollY, [550, 600], [1, 1.5]);
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [])
+
+  useEffect(() => {
     async function fetchCartProduct() {
       setIsFetching(true);
 
