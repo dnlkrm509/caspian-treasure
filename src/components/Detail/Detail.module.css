@@ -4,13 +4,13 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 10rem;
+  gap: 5rem;
 }
 
 .product-details {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 1.5rem;
 }
 
 
