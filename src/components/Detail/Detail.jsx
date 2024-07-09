@@ -67,7 +67,7 @@ function Detail ({ product }) {
                   <div className={classes.amount}>1</div>
                   <div className={classes.add}>+</div>
                 </div>
-                <span className={classes.price}>{`£${product.price.toFixed(2)}`}</span>
+                <span className={classes.price}>{`£${+product.price.toFixed(2)}`}</span>
               </motion.div>
               <motion.div variants={fadeInUp} className={classes['btn-row']}>
                 <button className={classes['add-to-cart']}>Add to cart</button>
