@@ -51,9 +51,9 @@ function Detail ({ product }) {
               */}
             </motion.div>
             <motion.div variants={stagger} className={classes['product-details']}>
-              <Link to='..' relative='path'>
+              <Link to='..' relative='path' className={classes['go-back']}>
                 <motion.button variants={fadeInUp}>
-                    <span className={classes['go-back']}>Back to products</span>
+                    <span>Back to products</span>
                 </motion.button>
               </Link>
               <motion.div variants={fadeInUp}>
