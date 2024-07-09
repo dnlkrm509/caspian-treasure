@@ -89,7 +89,8 @@ const ProductItem = (props) => {
     
     return (
         <li className={classes.product}>
-            <Link to={`/products/${props.id}?id=${props.id}&name=${props.name}&description=${props.description}&price=${props.price}`} >
+            <Link to={`/products/${props.id}?id=${props.id}&name=${props.name}&
+            description=${props.description}&price=${props.price}`} >
                 <div>
                     <h3>{props.name}</h3>
                     <div className={classes.description}>{props.description}</div>

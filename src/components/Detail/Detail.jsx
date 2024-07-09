@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import classes from './Detail.module.css';
-import { useState } from "react";
 
 let easing = [0.6, -0.05, 0.01, 0.99];
 
