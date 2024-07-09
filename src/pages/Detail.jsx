@@ -23,10 +23,12 @@ function DetailPage() {
 
     const [amount, setAmount] = useState(null);
     const cartCTX = useContext(CartContext);
+    const existingCartItem = cartCTX.items.find(item => item.id === product.id);
+    setAmount(existingCartItem.amount);
 
     const [isFetching, setIsFetching] = useState(false);
     const [error, setError] = useState();
-    let existingCartItem;
+    
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -37,11 +39,7 @@ function DetailPage() {
                 const products = await axios.get(`${apiUrl}/api/cart-products`);
                 
                 cartCTX.setCart({ items: products.data.rows, totalAmount: +products.data.rows[ products.data.rows.length -1 ].totalAmount });
-                existingCartItem = cartCTX.items.find(item => item.id === product.id);
-    
-                if (existingCartItem) {
-                    setAmount(existingCartItem.amount);
-                }
+                
             } catch (error) {
                 setError({ message: "Failed to fetch cart products." });
             }
@@ -50,7 +48,7 @@ function DetailPage() {
         }
 
         fetchCartProduct();
-    }, [existingCartItem])
+    }, [])
 
     return (
         <div>
