@@ -14,7 +14,7 @@
 }
 
 .go-back {
-  justify-self: end;
+  align-self: flex-end;
 }
 
 
