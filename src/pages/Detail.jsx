@@ -21,7 +21,13 @@ function DetailPage() {
         price
     }
 
+    const [amount, setAmount] = useState(null);
     const cartCTX = useContext(CartContext);
+    const existingCartItem = cartCTX.items.find(item => item.id === product.id);
+    
+    if (existingCartItem) {
+        setAmount(existingCartItem.amount);
+    }
 
     const [isFetching, setIsFetching] = useState(false);
     const [error, setError] = useState();
@@ -47,7 +53,7 @@ function DetailPage() {
 
     return (
         <div>
-            <Detail product={product} productID={productId} />
+            <Detail product={product} amount={amount} />
         </div>
     )
 }
