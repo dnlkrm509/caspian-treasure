@@ -19,8 +19,20 @@ const CartItem = (props) => {
         </div>
       </div>
       <div className={classes.actions}>
-        <button onClick={props.onRemove}>−</button>
-        <button onClick={props.onAdd}>+</button>
+        <motion.button
+          whileTap={{ scale: [0.9, 1.1, 0.9, 1] }}
+          transition={{type:'spring', stiffness: 500}}
+          onClick={props.onRemove}
+        >
+          −
+        </motion.button>
+        <motion.button
+          whileTap={{ scale: [0.9, 1.1, 0.9, 1] }}
+          transition={{type:'spring', stiffness: 500}}
+          onClick={props.onAdd}
+        >
+          +
+        </motion.button>
       </div>
     </motion.li>
   );
