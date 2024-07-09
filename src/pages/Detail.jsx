@@ -23,9 +23,6 @@ function DetailPage() {
 
     const [amount, setAmount] = useState(null);
     const cartCTX = useContext(CartContext);
-    console.log(cartCTX)
-    const existingCartItem = cartCTX.items.find(item => item.id === product.id);
-    setAmount(existingCartItem.amount);
 
     const [isFetching, setIsFetching] = useState(false);
     const [error, setError] = useState();
@@ -49,7 +46,11 @@ function DetailPage() {
         }
 
         fetchCartProduct();
-    }, [])
+    }, []);
+    
+    console.log(cartCTX)
+    const existingCartItem = cartCTX.items.find(item => +item.id === +product.id);
+    setAmount(existingCartItem.amount);
 
     return (
         <div>
