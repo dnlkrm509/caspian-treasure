@@ -7,7 +7,7 @@ function DetailPage() {
     const id = query.get('id');
     const name = query.get('name');
     const description = query.get('description');
-    const price = query.get('prie');
+    const price = query.get('price');
 
     const product = {
         id,
