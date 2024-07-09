@@ -95,10 +95,10 @@ const ProductItem = (props) => {
                     <div className={classes.description}>{props.description}</div>
                     <div className={classes.price}>{price}</div>
                 </div>
-                <div>
-                    <ProductItemForm id={props.id} onAddToCart={addToCartHandler} />
-                </div>
             </Link>
+            <div>
+                <ProductItemForm id={props.id} onAddToCart={addToCartHandler} />
+            </div>
         </li>
     );
 };
