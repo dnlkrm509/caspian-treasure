@@ -26,6 +26,7 @@ function DetailPage() {
 
     const [isFetching, setIsFetching] = useState(false);
     const [error, setError] = useState();
+    let existingCartItem;
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -36,7 +37,7 @@ function DetailPage() {
                 const products = await axios.get(`${apiUrl}/api/cart-products`);
                 
                 cartCTX.setCart({ items: products.data.rows, totalAmount: +products.data.rows[ products.data.rows.length -1 ].totalAmount });
-                const existingCartItem = cartCTX.items.find(item => item.id === product.id);
+                existingCartItem = cartCTX.items.find(item => item.id === product.id);
     
                 if (existingCartItem) {
                     setAmount(existingCartItem.amount);
