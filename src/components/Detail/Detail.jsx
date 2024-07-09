@@ -70,7 +70,7 @@ function Detail ({ product }) {
                       <motion.div variants={fadeInUp} className={classes['qty-price']}>
                         <div className={classes.qty}>
                           <div className={classes.minus}>-</div>
-                          <div className={classes.amount}>{product.amount}</div>
+                          <div className={classes.amount}>1</div>
                           <div className={classes.add}>+</div>
                         </div>
                         <span className={classes.price}>{product.price}</span>
