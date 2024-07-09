@@ -55,8 +55,8 @@
 
 .actions button:hover,
 .actions button:active {
-    background-color: #1d1a16;
-    color: #ffab04;
+    background-color: transparent;
+    color: #8a2b06;
 }
 
 @media (min-width: 768px) {
