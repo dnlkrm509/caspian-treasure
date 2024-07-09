@@ -6,7 +6,7 @@
   gap: 10rem;
 }
 
-.product-detail {
+.product-details {
   display: flex;
   flex-direction: column;
   gap: 3rem;
