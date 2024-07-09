@@ -17,18 +17,6 @@ function DetailPage() {
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        async function fetchCartProduct() {
-        setIsFetching(true);
-
-        try {
-            const products = await axios.get(`${apiUrl}/api/cart-products`);
-            cartCTX.setCart({ items: products.data.rows, totalAmount: +products.data.rows[ products.data.rows.length -1 ].totalAmount });
-        } catch (error) {
-            setError({ message: "Failed to fetch cart products." });
-        }
-
-        setIsFetching(false);
-        }
 
         async function fetchAllProducts () {
             setIsFetching(true);
@@ -45,10 +33,7 @@ function DetailPage() {
             setIsFetching(false)  
         }
     
-
-
         fetchAllProducts();
-        fetchCartProduct();
     }, [])
 
     return (
