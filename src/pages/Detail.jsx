@@ -47,14 +47,11 @@ function DetailPage() {
 
         fetchCartProduct();
     }, []);
-    
     console.log(cartCTX)
-    const existingCartItem = cartCTX.items.find(item => +item.id === +product.id);
-    setAmount(existingCartItem.amount);
 
     return (
         <div>
-            <Detail product={product} amount={amount} />
+            <Detail product={product} />
         </div>
     )
 }
