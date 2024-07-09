@@ -36,10 +36,10 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
 
 function Detail (props) {
-    const [products, setProducts] = useState();
     const [product, setProduct] = useState();
     const cartCTX = useContext(CartContext);
-    setProduct(products.data.rows.find( (prod) => prod.id === +props.productId ) );
+    console.log(product)
+    
 
     const [isFetching, setIsFetching] = useState(false);
     const [error, setError] = useState();
@@ -51,7 +51,9 @@ function Detail (props) {
 
         try {
             const allProducts = await axios.get(`${apiUrl}/api/products`);
-            setProducts(allProducts);
+            console.log(allProducts)
+            setProduct(allProducts.data.rows.find( (prod) => prod.id === +props.productId ) );
+
             const products = await axios.get(`${apiUrl}/api/cart-products`);
             cartCTX.setCart({ items: products.data.rows, totalAmount: +products.data.rows[ products.data.rows.length -1 ].totalAmount });
         } catch (error) {
