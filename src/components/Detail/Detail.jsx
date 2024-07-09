@@ -57,9 +57,9 @@ function Detail ({ product }) {
                 </motion.button>
               </Link>
               <motion.div variants={fadeInUp}>
-                <span className={classes.category}>Caviar</span>
+                <h1 className={classes.category}>Caviar</h1>
               </motion.div>
-              <motion.h1 variants={fadeInUp}>{product.name}</motion.h1>
+              <motion.h2 variants={fadeInUp}>{product.name}</motion.h2>
               <motion.p variants={fadeInUp}>{product.description}</motion.p>
               <motion.div variants={fadeInUp} className={classes['qty-price']}>
                 <div className={classes.qty}>
@@ -71,7 +71,6 @@ function Detail ({ product }) {
               </motion.div>
               <motion.div variants={fadeInUp} className={classes['btn-row']}>
                 <button className={classes['add-to-cart']}>Add to cart</button>
-                <button className={classes.subscribe}>Subscribe</button>
               </motion.div>
             </motion.div>
           </div>
