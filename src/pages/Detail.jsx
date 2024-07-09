@@ -59,7 +59,9 @@ function DetailPage() {
 
     return (
         <div>
-            <Detail products={products} productId={productId} />
+            {isFetching && <p>Loading...</p>}
+            {error && <p>{error.message}</p>}
+            <Detail products={products} productId={productId} />    
         </div>
     )
 }
