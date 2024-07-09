@@ -47,7 +47,7 @@ const router = createBrowserRouter([
           <ProductsPage />
         </Suspense>
       ) },
-      { path: '/products/:product', element: (
+      { path: '/products/:productId', element: (
         <Suspense fallback={<LoadingSpinner />}>
           <DetailPage />
         </Suspense>

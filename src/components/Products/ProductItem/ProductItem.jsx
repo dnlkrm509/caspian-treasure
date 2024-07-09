@@ -89,7 +89,7 @@ const ProductItem = (props) => {
     
     return (
         <li className={classes.product}>
-            <Link to={`/products/${{
+            <Link to={`/products?product=${{
                 id: props.id,
                 name: props.name,
                 decription: props.description,
