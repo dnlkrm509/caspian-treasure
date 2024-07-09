@@ -109,9 +109,6 @@ const Cart = (props) => {
                     totalAmount: updatedTotalAmount.toFixed(2)
                 };
     
-                console.log('PUT request URL:', putUrl);
-                console.log('PUT request data:', putData);
-    
                 const response = await axios.put(putUrl, putData);
                 console.log('PUT request response:', response.data);
     
