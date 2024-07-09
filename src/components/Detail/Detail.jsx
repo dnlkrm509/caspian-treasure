@@ -65,8 +65,6 @@ function Detail (props) {
 
         fetchAllAndCartProduct();
     }, [])
-    console.log(item);
-    setProduct(item);
 
     return (
         <motion.div initial='initial' animate='animate' exit={{ opacity: 0 }}>
