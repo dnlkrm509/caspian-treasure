@@ -70,7 +70,7 @@
 @media (max-width: 768px) {
     .cart-item {
         border-bottom: 1px solid #8a2b06;
-        padding: 1.2rem 0;
+        padding: 0.7rem 0;
         margin: 0.7rem 0;
     }
       
@@ -89,6 +89,10 @@
         padding: 0.12rem 0.37rem;
         border-radius: 3px;
         color: #363636;
+    }
+
+    .actions {
+        margin-bottom: 0.5rem;
     }
       
     .actions button {
