@@ -38,7 +38,7 @@
     flex-direction: column;
 }
   
-.actions button {
+.cart-item button {
     font: inherit;
     font-weight: bold;
     font-size: 1.25rem;
@@ -54,8 +54,8 @@
     margin: 0.25rem;
 }
 
-.actions button:hover,
-.actions button:active {
+.cart-item button:hover,
+.cart-item button:active {
     border: 1px solid #312c1d;
     background-color: transparent;
     color: #8a2b06;
@@ -95,7 +95,7 @@
         margin-bottom: 0.5rem;
     }
       
-    .actions button {
+    .cart-item button {
         font-size: 0.62rem;
         width: 1.5rem;
         height: 1.5rem;
