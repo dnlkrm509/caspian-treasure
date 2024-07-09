@@ -44,8 +44,8 @@
     border: none;
     background-color: #312c1d;
     color: #ffc404;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 3rem;
+    height: 3rem;
     text-align: center;
     border-radius: 50%;
     cursor: pointer;
@@ -53,8 +53,8 @@
     margin: 0.25rem;
 }
 
-.cart-item button:hover,
-.cart-item button:active {
+.actions button:hover,
+.actions button:active {
     background-color: #1d1a16;
     color: #ffab04;
 }
