@@ -49,7 +49,7 @@ function DetailPage() {
         }
 
         fetchCartProduct();
-    }, [])
+    }, [existingCartItem])
 
     return (
         <div>
