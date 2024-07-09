@@ -50,7 +50,6 @@ const Cart = (props) => {
                     });
                   }
                 }
-                
 
                   cartCtx.removeItem(id);
                 } else {

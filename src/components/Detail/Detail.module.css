@@ -21,6 +21,10 @@ a:hover {
   gap: 5rem;
 }
 
+.img {
+  margin: 0 auto;
+}
+
 .product-details {
   display: flex;
   flex-direction: column;
