@@ -3,7 +3,7 @@ import Detail from "../components/Detail/Detail";
 
 function DetailPage() {
     const { productId } = useParams();
-    const query = URLSearchParams(useLocation.search);
+    const query = new URLSearchParams(useLocation.search);
     const id = query.get('id');
     const name = query.get('name');
     const description = query.get('description');
