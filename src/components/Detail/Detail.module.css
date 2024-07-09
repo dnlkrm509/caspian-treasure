@@ -1,12 +1,14 @@
 .product {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .product-detail {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: '3rem';
 }
 
 
