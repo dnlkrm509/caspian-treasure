@@ -36,7 +36,7 @@ function Detail (props) {
     const [product, setProduct] = useState();
     const cartCtx = useContext(CartContext);
     const item = cartCtx.items.find(item => item.product_id === props.productId);
-    console.log(item);
+    console.log(props);
     setProduct(item);
 
     return (
