@@ -16,8 +16,6 @@ function DetailPage() {
         price
     }
 
-    console.log('product',product,'id',productId);
-
     return (
         <div>
             <Detail product={product} />    
