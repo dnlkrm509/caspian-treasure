@@ -99,9 +99,9 @@ const Cart = (props) => {
         try {
             const cart = await axios.get(`${apiUrl}/api/cart-products`);
             const itemToAdd = cart.data.rows.find(item => item.product_id === existingCartItem.product_id);
-            console.log(itemToAdd)
             
             const updatedProduct = { ...newItem, amount: existingCartItem.amount + 1 };
+            console.log(updatedProduct)
 
             await axios.put(`${apiUrl}/api/cart-products/${itemToAdd.product_id}`, {
               newProduct: updatedProduct,
