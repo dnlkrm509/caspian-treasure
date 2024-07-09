@@ -23,6 +23,7 @@ function DetailPage() {
 
     const [amount, setAmount] = useState(null);
     const cartCTX = useContext(CartContext);
+    console.log(cartCTX)
     const existingCartItem = cartCTX.items.find(item => item.id === product.id);
     setAmount(existingCartItem.amount);
 
