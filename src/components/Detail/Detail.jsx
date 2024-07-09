@@ -51,7 +51,7 @@ function Detail (props) {
 
         try {
             const allProducts = await axios.get(`${apiUrl}/api/products`);
-            setProduct(allProducts);
+            setProducts(allProducts);
             const products = await axios.get(`${apiUrl}/api/cart-products`);
             cartCTX.setCart({ items: products.data.rows, totalAmount: +products.data.rows[ products.data.rows.length -1 ].totalAmount });
         } catch (error) {
