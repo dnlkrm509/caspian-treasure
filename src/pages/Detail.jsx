@@ -7,8 +7,7 @@ import axios from 'axios';
 const apiUrl = import.meta.env.VITE_API_URL;
 
 function DetailPage() {
-    const { productId } = useParams();
-    const [products, setProducts] = useState([]);
+    const { product } = useParams();
 
     const cartCTX = useContext(CartContext);
 
@@ -36,24 +35,7 @@ function DetailPage() {
 
             setIsFetching(false);
         }
-
-        async function fetchAllProducts() {
-            setIsFetching(true);
-
-            try {
-                console.log('Fetching products from:', `${apiUrl}/api/products`);
-                const response = await axios.get(`${apiUrl}/api/products`);
-                console.log('Products response:', response);
-                setProducts(response.data.rows);
-            } catch (error) {
-                setError({ message: 'Could not fetch products.' });
-                console.error('Error fetching products:', error);
-            }
-
-            setIsFetching(false);
-        }
-
-        fetchAllProducts();
+        
         fetchCartProduct();
     }, []);
 
@@ -61,7 +43,7 @@ function DetailPage() {
         <div>
             {isFetching && <p>Loading...</p>}
             {error && <p>{error.message}</p>}
-            <Detail />    
+            <Detail cart={cartCTX} product={product} />    
         </div>
     )
 }
