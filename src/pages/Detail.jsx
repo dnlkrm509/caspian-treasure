@@ -32,7 +32,6 @@ function DetailPage() {
             
             try {
               const response = await axios.get(`${apiUrl}/api/products`);
-              console.log(response)
               setProducts(response.data.rows);
             } catch (error) {
               setError('Could not fetch products.' );

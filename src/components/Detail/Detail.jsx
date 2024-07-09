@@ -32,6 +32,7 @@ const fadeInUp = {
 
 function Detail (props) {
     const [product, setProduct] = useState({});
+    console.log(props)
     setProduct(props.products.find((p) => p.id === +props.productId));
     console.log('Product:', product)
 
