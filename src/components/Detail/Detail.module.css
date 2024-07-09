@@ -33,6 +33,7 @@ a:hover {
 }
 
 .qty-price {
+  display: flex;
   flex-direction: column;
 }
 
