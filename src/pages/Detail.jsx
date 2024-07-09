@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import CartContext from "../store/cart-context";
 import Detail from "../components/Detail/Detail";
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 function DetailPage() {
     const { productId } = useParams();
     const [products, setProducts] = useState();
