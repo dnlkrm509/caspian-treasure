@@ -2,9 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import classes from './Detail.module.css';
-import { useContext, useEffect, useState } from "react";
-import CartContext from "../../store/cart-context";
-import axios from "axios";
+import { useState } from "react";
 
 let easing = [0.6, -0.05, 0.01, 0.99];
 
@@ -32,36 +30,10 @@ const fadeInUp = {
   }
 };
 
-const apiUrl = import.meta.env.VITE_API_URL;
-
-
 function Detail (props) {
-    const [products, setProducts] = useState();
-    const cartCTX = useContext(CartContext);
-    console.log(products)
-    
-
-    const [isFetching, setIsFetching] = useState(false);
-    const [error, setError] = useState();
-
-    useEffect(() => {
-        async function fetchAllProducts () {
-          setIsFetching(true);
-          
-          try {
-            const response = await axios.get(`${apiUrl}/api/products`);
-            console.log(response)
-            setProducts(response.data.rows);
-          } catch (error) {
-            setError('Could not fetch products.' );
-            console.error('Error fetching data:', error)
-          }
-  
-            setIsFetching(false)  
-        }
-  
-        fetchAllProducts();
-      }, [])
+    const [product, setProduct] = useState({});
+    setProduct(props.products.find((p) => p.id === +props.productId));
+    console.log('Product:', product)
 
     return (
         <motion.div initial='initial' animate='animate' exit={{ opacity: 0 }}>

@@ -5,6 +5,7 @@ import Detail from "../components/Detail/Detail";
 
 function DetailPage() {
     const { productId } = useParams();
+    const [products, setProducts] = useState();
 
     const cartCTX = useContext(CartContext);
 
@@ -26,12 +27,30 @@ function DetailPage() {
         setIsFetching(false);
         }
 
+        async function fetchAllProducts () {
+            setIsFetching(true);
+            
+            try {
+              const response = await axios.get(`${apiUrl}/api/products`);
+              console.log(response)
+              setProducts(response.data.rows);
+            } catch (error) {
+              setError('Could not fetch products.' );
+              console.error('Error fetching data:', error)
+            }
+    
+            setIsFetching(false)  
+        }
+    
+
+
+        fetchAllProducts();
         fetchCartProduct();
     }, [])
 
     return (
         <div>
-            <Detail productId={productId} />
+            <Detail products={products} productId={productId} />
         </div>
     )
 }
