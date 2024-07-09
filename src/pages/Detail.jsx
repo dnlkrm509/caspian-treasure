@@ -16,25 +16,22 @@ function DetailPage() {
     const [error, setError] = useState();
 
     useEffect(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-
         async function fetchAllProducts () {
-            setIsFetching(true);
-            
-            try {
-              const response = await axios.get(`${apiUrl}/api/products`);
-              console.log('response', response);
-              setProducts(response.data.rows);
-            } catch (error) {
-              setError('Could not fetch products.' );
-              console.error('Error fetching data:', error)
-            }
-    
+          setIsFetching(true);
+          
+          try {
+            const response = await axios.get(`${apiUrl}/api/products`);
+            setProducts(response.data.rows);
+          } catch (error) {
+            setError('Could not fetch products.' );
+            console.error('Error fetching data:', error)
+          }
+  
             setIsFetching(false)  
         }
-    
+  
         fetchAllProducts();
-    }, [])
+      }, [])
 
     return (
         <div>
