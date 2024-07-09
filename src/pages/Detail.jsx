@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CartContext from "../store/cart-context";
 import Detail from "../components/Detail/Detail";
+import axios from 'axios';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
