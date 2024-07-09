@@ -65,7 +65,7 @@ function Detail ({ product }) {
                 <div className={classes.qty}>
                   <button className={classes.minus}>-</button>
                   <span className={classes.amount}>1</span>
-                  <button className={classes.add}>+</button>
+                  <button className={classes.plus}>+</button>
                 </div>
                 <span className={classes.price}>{`£${product.price}`}</span>
               </motion.div>
