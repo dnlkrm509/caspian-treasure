@@ -8,7 +8,7 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
 function DetailPage() {
     const { productId } = useParams();
-    const [products, setProducts] = useState();
+    const [products, setProducts] = useState([]);
 
     const cartCTX = useContext(CartContext);
 
@@ -35,7 +35,7 @@ function DetailPage() {
             
             try {
               const response = await axios.get(`${apiUrl}/api/products`);
-              console.log(response)
+              console.log('response', response);
               setProducts(response.data.rows);
             } catch (error) {
               setError('Could not fetch products.' );
