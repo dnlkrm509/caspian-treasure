@@ -102,10 +102,23 @@ const Cart = (props) => {
             
             const updatedProduct = { ...newItem, amount: existingCartItem.amount + 1 };
 
-            await axios.put(`${apiUrl}/api/cart-products/${itemToAdd.product_id}`, {
-              newProduct: updatedProduct,
-              totalAmount: updatedTotalAmount.toFixed(2)
-            });
+            if (itemToAdd) {
+                const putUrl = `${apiUrl}/api/cart-products/${itemToAdd.product_id}`;
+                const putData = {
+                    newProduct: updatedProduct,
+                    totalAmount: updatedTotalAmount.toFixed(2)
+                };
+    
+                console.log('PUT request URL:', putUrl);
+                console.log('PUT request data:', putData);
+    
+                const response = await axios.put(putUrl, putData);
+                console.log('PUT request response:', response.data);
+    
+                console.log('Successfully updated the product on the server');
+            } else {
+                console.error('Item to add not found in the cart');
+            }
 
 
             for (const row of cart.data.rows) {
