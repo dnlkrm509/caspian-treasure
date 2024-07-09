@@ -30,11 +30,11 @@ const fadeInUp = {
   }
 };
 
-function Detail (props) {
-    const [product, setProduct] = useState({});
-    console.log(props)
-    setProduct(props.products.find((p) => p.id === +props.productId));
-    console.log('Product:', product)
+function Detail () {
+    // const [product, setProduct] = useState({});
+    // console.log(props)
+    // setProduct(props.products.find((p) => p.id === +props.productId));
+    // console.log('Product:', product)
 
     return (
         <motion.div initial='initial' animate='animate' exit={{ opacity: 0 }}>

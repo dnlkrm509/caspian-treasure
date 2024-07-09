@@ -61,7 +61,7 @@ function DetailPage() {
         <div>
             {isFetching && <p>Loading...</p>}
             {error && <p>{error.message}</p>}
-            <Detail products={products} productId={productId} />    
+            <Detail />    
         </div>
     )
 }
