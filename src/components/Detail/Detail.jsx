@@ -64,8 +64,8 @@ function Detail (props) {
                     <motion.div variants={fadeInUp}>
                     <span className={classes.category}>Caviar</span>
                     </motion.div>
-                    <motion.h1 variants={fadeInUp}>{product.name}</motion.h1>
-                    <motion.p variants={fadeInUp}>{product.description}</motion.p>
+                    <motion.h1 variants={fadeInUp}>Namw</motion.h1>
+                    <motion.p variants={fadeInUp}>Description</motion.p>
                     <motion.div variants={fadeInUp} className={classes.additonals}>
                     <span>Soy Free</span>
                     <span>Gluten Free</span>
@@ -73,10 +73,10 @@ function Detail (props) {
                     <motion.div variants={fadeInUp} className={classes['qty-price']}>
                     <div className={classes.qty}>
                         <div className={classes.minus}>-</div>
-                        <div className={classes.amount}>{product.amount}</div>
+                        <div className={classes.amount}>1</div>
                         <div className={classes.add}>+</div>
                     </div>
-                    <span className={classes.price}>{product.price}</span>
+                    <span className={classes.price}>Price</span>
                     </motion.div>
                     <motion.div variants={fadeInUp} className={classes['btn-row']}>
                     <button className={classes['add-to-cart']}> Add to cart</button>
