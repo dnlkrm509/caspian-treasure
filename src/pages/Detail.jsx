@@ -11,14 +11,14 @@ function DetailPage() {
 
     const product = {
         id,
-        name,
-        description,
+        name: decodeURIComponent(name),
+        description: decodeURIComponent(description),
         price
     }
 
     return (
         <div>
-            <Detail product={product} />    
+            <Detail product={product} productID={productId} />
         </div>
     )
 }
