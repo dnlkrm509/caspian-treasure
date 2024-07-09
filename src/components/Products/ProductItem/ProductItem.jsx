@@ -96,7 +96,7 @@ const ProductItem = (props) => {
                     <div className={classes.price}>{price}</div>
                 </div>
             </Link>
-            <div>
+            <div className={classes['product-form']}>
                 <ProductItemForm id={props.id} onAddToCart={addToCartHandler} />
             </div>
         </li>
