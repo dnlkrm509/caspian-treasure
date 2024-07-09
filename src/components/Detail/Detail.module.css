@@ -3,12 +3,13 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  gap: 10rem;
 }
 
 .product-detail {
   display: flex;
   flex-direction: column;
-  gap: '3rem';
+  gap: 3rem;
 }
 
 
