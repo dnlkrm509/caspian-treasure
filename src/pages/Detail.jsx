@@ -47,11 +47,10 @@ function DetailPage() {
 
         fetchCartProduct();
     }, []);
-    console.log(cartCTX)
 
     return (
         <div>
-            <Detail product={product} />
+            <Detail product={product} cart={cartCTX.items} id={+productId} />
         </div>
     )
 }
