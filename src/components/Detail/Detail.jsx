@@ -2,8 +2,9 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import classes from './Detail.module.css';
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import CartContext from "../../store/cart-context";
+import axios from "axios";
 
 let easing = [0.6, -0.05, 0.01, 0.99];
 
@@ -31,11 +32,37 @@ const fadeInUp = {
   }
 };
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 
 function Detail (props) {
+    const [products, setProducts] = useState();
     const [product, setProduct] = useState();
-    const cartCtx = useContext(CartContext);
-    const item = cartCtx.items.find(item => item.product_id === +props.productId);
+    const cartCTX = useContext(CartContext);
+    setProduct(products.data.rows.find( (prod) => prod.id === +props.productId ) );
+
+    const [isFetching, setIsFetching] = useState(false);
+    const [error, setError] = useState();
+
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        async function fetchAllAndCartProduct() {
+        setIsFetching(true);
+
+        try {
+            const allProducts = await axios.get(`${apiUrl}/api/products`);
+            setProduct(allProducts);
+            const products = await axios.get(`${apiUrl}/api/cart-products`);
+            cartCTX.setCart({ items: products.data.rows, totalAmount: +products.data.rows[ products.data.rows.length -1 ].totalAmount });
+        } catch (error) {
+            setError({ message: "Failed to fetch products." });
+        }
+
+        setIsFetching(false);
+        }
+
+        fetchAllAndCartProduct();
+    }, [])
     console.log(item);
     setProduct(item);
 
