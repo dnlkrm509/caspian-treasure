@@ -30,6 +30,7 @@ const fadeInUp = {
 };
 
 function Detail ({ product, amount }) {
+  console.log(amount);
 
     return (
         <motion.div initial='initial' animate='animate' exit={{ opacity: 0 }}>
@@ -64,7 +65,7 @@ function Detail ({ product, amount }) {
               <motion.div variants={fadeInUp} className={classes['qty-price']}>
                 <div className={classes.qty}>
                   <button className={classes.minus}>-</button>
-                  <span className={classes.amount}>{amount}</span>
+                  <span className={classes.amount}>{amount || 0}</span>
                   <button className={classes.plus}>+</button>
                 </div>
                 <span className={classes.price}>{`£${product.price}`}</span>
