@@ -36,35 +36,31 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
 
 function Detail (props) {
-    const [product, setProduct] = useState();
+    const [products, setProducts] = useState();
     const cartCTX = useContext(CartContext);
-    console.log(product)
+    console.log(products)
     
 
     const [isFetching, setIsFetching] = useState(false);
     const [error, setError] = useState();
 
     useEffect(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        async function fetchAllAndCartProduct() {
-        setIsFetching(true);
-
-        try {
-            const allProducts = await axios.get(`${apiUrl}/api/products`);
-            console.log(allProducts)
-            setProduct(allProducts.data.rows.find( (prod) => prod.id === +props.productId ) );
-
-            const products = await axios.get(`${apiUrl}/api/cart-products`);
-            cartCTX.setCart({ items: products.data.rows, totalAmount: +products.data.rows[ products.data.rows.length -1 ].totalAmount });
-        } catch (error) {
-            setError({ message: "Failed to fetch products." });
+        async function fetchAllProducts () {
+          setIsFetching(true);
+          
+          try {
+            const response = await axios.get(`${apiUrl}/api/products`);
+            setProducts(response.data.rows);
+          } catch (error) {
+            setError('Could not fetch products.' );
+            console.error('Error fetching data:', error)
+          }
+  
+            setIsFetching(false)  
         }
-
-        setIsFetching(false);
-        }
-
-        fetchAllAndCartProduct();
-    }, [])
+  
+        fetchAllProducts();
+      }, [])
 
     return (
         <motion.div initial='initial' animate='animate' exit={{ opacity: 0 }}>
