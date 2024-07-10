@@ -41,7 +41,7 @@ function DetailPage() {
                 cartCTX.setCart({ items: products.data.rows, totalAmount: +products.data.rows[ products.data.rows.length -1 ].totalAmount });
                 if(cartCTX.items.length > 0) {
                   const cart = cartCTX.items.map(item => item.product_id === +productId);
-                  console.log(cart);
+                  console.log(cartCTX.items);
                   setAmount(cart.amount);
                 } else {
                     setAmount(0);
