@@ -44,11 +44,13 @@ function Detail ({ product, cart, productId }) {
     } else {
       setItem([]);
     }
-  }, []);
+  }, [cart, productId]);
 
   const cartCtx = useContext(CartContext);
 
   const cartItemRemoveHandler = async (id) => {
+    if (item.length === 0) return;
+
     const isExistingCartItem = item[0].product_id === +id;
 
     let updatedTotalAmount = +item[0].totalAmount - +item[0].price;;
@@ -127,41 +129,56 @@ function Detail ({ product, cart, productId }) {
   };
 
   const cartItemAddHandler = async (newItem) => {
-      const isExistingCartItem = item[0].product_id === +id;
-      const updatedTotalAmount = cartCtx.totalAmount + existingCartItem.price;
+      const isExistingCartItem = item[0]?.product_id === +newItem.id;
+      let updatedTotalAmount;
 
-      try {
-          const cart = await axios.get(`${apiUrl}/api/cart-products`);
-          const itemToAdd = cart.data.rows.find(item => item.product_id === existingCartItem.product_id);
-          
-          const updatedProduct = { ...newItem, amount: existingCartItem.amount + 1 };
+  if (isExistingCartItem) {
+    updatedTotalAmount = item[0].totalAmount + +newItem.price;
 
-          if (itemToAdd) {
-              const putUrl = `${apiUrl}/api/cart-products/${itemToAdd.product_id}`;
-              const putData = {
-                  newProduct: updatedProduct,
-                  totalAmount: updatedTotalAmount.toFixed(2)
-              };
-  
-              const response = await axios.put(putUrl, putData);
-              console.log('PUT request response:', response.data);
-  
-              console.log('Successfully updated the product on the server');
-          } else {
-              console.error('Item to add not found in the cart');
-          }
+    try {
+      const carts = await axios.get(`${apiUrl}/api/cart-products`);
+      const itemToAdd = carts.data.rows.find(item => item.product_id === item[0]?.product_id);
+      
+      const updatedProduct = { ...newItem, amount: newItem.amount + 1 };
 
-
-          for (const row of cart.data.rows) {
-            await axios.put(`${apiUrl}/api/cart-products/${row.product_id}`, {
+      if (itemToAdd) {
+          const putUrl = `${apiUrl}/api/cart-products/${itemToAdd.product_id}`;
+          const putData = {
+              newProduct: updatedProduct,
               totalAmount: updatedTotalAmount.toFixed(2)
-            });
-          }
+          };
 
-          cartCtx.addItem({...newItem, price: +newItem.price, amount: 1});
-      } catch (error) {
-          
+          const response = await axios.put(putUrl, putData);
+          console.log('PUT request response:', response.data);
+
+          console.log('Successfully updated the product on the server');
+      } else {
+          console.error('Item to add not found in the cart');
       }
+
+
+      for (const row of carts.data.rows) {
+        await axios.put(`${apiUrl}/api/cart-products/${row.product_id}`, {
+          totalAmount: updatedTotalAmount.toFixed(2)
+        });
+      }
+
+      cartCtx.addItem({...newItem, price: +newItem.price, amount: 1});
+  } catch (error) {
+      
+  }
+
+
+
+
+
+
+
+
+
+
+
+  } else {}
 
   };
 
