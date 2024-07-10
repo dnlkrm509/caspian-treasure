@@ -46,7 +46,7 @@ function Detail ({ product, cart, productId }) {
   const cartCtx = useContext(CartContext);
 
   const cartItemRemoveHandler = async (id) => {
-    const existingCartItem = item[0].roduct_id === id;
+    const existingCartItem = item[0].product_id === id;
     
     console.log(existingCartItem)
       
