@@ -50,7 +50,7 @@ function DetailPage() {
 
     return (
         <div>
-            <Detail product={product} cart={cartCTX.items} id={+productId} />
+            {cartCTX.items.length > 0 && <Detail product={product} cart={cartCTX.items} id={+productId} />}
         </div>
     )
 }
