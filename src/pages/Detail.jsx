@@ -50,9 +50,10 @@ function DetailPage() {
 
     return (
         <div>
-            {isFetching && cartCTX.items.length === 0 && <LoadingSpinner />}
-            {error && <Error title='An Error occurred!' body={error} />}
-            {!isFetching && !error && cartCTX.items.length > 0 && <Detail product={product} cart={cartCTX.items} productId={productId} />}
+            {isFetching && (!cartCTX.items || cartCTX.items.length === 0) && <LoadingSpinner />}
+            {error && <Error title='An Error occurred!' body={error.message} />}
+            {!isFetching && !error && cartCTX.items && cartCTX.items.length > 0 && (
+                <Detail product={product} cart={cartCTX.items} productId={productId} />)}
         </div>
     )
 }
