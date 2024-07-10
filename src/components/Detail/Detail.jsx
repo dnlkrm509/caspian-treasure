@@ -36,7 +36,7 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
 function Detail ({ product, cart, productId }) {
   const [item, setItem] = useState([]);
-console.log(cart)
+  
   useEffect(() => {
     if (cart && cart.length > 0) {
       const newItem = cart.filter(c => c.product_id === +productId);
