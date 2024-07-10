@@ -51,17 +51,23 @@ function DetailPage() {
     }, []);
 
     useEffect(() => {
-        if (cartCTX.items.length > 0) {
-            const cart = cartCTX.items.map(item => item.product_id === +productId);
-            setAmount(cart.amount);
-        } else {
-            setAmount(0);
+        function setAmountFunction() {
+            if (cartCTX.items.length > 0) {
+                const cart = cartCTX.items.map(item => item.product_id === +productId);
+                setAmount(cart.amount);
+            } else {
+                setAmount(0);
+            }
         }
-    }, [cartCTX])
+
+        if (amount === 0 || amount === undefined) {
+            setAmountFunction();
+        }
+    }, [cartCTX, amount])
 console.log(amount)
     return (
         <div>
-            {isFetching && amount === 0 && <LoadingSpinner />}
+            {isFetching && <LoadingSpinner />}
             {error && <Error title='An Error occurred!' body={error} />}
             {!isFetching && !error && amount > 0 && <Detail product={product} amount={amount} />}
         </div>
