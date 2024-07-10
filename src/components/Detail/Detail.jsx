@@ -216,7 +216,14 @@ function Detail ({ product, cart, productId }) {
                 <span className={classes.price}>{`£${product.price}`}</span>
               </motion.div>
               <motion.div variants={fadeInUp} className={classes['btn-row']}>
-                <button className={classes['add-to-cart']}>Add to cart</button>
+                <motion.button
+                  whileTap={{ scale: [0.9, 1.1, 0.9, 1] }}
+                  transition={{type:'spring', stiffness: 500}}
+                  onClick={() => cartItemAddHandler(product)}
+                  className={classes['add-to-cart']}
+                >
+                  Add to cart
+                </motion.button>
               </motion.div>
             </motion.div>
           </div>
