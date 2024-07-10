@@ -3,6 +3,8 @@ import Detail from "../components/Detail/Detail";
 import { useContext, useEffect, useState } from "react";
 import CartContext from "../store/cart-context";
 import axios from "axios";
+import LoadingSpinner from "../components/UI/LoadingSpinner/LoadingSpinner";
+import Error from '../components/UI/Error';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -50,7 +52,9 @@ function DetailPage() {
 
     return (
         <div>
-            {cartCTX.items.length > 0 && <Detail product={product} cart={cartCTX.items} id={+productId} />}
+            {isFetching && <LoadingSpinner />}
+            {error && <Error />}
+            {!isFetching && !error && <Detail product={product} cart={cartCTX.items} id={+productId} />}
         </div>
     )
 }
