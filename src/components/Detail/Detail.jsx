@@ -45,8 +45,6 @@ function Detail ({ product, cart, productId }) {
   if (item[0])
     amount = <span className={classes.amount}>{item[0].amount}</span>;
 
-  console.log(item[0])
-
     return (
         <motion.div initial='initial' animate='animate' exit={{ opacity: 0 }}>
           <div className={classes.product}>
