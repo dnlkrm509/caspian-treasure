@@ -29,7 +29,9 @@ const fadeInUp = {
   }
 };
 
-function Detail ({ product, amount }) {
+function Detail ({ product, cart, productId }) {
+
+  console.log('prod',product,'cart',cart,'id',productId);
 
     return (
         <motion.div initial='initial' animate='animate' exit={{ opacity: 0 }}>
