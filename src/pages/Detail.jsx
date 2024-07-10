@@ -61,7 +61,7 @@ function DetailPage() {
         <div>
             {isFetching && <LoadingSpinner />}
             {error && <Error />}
-            {!isFetching && !error && cartCTX.items.length > 0 && <Detail product={product} amount={amount} />}
+            {!isFetching && !error && <Detail product={product} amount={amount} />}
         </div>
     )
 }
