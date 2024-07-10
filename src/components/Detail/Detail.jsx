@@ -36,9 +36,9 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
 function Detail ({ product, cart, productId }) {
   const [item, setItem] = useState([]);
-
+console.log(cart)
   useEffect(() => {
-    if (cart.length > 0) {
+    if (cart && cart.length > 0) {
       const newItem = cart.filter(c => c.product_id === +productId);
       setItem(newItem);
     } else {
@@ -50,7 +50,6 @@ function Detail ({ product, cart, productId }) {
 
   const cartItemRemoveHandler = async (id) => {
     const isExistingCartItem = item[0].product_id === +id;
-    (console.log(isExistingCartItem))
 
     let updatedTotalAmount = +item[0].totalAmount - +item[0].price;;
     
