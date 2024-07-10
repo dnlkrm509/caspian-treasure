@@ -51,6 +51,7 @@ function Detail ({ product, cart, productId }) {
     ));
 
     const existingCartItem = cartCtx.items[existingCartItemIndex];
+    console.log(existingCartItem)
       
     let updatedTotalAmount = +cartCtx.totalAmount - existingCartItem.price;
     if (cartCtx.items.length === 0) {
