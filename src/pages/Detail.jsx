@@ -45,17 +45,19 @@ function DetailPage() {
             }
 
             setIsFetching(false);
-            return cartCTX.items;
         }
 
-        const carts = fetchCartProduct();
-        if (carts.length > 0) {
-            const cart = carts.map(c => c.id === +productId);
+        fetchCartProduct();
+    }, []);
+
+    useEffect(() => {
+        if (cartCTX.items.length > 0) {
+            const cart = cartCTX.items.map(item => item.product_id === +productId);
             setAmount(cart.amount);
         } else {
             setAmount(0);
         }
-    }, []);
+    }, [cartCTX, cart])
 
     return (
         <div>
