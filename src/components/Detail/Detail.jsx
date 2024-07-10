@@ -105,7 +105,7 @@ function Detail ({ product, cart, productId }) {
           }
             
           cartCtx.removeItem(+id);
-          setItem(updatedItem);
+          setItem([updatedItem]);
         } catch (error) {
           console.error('Failed to delete data!', error);
         }
