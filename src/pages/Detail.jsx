@@ -39,10 +39,7 @@ function DetailPage() {
                 const products = await axios.get(`${apiUrl}/api/cart-products`);
                 
                 cartCTX.setCart({ items: products.data.rows, totalAmount: +products.data.rows[ products.data.rows.length -1 ].totalAmount });
-                if(!amount) {
-                  const cart = cartCTX.items.map(item => item.product_id === +productId);
-                  setAmount(cart.amount);
-                }
+                
             } catch (error) {
                 setError({ message: "Failed to fetch cart products." });
             }
@@ -53,12 +50,34 @@ function DetailPage() {
         fetchCartProduct();
     }, []);
 
-    console.log(amount)
+    if(cartCTX.items.length > 0) {
+      const cart = cartCTX.items.map(item => item.product_id === +productId);
+      setAmount(cart.amount);
+    } else {
+        async function fetchCartProduct() {
+            setIsFetching(true);
+
+            try {
+                const products = await axios.get(`${apiUrl}/api/cart-products`);
+                
+                cartCTX.setCart({ items: products.data.rows, totalAmount: +products.data.rows[ products.data.rows.length -1 ].totalAmount });
+                
+            } catch (error) {
+                setError({ message: "Failed to fetch cart products." });
+            }
+
+            setIsFetching(false);
+        }
+
+        fetchCartProduct();
+    }
+
+    console.log(amount);
     return (
         <div>
             {isFetching && <LoadingSpinner />}
             {error && <Error title='An Error occurred!' body={error} />}
-            {!isFetching && !error && amount > 0 && <Detail product={product} amount={amount} />}
+            {!isFetching && !error && <Detail product={product} amount={amount} />}
         </div>
     )
 }
