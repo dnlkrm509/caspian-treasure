@@ -38,9 +38,11 @@ function Detail ({ product, cart, productId }) {
   const [item, setItem] = useState([]);
   
   useEffect(() => {
-    if (cart && cart.length > 0) {
-      const newItem = cart.filter(c => c.product_id === +productId);
-      setItem(newItem);
+    if (cart) {
+      if (cart.length > 0) {
+        const newItem = cart.filter(c => c.product_id === +productId);
+        setItem(newItem);
+      }
     } else {
       setItem([]);
     }
@@ -53,7 +55,7 @@ function Detail ({ product, cart, productId }) {
 
     let updatedTotalAmount = +item[0].totalAmount - +item[0].price;;
     
-    if (cart.length === 0) {
+    if (item[0].length === 0) {
       updatedTotalAmount = 0;
     }
     
