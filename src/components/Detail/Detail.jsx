@@ -38,7 +38,7 @@ function Detail ({ product, cart, productId }) {
   const [item, setItem] = useState([]);
   
   useEffect(() => {
-    if (cart && cart.length > 0) {
+    if (cart.length > 0) {
       const newItem = cart.filter(c => c.product_id === +productId);
       setItem(newItem);
     } else {
@@ -167,7 +167,7 @@ function Detail ({ product, cart, productId }) {
 
   let amount = <span className={classes.amount}>0</span>;
 
-  if (item[0])
+  if (item)
     amount = <span className={classes.amount}>{item[0].amount}</span>;
 
     return (
