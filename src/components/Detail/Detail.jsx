@@ -39,7 +39,7 @@ function Detail ({ product, cart, productId }) {
   
   useEffect(() => {
     if (cart.length > 0) {
-      const newItem = cart.filter(c => c.product_id === +productId);
+      const newItem = cart.filter(c => c.product_id === parseInt(productId));
       setItem(newItem);
     } else {
       setItem([]);
