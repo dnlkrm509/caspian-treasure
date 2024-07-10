@@ -36,7 +36,6 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
 function Detail ({ product, cart, productId }) {
   const [item, setItem] = useState([]);
-  if (cart.length === 0) return;
 
   useEffect(() => {
     if (cart.length > 0) {
