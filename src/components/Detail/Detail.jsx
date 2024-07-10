@@ -51,7 +51,7 @@ function Detail ({ product, cart, productId }) {
   const cartItemRemoveHandler = async (id) => {
     if (item.length === 0) return;
 
-    const isExistingCartItem = item[0].product_id === +id;
+    const isExistingCartItem = item[0].product_id === parseInt(id);
 
     let updatedTotalAmount = +item[0].totalAmount - +item[0].price;;
     
@@ -75,14 +75,14 @@ function Detail ({ product, cart, productId }) {
 
                 
             for (const row of carts.data.rows) {
-              if (row.product_id !== +id) {
+              if (row.product_id !== parseInt(id)) {
                 await axios.put(`${apiUrl}/api/cart-products/${row.product_id}`, {
                   totalAmount: updatedTotalAmount.toFixed(2)
                 });
               }
             }
 
-            cartCtx.removeItem(+id);
+            cartCtx.removeItem(parseInt(id));
             setItem([]);
           } else {
             console.warn('Item to delete not found in the cart');
@@ -95,7 +95,7 @@ function Detail ({ product, cart, productId }) {
         updatedItem = {...item[0], 
           amount: item[0].amount - 1};
         try {
-          const itemToDelete = carts.data.rows.find(item => item.product_id === +id);
+          const itemToDelete = carts.data.rows.find(item => item.product_id === parseInt(id));
                 
           await axios.put(`${apiUrl}/api/cart-products/${itemToDelete.product_id}`, {
             newProduct: updatedItem,
@@ -108,7 +108,7 @@ function Detail ({ product, cart, productId }) {
             });
           }
             
-          cartCtx.removeItem(+id);
+          cartCtx.removeItem(parseInt(id));
           setItem([updatedItem]);
         } catch (error) {
           console.error('Failed to delete data!', error);
