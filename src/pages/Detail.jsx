@@ -57,7 +57,7 @@ function DetailPage() {
         } else {
             setAmount(0);
         }
-    }, [cartCTX, cart])
+    }, [cartCTX])
 
     return (
         <div>
