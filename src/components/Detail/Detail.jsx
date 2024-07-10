@@ -34,8 +34,9 @@ function Detail ({ product, cart, productId }) {
   const [amount, setAmount] = useState(0);
 
   if (cart.length > 0) {
-    const a = cart.find(c => c.product_id === productId);
-    setAmount(a.amount);
+    
+    cart.map(c => console.log(c.product_id));
+    //setAmount(item.amount);
   }
 
   console.log(amount);
