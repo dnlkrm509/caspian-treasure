@@ -23,7 +23,6 @@ function DetailPage() {
         price
     }
 
-    const [amount, setAmount] = useState(null);
     const cartCTX = useContext(CartContext);
 
     const [isFetching, setIsFetching] = useState(false);
