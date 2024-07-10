@@ -34,10 +34,8 @@ function Detail ({ product, cart, productId }) {
   const [amount, setAmount] = useState(0);
 
   if (cart.length > 0) {
-    
     const item = cart.filter(c => c.product_id === +productId);
-    console.log(item)
-    //setAmount(item.amount);
+    setAmount(item.amount);
   }
 
   console.log(amount);
