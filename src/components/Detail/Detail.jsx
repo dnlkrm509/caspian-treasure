@@ -42,7 +42,7 @@ function Detail ({ product, cart, productId }) {
 
   let amount = <span className={classes.amount}>0</span>;
 
-  if (item[0].amount)
+  if (item[0])
     amount = <span className={classes.amount}>{item[0].amount}</span>;
 
   console.log(item[0])
