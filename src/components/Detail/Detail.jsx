@@ -36,7 +36,7 @@ function Detail ({ product, cart, productId }) {
   if (cart.length > 0) {
     const item = cart.filter(c => c.product_id === +productId);
     const a = item.amount;
-    if (a)
+    if (amount !== 0 && a)
       setAmount(a);
   }
 
