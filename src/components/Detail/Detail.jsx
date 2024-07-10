@@ -35,12 +35,14 @@ const fadeInUp = {
 const apiUrl = import.meta.env.VITE_API_URL;
 
 function Detail ({ product, cart, productId }) {
-  const [item, setItem] = useState({});
+  const [item, setItem] = useState([]);
 
   useEffect(() => {
     if (cart.length > 0) {
       const newItem = cart.filter(c => c.product_id === +productId);
       setItem(newItem);
+    } else {
+      setItem([]);
     }
   }, []);
 
