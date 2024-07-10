@@ -46,79 +46,83 @@ function Detail ({ product, cart, productId }) {
   const cartCtx = useContext(CartContext);
 
   const cartItemRemoveHandler = async (id) => {
-    const existingCartItem = item[0].product_id === +id;
+    const isExistingCartItem = item[0].product_id === +id;
+
+    let updatedTotalAmount = +item.totalAmount - +item.price;
     
-    console.log(existingCartItem)
-      
-    let updatedTotalAmount = +item.totalAmount - item.price;
     if (cart.length === 0) {
       updatedTotalAmount = 0;
     }
     
     let updatedItem;
 
-    if(item.amount === 1) {
-      try {
-        const carts = await axios.get(`${apiUrl}/api/cart-products`);
-        const itemToDelete = carts.data.rows.find(item => item.product_id === id);
+    if (isExistingCartItem) {
+      const carts = await axios.get(`${apiUrl}/api/cart-products`);
+      if(item[0].amount === 1) {
+        try {
+          const itemToDelete = carts.data.rows.find(item => item.product_id === +id);
 
-        if (itemToDelete) {
-          await axios.delete(`${apiUrl}/api/cart-products/${itemToDelete.product_id}`);
-          if (cart.length === 0) {
-            updatedTotalAmount = 0;
-          }
-
-              
-          for (const row of carts.data.rows) {
-            if (row.product_id !== id) {
-              await axios.put(`${apiUrl}/api/cart-products/${row.product_id}`, {
-                totalAmount: updatedTotalAmount.toFixed(2)
-              });
+          if (itemToDelete) {
+            await axios.delete(`${apiUrl}/api/cart-products/${itemToDelete.product_id}`);
+            if (carts.length === 0) {
+              updatedTotalAmount = 0;
             }
+
+                
+            for (const row of carts.data.rows) {
+              if (row.product_id !== +id) {
+                await axios.put(`${apiUrl}/api/cart-products/${row.product_id}`, {
+                  totalAmount: updatedTotalAmount.toFixed(2)
+                });
+              }
+            }
+
+            cartCtx.removeItem(+id);
+          } else {
+            console.warn('Item to delete not found in the cart');
           }
-
-          cartCtx.removeItem(id);
-        } else {
-          console.warn('Item to delete not found in the cart');
+        } catch (err) {
+          console.error('Failed to delete data!', err);
         }
-      } catch (err) {
-        console.error('Failed to delete data!', err);
-      }
-          
-    } else {
-      updatedItem = {...existingCartItem, 
-        amount: existingCartItem.amount - 1};
-      try {
-        const carts = await axios.get(`${apiUrl}/api/cart-products`);
-        const itemToDelete = carts.data.rows.find(item => item.product_id === id);
-              
-        await axios.put(`${apiUrl}/api/cart-products/${itemToDelete.product_id}`, {
-          newProduct: updatedItem,
-          totalAmount: `${updatedTotalAmount.toFixed(2)}`
-        });
-
-        for (const row of carts.data.rows) {
-          await axios.put(`${apiUrl}/api/cart-products/${row.product_id}`, {
-            totalAmount: updatedTotalAmount.toFixed(2)
+            
+      } else {
+        updatedItem = {...item[0], 
+          amount: item[0].amount - 1};
+        try {
+          const itemToDelete = carts.data.rows.find(item => item.product_id === +id);
+                
+          await axios.put(`${apiUrl}/api/cart-products/${itemToDelete.product_id}`, {
+            newProduct: updatedItem,
+            totalAmount: `${updatedTotalAmount.toFixed(2)}`
           });
+
+          for (const row of carts.data.rows) {
+            await axios.put(`${apiUrl}/api/cart-products/${row.product_id}`, {
+              totalAmount: updatedTotalAmount.toFixed(2)
+            });
+          }
+            
+          cartCtx.removeItem(+id);
+        } catch (error) {
+          console.error('Failed to delete data!', error);
         }
-          
-        cartCtx.removeItem(id);
-      } catch (error) {
-        console.error('Failed to delete data!', error);
       }
+
+
+
+
+
+
+
+
+
     }
 
       
   };
 
   const cartItemAddHandler = async (newItem) => {
-
-      const existingCartItemIndex = cartCtx.items.findIndex(item => (
-          item.product_id === newItem.product_id
-      ));
-
-      const existingCartItem = cartCtx.items[existingCartItemIndex];
+      const isExistingCartItem = item[0].product_id === +id;
       const updatedTotalAmount = cartCtx.totalAmount + existingCartItem.price;
 
       try {
