@@ -38,9 +38,14 @@ function Detail ({ product, cart, productId }) {
       const newItem = cart.filter(c => c.product_id === +productId);
       setItem(newItem);
     }
-  }, [])
+  }, []);
 
-  const amount = <span className={classes.amount}>{item.amount}</span>
+  let amount = <span className={classes.amount}>0</span>;
+
+  if (item.amount)
+    amount = <span className={classes.amount}>{item.amount}</span>;
+
+  console.log(amount)
 
     return (
         <motion.div initial='initial' animate='animate' exit={{ opacity: 0 }}>
