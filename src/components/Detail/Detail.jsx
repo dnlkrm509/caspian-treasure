@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import classes from './Detail.module.css';
+import { useState } from "react";
 
 let easing = [0.6, -0.05, 0.01, 0.99];
 
@@ -30,8 +31,14 @@ const fadeInUp = {
 };
 
 function Detail ({ product, cart, productId }) {
+  const [amount, setAmount] = useState(0);
 
-  console.log('prod',product,'cart',cart,'id',productId);
+  if (cart.length > 0) {
+    const a = cart.find(c => c.product_id === productId);
+    setAmount(a.amount);
+  }
+
+  console.log(amount);
 
     return (
         <motion.div initial='initial' animate='animate' exit={{ opacity: 0 }}>
