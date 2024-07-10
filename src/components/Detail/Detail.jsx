@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import classes from './Detail.module.css';
+import { useState } from "react";
 
 let easing = [0.6, -0.05, 0.01, 0.99];
 
@@ -30,6 +31,9 @@ const fadeInUp = {
 };
 
 function Detail ({ product, amount }) {
+  const [Amount, setAmount] = useState(0);
+
+  setAmount(amount);
 
     return (
         <motion.div initial='initial' animate='animate' exit={{ opacity: 0 }}>
@@ -64,7 +68,7 @@ function Detail ({ product, amount }) {
               <motion.div variants={fadeInUp} className={classes['qty-price']}>
                 <div className={classes.qty}>
                   <button className={classes.minus}>-</button>
-                  {amount > 0 && <span className={classes.amount}>{amount}</span>}
+                  <span className={classes.amount}>{Amount}</span>
                   <button className={classes.plus}>+</button>
                 </div>
                 <span className={classes.price}>{`£${product.price}`}</span>
