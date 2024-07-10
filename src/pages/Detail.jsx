@@ -39,7 +39,7 @@ function DetailPage() {
                 const products = await axios.get(`${apiUrl}/api/cart-products`);
                 
                 cartCTX.setCart({ items: products.data.rows, totalAmount: +products.data.rows[ products.data.rows.length -1 ].totalAmount });
-                if(isNaN(amount)) {
+                if(!amount) {
                   const cart = cartCTX.items.map(item => item.product_id === +productId);
                   setAmount(cart.amount);
                 }
