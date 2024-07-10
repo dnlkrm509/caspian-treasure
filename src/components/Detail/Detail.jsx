@@ -79,7 +79,7 @@ function Detail ({ product, cart, productId }) {
             }
 
             cartCtx.removeItem(+id);
-            setItem(null);
+            setItem([]);
           } else {
             console.warn('Item to delete not found in the cart');
           }
