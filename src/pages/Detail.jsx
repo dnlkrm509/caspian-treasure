@@ -46,7 +46,7 @@ function DetailPage() {
         }
 
           fetchCartProduct();
-    }, []);
+    }, [cartCTX]);
 
     return (
         <div>
