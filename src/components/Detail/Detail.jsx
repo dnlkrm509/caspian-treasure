@@ -42,10 +42,10 @@ function Detail ({ product, cart, productId }) {
 
   let amount = <span className={classes.amount}>0</span>;
 
-  if (item.amount)
-    amount = <span className={classes.amount}>{item.amount}</span>;
+  if (item[0].amount)
+    amount = <span className={classes.amount}>{item[0].amount}</span>;
 
-  console.log(item)
+  console.log(item[0])
 
     return (
         <motion.div initial='initial' animate='animate' exit={{ opacity: 0 }}>
