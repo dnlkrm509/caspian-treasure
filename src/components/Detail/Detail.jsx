@@ -31,16 +31,14 @@ const fadeInUp = {
 };
 
 function Detail ({ product, cart, productId }) {
-  const [amount, setAmount] = useState(0);
+  const [item, setItem] = useState({});
 
   if (cart.length > 0) {
-    const item = cart.filter(c => c.product_id === +productId);
-    const a = item.amount;
-    if (amount !== 0 && a)
-      setAmount(a);
+    const newItem = cart.filter(c => c.product_id === +productId);
+    setItem(newItem);
   }
 
-  console.log(amount);
+  console.log(item);
 
     return (
         <motion.div initial='initial' animate='animate' exit={{ opacity: 0 }}>
@@ -75,7 +73,7 @@ function Detail ({ product, cart, productId }) {
               <motion.div variants={fadeInUp} className={classes['qty-price']}>
                 <div className={classes.qty}>
                   <button className={classes.minus}>-</button>
-                  <span className={classes.amount}>{amount}</span>
+                  <span className={classes.amount}>{item.amount}</span>
                   <button className={classes.plus}>+</button>
                 </div>
                 <span className={classes.price}>{`£${product.price}`}</span>
