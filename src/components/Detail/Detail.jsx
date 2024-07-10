@@ -36,7 +36,7 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
 function Detail ({ product, cart, productId }) {
   const [item, setItem] = useState([]);
-  
+  console.log(cart)
   useEffect(() => {
     if (cart.length > 0) {
       const newItem = cart.filter(c => c.product_id === parseInt(productId));
@@ -184,7 +184,12 @@ function Detail ({ product, cart, productId }) {
 
   let amount = <span className={classes.amount}>0</span>;
 
-  
+  if (item.length === 0) {
+    return;
+  } else {
+    if (item[0])
+      amount = <span className={classes.amount}>{item[0].amount}</span>;
+  }
 
     return (
         <motion.div initial='initial' animate='animate' exit={{ opacity: 0 }}>
