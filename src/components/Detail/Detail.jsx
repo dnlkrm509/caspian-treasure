@@ -38,6 +38,10 @@ function Detail ({ product, cart, productId }) {
   const [item, setItem] = useState([]);
 
   useEffect(() => {
+    if (!cart) {
+      setItem([]);
+    }
+
     if (cart.length > 0) {
       const newItem = cart.filter(c => c.product_id === parseInt(productId));
       setItem(newItem);
