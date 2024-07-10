@@ -48,7 +48,7 @@ function Detail ({ product, cart, productId }) {
   const cartItemRemoveHandler = async (id) => {
     const existingCartItem = item[0].product_id === id;
     
-    console.log(existingCartItem)
+    console.log(item[0], 'id',id)
       
     let updatedTotalAmount = +item.totalAmount - item.price;
     if (cart.length === 0) {
