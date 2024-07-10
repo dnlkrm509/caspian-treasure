@@ -51,6 +51,10 @@ function Detail ({ product, cart, productId }) {
     (console.log(isExistingCartItem))
 
     let updatedTotalAmount;
+
+    if (cart.length > 0) {
+      updatedTotalAmount = +item[0].totalAmount - +item[0].price;
+    }
     
     if (cart.length === 0) {
       updatedTotalAmount = 0;
@@ -59,8 +63,6 @@ function Detail ({ product, cart, productId }) {
     let updatedItem;
 
     if (isExistingCartItem) {
-      updatedTotalAmount = +item[0].totalAmount - +item[0].price;
-      
       const carts = await axios.get(`${apiUrl}/api/cart-products`);
       if(item[0].amount === 1) {
         try {
