@@ -58,12 +58,12 @@ function DetailPage() {
             setAmount(0);
         }
     }, [cartCTX])
-
+console.log(amount)
     return (
         <div>
             {isFetching && <LoadingSpinner />}
             {error && <Error title='An Error occurred!' body={error} />}
-            {!isFetching && !error && <Detail product={product} amount={amount} />}
+            {!isFetching && !error && amount > 0 && <Detail product={product} amount={amount} />}
         </div>
     )
 }
