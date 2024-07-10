@@ -195,13 +195,23 @@ function Detail ({ product, cart, productId }) {
               <motion.p variants={fadeInUp}>{product.description}</motion.p>
               <motion.div variants={fadeInUp} className={classes['qty-price']}>
                 <div className={classes.qty}>
-                  <button onClick={() => cartItemRemoveHandler(product.id)} className={classes.minus}>
+                  <motion.button
+                    whileTap={{ scale: [0.9, 1.1, 0.9, 1] }}
+                    transition={{type:'spring', stiffness: 500}}
+                    onClick={() => cartItemRemoveHandler(product.id)}
+                    className={classes.minus}
+                  >
                     -
-                  </button>
+                  </motion.button>
                   {amount}
-                  <button onClick={() => cartItemAddHandler(product)} className={classes.plus}>
+                  <motion.button
+                    whileTap={{ scale: [0.9, 1.1, 0.9, 1] }}
+                    transition={{type:'spring', stiffness: 500}}
+                    onClick={() => cartItemAddHandler(product)}
+                    className={classes.plus}
+                  >
                     +
-                  </button>
+                  </motion.button>
                 </div>
                 <span className={classes.price}>{`£${product.price}`}</span>
               </motion.div>
