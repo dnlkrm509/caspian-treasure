@@ -31,11 +31,13 @@ const fadeInUp = {
 };
 
 function Detail ({ product, cart, productId }) {
-  let amount = 0;
+  const [amount, setAmount] = useState(0);
 
   if (cart.length > 0) {
     const item = cart.filter(c => c.product_id === +productId);
-    amount = item.amount;
+    const a = item.amount;
+    if (a)
+      setAmount(a);
   }
 
   console.log(amount);
