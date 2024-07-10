@@ -39,13 +39,10 @@ function DetailPage() {
                 const products = await axios.get(`${apiUrl}/api/cart-products`);
                 
                 cartCTX.setCart({ items: products.data.rows, totalAmount: +products.data.rows[ products.data.rows.length -1 ].totalAmount });
-                if(cartCTX.items.length > 0) {
-                  const cart = cartCTX.items.map(item => item.product_id === +productId);
-                  console.log(cartCTX.items);
-                  setAmount(cart.amount);
-                } else {
-                    setAmount(0);
-                }
+                
+                const cart = cartCTX.items.map(item => item.product_id === +productId);
+                console.log(cartCTX.items);
+                setAmount(cart.amount);
             } catch (error) {
                 setError({ message: "Failed to fetch cart products." });
             }
