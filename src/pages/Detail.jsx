@@ -24,6 +24,7 @@ function DetailPage() {
     }
 
     const cartCTX = useContext(CartContext);
+    const [amount, setAmount] = useState(0);
 
     const [isFetching, setIsFetching] = useState(false);
     const [error, setError] = useState();
@@ -44,16 +45,23 @@ function DetailPage() {
             }
 
             setIsFetching(false);
+            return cartCTX.items;
         }
 
-        fetchCartProduct();
+        const carts = fetchCartProduct();
+        if (carts.length > 0) {
+            const cart = carts.map(c => c.id === +productId);
+            setAmount(cart.amount);
+        } else {
+            setAmount(0);
+        }
     }, []);
 
     return (
         <div>
             {isFetching && <LoadingSpinner />}
             {error && <Error />}
-            {!isFetching && !error && <Detail product={product} cart={cartCTX.items} id={+productId} />}
+            {!isFetching && !error && <Detail product={product} amount={amount} />}
         </div>
     )
 }
