@@ -46,13 +46,16 @@ function DetailPage() {
         }
 
           fetchCartProduct();
+          if (!cartCTX) {
+            fetchCartProduct();
+          }
     }, [cartCTX]);
 
     return (
         <div>
-            {isFetching && <LoadingSpinner />}
+            {isFetching && cartCTX.items.length === 0 && <LoadingSpinner />}
             {error && <Error title='An Error occurred!' body={error} />}
-            {!isFetching && !error && (
+            {!isFetching && !error && cartCTX.items.length > 0 && (
                 <Detail product={product} cart={cartCTX.items} productId={productId} />)}
         </div>
     )
