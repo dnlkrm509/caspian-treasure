@@ -37,6 +37,8 @@ const apiUrl = import.meta.env.VITE_API_URL;
 function Detail ({ product, productId }) {
   const [newAmount, setNewAmount] = useState(product.amount);
 
+  const cartCtx = useContext(CartContext);
+  
   useEffect(() => {
     async function fetchCartProductAmount() {
       try {
@@ -50,8 +52,6 @@ function Detail ({ product, productId }) {
 
     fetchCartProductAmount();
   }, [cartCtx])
-  
-  const cartCtx = useContext(CartContext);
 
   const cartItemRemoveHandler = async (id) => {
     const response = await axios.get(`${apiUrl}/api/cart-products`);
