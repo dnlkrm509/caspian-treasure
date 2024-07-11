@@ -137,6 +137,7 @@ function Detail ({ product, productId }) {
         }
 
         cartCtx.addItem({...existingCartItem, price: +newItem.price, amount: 1});
+        setNewAmount(updatedProduct.amount);
     } catch (error) {
         
     }
