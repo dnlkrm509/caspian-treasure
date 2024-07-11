@@ -24,7 +24,9 @@ const ProductItem = (props) => {
                 try {
                     const carts = await axios.get(`${apiUrl}/cart-products`);
                     const cart = carts.data.rows.find(c=> c.product_id === +props.id);
-                    setAmount(cart.amount);
+                    if (cart) {
+                        setAmount(cart.amount);
+                    }
                 } catch (err) { console.error(err) }
             }
             
