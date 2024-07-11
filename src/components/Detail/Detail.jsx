@@ -38,8 +38,6 @@ function Detail ({ product, productId }) {
 
   const cartCtx = useContext(CartContext);
 
-  
-
     return (
         <motion.div initial='initial' animate='animate' exit={{ opacity: 0 }}>
           <div className={classes.product}>
