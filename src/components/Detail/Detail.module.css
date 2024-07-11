@@ -67,7 +67,7 @@ a:hover {
   color: white;
   width: 1.8rem;
   height: 1.8rem;
-  line-height: 0.8;
+  line-height: 0.9;
   text-align: center;
   border-radius: 6px;
   cursor: pointer;
@@ -112,10 +112,10 @@ a:hover {
   .minus,
   .plus {
       font-size: 0.62rem;
-      width: 0.70rem;
-      height: 0.70rem;
+      width: 1rem;
+      height: 1rem;
       margin-left: 0.5rem;
-      line-height: 0.4;
+      line-height: 0.7;
       margin: 0.12rem;
       border-radius: 3px;
   }
