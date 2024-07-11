@@ -23,9 +23,9 @@ const ProductItem = (props) => {
             async function fetchCartProductAmount(){
                 try {
                     const carts = await axios.get(`${apiUrl}/cart-products`);
-                    const cart = carts.data.rows.find(item => item.product_id === +props.id);
-                    if (cart) {
-                        setAmount(cart.amount);
+                    const cartProduct = carts.data.rows.find(item => item.product_id === +props.id);
+                    if (cartProduct) {
+                        setAmount(cartProduct.amount);
                     } else {
                         setAmount(0);
                     }
