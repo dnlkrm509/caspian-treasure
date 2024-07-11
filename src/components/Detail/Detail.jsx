@@ -37,6 +37,9 @@ const apiUrl = import.meta.env.VITE_API_URL;
 function Detail ({ product, productId }) {
 
   const cartCtx = useContext(CartContext);
+  console.log(product.amount)
+
+  const amount = <span className={classes.amount}>{product.amount}</span>;
 
   const cartItemRemoveHandler = async (id) => {
     const response = await axios.get(`${apiUrl}/api/cart-products`);
@@ -204,7 +207,7 @@ function Detail ({ product, productId }) {
                   >
                     -
                   </motion.button>
-                  <span className={classes.amount}>{product.amount}</span>
+                  {amount}
                   <motion.button
                     whileTap={{ scale: [0.9, 1.1, 0.9, 1] }}
                     transition={{type:'spring', stiffness: 500}}
