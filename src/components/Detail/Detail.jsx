@@ -184,11 +184,8 @@ function Detail ({ product, cart, productId }) {
 
   let amount = <span className={classes.amount}>0</span>;
 
-  if (item.length === 0) {
-    return;
-  } else {
-    if (item[0])
-      amount = <span className={classes.amount}>{item[0].amount}</span>;
+  if (item[0])
+    amount = <span className={classes.amount}>{item[0].amount}</span>;
   }
 
     return (
