@@ -47,7 +47,7 @@ function DetailPage() {
         }
 
           fetchCartProduct();
-          if (!cartCTX) {
+          if (!cart) {
             fetchCartProduct();
           }
     }, [cartCTX]);
