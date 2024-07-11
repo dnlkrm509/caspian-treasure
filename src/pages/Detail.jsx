@@ -54,9 +54,9 @@ function DetailPage() {
 
     return (
         <div>
-            {isFetching && cartCTX.items.length === 0 && <LoadingSpinner />}
+            {isFetching && cart.length === 0 && <LoadingSpinner />}
             {error && <Error title='An Error occurred!' body={error.message} />}
-            {!isFetching && !error && cartCTX.items.length > 0 && (
+            {!isFetching && !error && cart.length > 0 && (
                 <Detail product={product} cart={cart} productId={productId} />)}
         </div>
     )
