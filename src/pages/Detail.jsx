@@ -47,9 +47,6 @@ function DetailPage() {
         }
 
           fetchCartProduct();
-          if (!cart) {
-            fetchCartProduct();
-          }
     }, [cartCTX]);
 
     return (
