@@ -38,15 +38,18 @@ function Detail ({ product, productId }) {
   const [newAmount, setNewAmount] = useState(product.amount);
 
   const cartCtx = useContext(CartContext);
-  
+
   useEffect(() => {
     async function fetchCartProductAmount() {
       try {
         const response = await axios.get(`${apiUrl}/api/cart-products`);
         const carts = response.data.rows;
         const existingCartItem = carts.find(item => item.product_id === +product.id);
-        setNewAmount(existingCartItem.amount);
-
+        if (existingCartItem) {
+          setNewAmount(existingCartItem.amount);
+        } else {
+          setNewAmount(0);
+        }
       } catch (error) {console.error(error)};
     }
 
