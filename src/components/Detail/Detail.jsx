@@ -101,17 +101,7 @@ function Detail ({ product, productId }) {
           console.error('Failed to delete data!', error);
         }
       }
-
-
-
-
-
-
-
-
-
     }
-
       
   };
 
@@ -119,7 +109,7 @@ function Detail ({ product, productId }) {
     const response = await axios.get(`${apiUrl}/api/cart-products`);
     const carts = response.data.rows;
     const existingCartItem = carts.find(item => item.product_id === +newItem.id);
-
+console.log(existingCartItem)
     let updatedTotalAmount;
 
     if (existingCartItem) {
