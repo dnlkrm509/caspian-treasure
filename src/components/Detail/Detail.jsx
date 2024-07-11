@@ -49,7 +49,7 @@ function Detail ({ product, productId }) {
     }
 
     fetchCartProductAmount();
-  }, [product.id])
+  }, [cartCtx])
   
   const cartCtx = useContext(CartContext);
 
