@@ -41,7 +41,11 @@ function DetailPage() {
                 
                 cartCTX.setCart({ items: products.data.rows, totalAmount: +products.data.rows[ products.data.rows.length -1 ].totalAmount });
             } catch (error) {
-                setError({ message: "Failed to fetch cart products." });
+                if (product.id) {
+                    setError();
+                } else {
+                    setError({ message: "Failed to fetch cart products." });
+                }
             }
 
             setIsFetching(false);
