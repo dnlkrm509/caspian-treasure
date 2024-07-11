@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import classes from './Detail.module.css';
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import CartContext from "../../store/cart-context";
 
@@ -36,10 +36,9 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
 function Detail ({ product, productId }) {
 
-  const cartCtx = useContext(CartContext);
-  console.log(product.amount)
+  const [newAmount, setNewAmount] = useState(product.amount);
 
-  const amount = <span className={classes.amount}>{product.amount}</span>;
+  const cartCtx = useContext(CartContext);
 
   const cartItemRemoveHandler = async (id) => {
     const response = await axios.get(`${apiUrl}/api/cart-products`);
@@ -74,6 +73,7 @@ function Detail ({ product, productId }) {
             }
 
             cartCtx.removeItem(parseInt(id));
+            setNewAmount(0);
           } else {
             console.warn('Item to delete not found in the cart');
           }
@@ -97,6 +97,7 @@ function Detail ({ product, productId }) {
           }
             
           cartCtx.removeItem(parseInt(id));
+          setNewAmount(updatedItem.amount);
         } catch (error) {
           console.error('Failed to delete data!', error);
         }
@@ -207,7 +208,7 @@ function Detail ({ product, productId }) {
                   >
                     -
                   </motion.button>
-                  {amount}
+                  <span className={classes.amount}>{newAmount}</span>
                   <motion.button
                     whileTap={{ scale: [0.9, 1.1, 0.9, 1] }}
                     transition={{type:'spring', stiffness: 500}}
