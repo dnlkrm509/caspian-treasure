@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import classes from './Detail.module.css';
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import CartContext from "../../store/cart-context";
 
@@ -37,6 +37,20 @@ const apiUrl = import.meta.env.VITE_API_URL;
 function Detail ({ product, productId }) {
   const [newAmount, setNewAmount] = useState(product.amount);
 
+  useEffect(() => {
+    async function fetchCartProductAmount() {
+      try {
+        const response = await axios.get(`${apiUrl}/api/cart-products`);
+        const carts = response.data.rows;
+        const existingCartItem = carts.find(item => item.product_id === +product.id);
+        setNewAmount(existingCartItem.amount);
+        
+      } catch (error) {console.error(error)};
+    }
+
+    fetchCartProductAmount();
+  }, [product.id])
+  
   const cartCtx = useContext(CartContext);
 
   const cartItemRemoveHandler = async (id) => {
