@@ -15,12 +15,14 @@ function DetailPage() {
     const name = query.get('name');
     const description = query.get('description');
     const price = query.get('price');
+    const amount = query .get('amount');
 
     const product = {
         id,
         name: decodeURIComponent(name),
         description: decodeURIComponent(description),
-        price
+        price,
+        amount
     }
 
     const cartCTX = useContext(CartContext);
@@ -46,17 +48,15 @@ function DetailPage() {
         }
 
           fetchCartProduct();
-          if (!cartCTX) {
-            fetchCartProduct();
-          }
     }, [cartCTX]);
 
     return (
         <div>
-            {isFetching && cartCTX.items.length === 0 && <LoadingSpinner />}
-            {error && <Error title='An Error occurred!' body={error} />}
-            {!isFetching && !error && cartCTX.items.length > 0 && (
-                <Detail product={product} cart={cartCTX.items} productId={productId} />)}
+            {amount}
+            {isFetching && <LoadingSpinner />}
+            {error && <Error title='An Error occurred!' body={error.message} />}
+            {!isFetching && !error && (
+                <Detail product={product} productId={productId} />)}
         </div>
     )
 }

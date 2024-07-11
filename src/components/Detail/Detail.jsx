@@ -34,162 +34,11 @@ const fadeInUp = {
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
-function Detail ({ product, cart, productId }) {
-  const [item, setItem] = useState([]);
-
-  useEffect(() => {
-    if (cart.length > 0) {
-      const newItem = cart.filter(c => c.product_id === parseInt(productId));
-      setItem(newItem);
-    } else {
-      setItem([]);
-    }
-  }, [cart, productId]);
+function Detail ({ product, productId }) {
 
   const cartCtx = useContext(CartContext);
 
-  const cartItemRemoveHandler = async (id) => {
-    if (item.length === 0) return;
-
-    const isExistingCartItem = item[0].product_id === parseInt(id);
-
-    let updatedTotalAmount = +item[0].totalAmount - +item[0].price;;
-    
-    if (item[0].length === 0) {
-      updatedTotalAmount = 0;
-    }
-    
-    let updatedItem;
-
-    if (isExistingCartItem) {
-      const carts = await axios.get(`${apiUrl}/api/cart-products`);
-      if(item[0].amount === 1) {
-        try {
-          const itemToDelete = carts.data.rows.find(item => item.product_id === +id);
-
-          if (itemToDelete) {
-            await axios.delete(`${apiUrl}/api/cart-products/${itemToDelete.product_id}`);
-            if (carts.length === 0) {
-              updatedTotalAmount = 0;
-            }
-
-                
-            for (const row of carts.data.rows) {
-              if (row.product_id !== parseInt(id)) {
-                await axios.put(`${apiUrl}/api/cart-products/${row.product_id}`, {
-                  totalAmount: updatedTotalAmount.toFixed(2)
-                });
-              }
-            }
-
-            cartCtx.removeItem(parseInt(id));
-            setItem([]);
-          } else {
-            console.warn('Item to delete not found in the cart');
-          }
-        } catch (err) {
-          console.error('Failed to delete data!', err);
-        }
-            
-      } else {
-        updatedItem = {...item[0], 
-          amount: item[0].amount - 1};
-        try {
-          const itemToDelete = carts.data.rows.find(item => item.product_id === parseInt(id));
-                
-          await axios.put(`${apiUrl}/api/cart-products/${itemToDelete.product_id}`, {
-            newProduct: updatedItem,
-            totalAmount: `${updatedTotalAmount.toFixed(2)}`
-          });
-
-          for (const row of carts.data.rows) {
-            await axios.put(`${apiUrl}/api/cart-products/${row.product_id}`, {
-              totalAmount: updatedTotalAmount.toFixed(2)
-            });
-          }
-            
-          cartCtx.removeItem(parseInt(id));
-          setItem([updatedItem]);
-        } catch (error) {
-          console.error('Failed to delete data!', error);
-        }
-      }
-
-
-
-
-
-
-
-
-
-    }
-
-      
-  };
-
-  const cartItemAddHandler = async (newItem) => {
-      const isExistingCartItem = item[0]?.product_id === +newItem.id;
-      let updatedTotalAmount;
-
-  if (isExistingCartItem) {
-    updatedTotalAmount = item[0].totalAmount + +newItem.price;
-
-    try {
-      const carts = await axios.get(`${apiUrl}/api/cart-products`);
-      const itemToAdd = carts.data.rows.find(item => item.product_id === item[0]?.product_id);
-      
-      const updatedProduct = { ...newItem, amount: newItem.amount + 1 };
-
-      if (itemToAdd) {
-          const putUrl = `${apiUrl}/api/cart-products/${itemToAdd.product_id}`;
-          const putData = {
-              newProduct: updatedProduct,
-              totalAmount: updatedTotalAmount.toFixed(2)
-          };
-
-          const response = await axios.put(putUrl, putData);
-          console.log('PUT request response:', response.data);
-
-          console.log('Successfully updated the product on the server');
-      } else {
-          console.error('Item to add not found in the cart');
-      }
-
-
-      for (const row of carts.data.rows) {
-        await axios.put(`${apiUrl}/api/cart-products/${row.product_id}`, {
-          totalAmount: updatedTotalAmount.toFixed(2)
-        });
-      }
-
-      cartCtx.addItem({...newItem, price: +newItem.price, amount: 1});
-  } catch (error) {
-      
-  }
-
-
-
-
-
-
-
-
-
-
-
-  } else {}
-
-  };
-
-  let amount = <span className={classes.amount}>0</span>;
-
-  if (item.length === 0) {
-    return;
-  } else {
-    if (item[0])
-      amount = <span className={classes.amount}>{item[0].amount}</span>;
-  }
+  
 
     return (
         <motion.div initial='initial' animate='animate' exit={{ opacity: 0 }}>
@@ -226,16 +75,14 @@ function Detail ({ product, cart, productId }) {
                   <motion.button
                     whileTap={{ scale: [0.9, 1.1, 0.9, 1] }}
                     transition={{type:'spring', stiffness: 500}}
-                    onClick={() => cartItemRemoveHandler(product.id)}
                     className={classes.minus}
                   >
                     -
                   </motion.button>
-                  {amount}
+                  <span className={classes.amount}>{product.amount}</span>
                   <motion.button
                     whileTap={{ scale: [0.9, 1.1, 0.9, 1] }}
                     transition={{type:'spring', stiffness: 500}}
-                    onClick={() => cartItemAddHandler(product)}
                     className={classes.plus}
                   >
                     +
@@ -247,7 +94,6 @@ function Detail ({ product, cart, productId }) {
                 <motion.button
                   whileTap={{ scale: [0.9, 1.1, 0.9, 1] }}
                   transition={{type:'spring', stiffness: 500}}
-                  onClick={() => cartItemAddHandler(product)}
                   className={classes['add-to-cart']}
                 >
                   Add to cart

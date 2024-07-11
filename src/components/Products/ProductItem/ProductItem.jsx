@@ -12,6 +12,7 @@ const apiUrl = import.meta.env.VITE_API_URL;
 const ProductItem = (props) => {
     const cartCtx = useContext(CartContext);
     const [userId, setUserId] = useState(() => Cookies.get('userId') || '');
+    const [amount, setAmount] = useState(0);
 
     useEffect(() => {
         if (!userId) {
@@ -19,6 +20,16 @@ const ProductItem = (props) => {
             Cookies.set('userId', newUserId);
             setUserId(newUserId);
         }
+            async function fetchCartProductAmount(){
+                try {
+                    const carts = await axios.get(`${apiUrl}/cart-products`);
+                    const cart = carts.data.rows.find(c=> c.product_id === +props.id);
+                    setAmount(cart.amount);
+                } catch (err) { console.error(err) }
+            }
+            
+            fetchCartProductAmount();
+                
     }, [userId]);
 
     const price = `£${+props.price.toFixed(2)}`;
@@ -89,7 +100,7 @@ const ProductItem = (props) => {
     
     return (
         <li className={classes.product}>
-            <Link to={`/products/${props.id}?id=${props.id}&name=${encodeURIComponent(props.name)}&description=${encodeURIComponent(props.description)}&price=${props.price}`} >
+            <Link to={`/products/${props.id}?id=${props.id}&name=${encodeURIComponent(props.name)}&description=${encodeURIComponent(props.description)}&price=${props.price}&amount=${amount}`} >
                 <div>
                     <h3>{props.name}</h3>
                     <div className={classes.description}>{props.description}</div>
