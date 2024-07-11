@@ -30,7 +30,7 @@ const ProductItem = (props) => {
             
             fetchCartProductAmount();
 
-    }, [userId]);
+    }, [userId, props.id]);
 
     const price = `£${+props.price.toFixed(2)}`;
 
