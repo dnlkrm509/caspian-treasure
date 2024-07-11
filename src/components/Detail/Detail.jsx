@@ -63,14 +63,13 @@ function Detail ({ product, productId }) {
 
     let updatedTotalAmount;
     
-    if (existingCartItem.length === 0) {
-      updatedTotalAmount = 0;
-    }
-    
     let updatedItem;
 
     if (existingCartItem) {
       updatedTotalAmount = +existingCartItem.totalAmount - +existingCartItem.price;
+      if (existingCartItem.length === 0) {
+        updatedTotalAmount = 0;
+      }
 
       if(existingCartItem.amount === 1) {
         try {
@@ -101,6 +100,10 @@ function Detail ({ product, productId }) {
             
       } else {
         updatedTotalAmount = +existingCartItem.totalAmount - +existingCartItem.price;
+        if (existingCartItem.length === 0) {
+          updatedTotalAmount = 0;
+        }
+        
         updatedItem = {...existingCartItem, 
           amount: existingCartItem.amount - 1};
         try {   
