@@ -169,7 +169,36 @@ function Detail ({ product, productId }) {
 
 
 
-    } else {}
+    } else {
+      updatedTotalAmount = +newItem.price;
+
+      try {
+        const updatedProduct = { name: newItem.name, product_id: +newItem.id, amount: 1, description: newItem.description, price: +newItem.price };
+
+        const postUrl = `${apiUrl}/api/cart-products`;
+        const postData = {
+            newProduct: updatedProduct,
+            totalAmount: updatedTotalAmount.toFixed(2)
+        };
+
+        const response = await axios.post(postUrl, postData);
+        console.log('PUT request response:', response.data);
+
+        console.log('Successfully updated the product on the server');
+
+
+        for (const row of carts) {
+          await axios.put(`${apiUrl}/api/cart-products/${row.product_id}`, {
+            totalAmount: updatedTotalAmount.toFixed(2)
+          });
+        }
+
+        cartCtx.addItem({ name: newItem.name, product_id: +newItem.id, amount: 1, description: newItem.description, price: +newItem.price });
+        setNewAmount(updatedProduct.amount);
+    } catch (error) {
+        
+    }
+    }
 
   };
 
