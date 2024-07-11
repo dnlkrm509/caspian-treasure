@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import classes from './Detail.module.css';
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import axios from "axios";
 import CartContext from "../../store/cart-context";
 
@@ -37,6 +37,132 @@ const apiUrl = import.meta.env.VITE_API_URL;
 function Detail ({ product, productId }) {
 
   const cartCtx = useContext(CartContext);
+
+  const cartItemRemoveHandler = async (id) => {
+    const response = await axios.get(`${apiUrl}/api/cart-products`);
+    const carts = response.data.rows;
+    const existingCartItem = carts.find(item => item.product_id === +id);
+
+    let updatedTotalAmount = +existingCartItem.totalAmount - +existingCartItem.price;;
+    
+    if (existingCartItem.length === 0) {
+      updatedTotalAmount = 0;
+    }
+    
+    let updatedItem;
+
+    if (existingCartItem) {
+      if(existingCartItem.amount === 1) {
+        try {
+
+          if (existingCartItem) {
+            await axios.delete(`${apiUrl}/api/cart-products/${existingCartItem.product_id}`);
+            if (carts.length === 0) {
+              updatedTotalAmount = 0;
+            }
+
+                
+            for (const row of carts) {
+              if (row.product_id !== parseInt(id)) {
+                await axios.put(`${apiUrl}/api/cart-products/${row.product_id}`, {
+                  totalAmount: updatedTotalAmount.toFixed(2)
+                });
+              }
+            }
+
+            cartCtx.removeItem(parseInt(id));
+          } else {
+            console.warn('Item to delete not found in the cart');
+          }
+        } catch (err) {
+          console.error('Failed to delete data!', err);
+        }
+            
+      } else {
+        updatedItem = {...existingCartItem, 
+          amount: existingCartItem.amount - 1};
+        try {   
+          await axios.put(`${apiUrl}/api/cart-products/${existingCartItem.product_id}`, {
+            newProduct: updatedItem,
+            totalAmount: `${updatedTotalAmount.toFixed(2)}`
+          });
+
+          for (const row of carts) {
+            await axios.put(`${apiUrl}/api/cart-products/${row.product_id}`, {
+              totalAmount: updatedTotalAmount.toFixed(2)
+            });
+          }
+            
+          cartCtx.removeItem(parseInt(id));
+        } catch (error) {
+          console.error('Failed to delete data!', error);
+        }
+      }
+
+
+
+
+
+
+
+
+
+    }
+
+      
+  };
+
+  const cartItemAddHandler = async (newItem) => {
+    const response = await axios.get(`${apiUrl}/api/cart-products`);
+    const carts = response.data.rows;
+    const existingCartItem = carts.find(item => item.product_id === +newItem.product_id);
+
+    let updatedTotalAmount;
+
+    if (existingCartItem) {
+      updatedTotalAmount = existingCartItem.totalAmount + +newItem.price;
+
+      try {
+        const carts = await axios.get(`${apiUrl}/api/cart-products`);
+        
+        const updatedProduct = { ...newItem, amount: newItem.amount + 1 };
+
+        const putUrl = `${apiUrl}/api/cart-products/${itemToAdd.product_id}`;
+        const putData = {
+            newProduct: updatedProduct,
+            totalAmount: updatedTotalAmount.toFixed(2)
+        };
+
+        const response = await axios.put(putUrl, putData);
+        console.log('PUT request response:', response.data);
+
+        console.log('Successfully updated the product on the server');
+
+
+        for (const row of carts) {
+          await axios.put(`${apiUrl}/api/cart-products/${row.product_id}`, {
+            totalAmount: updatedTotalAmount.toFixed(2)
+          });
+        }
+
+        cartCtx.addItem({...newItem, price: +newItem.price, amount: 1});
+    } catch (error) {
+        
+    }
+
+
+
+
+
+
+
+
+
+
+
+    } else {}
+
+  };
 
     return (
         <motion.div initial='initial' animate='animate' exit={{ opacity: 0 }}>
@@ -73,6 +199,7 @@ function Detail ({ product, productId }) {
                   <motion.button
                     whileTap={{ scale: [0.9, 1.1, 0.9, 1] }}
                     transition={{type:'spring', stiffness: 500}}
+                    onClick={() => cartItemRemoveHandler(product.id)}
                     className={classes.minus}
                   >
                     -
@@ -81,6 +208,7 @@ function Detail ({ product, productId }) {
                   <motion.button
                     whileTap={{ scale: [0.9, 1.1, 0.9, 1] }}
                     transition={{type:'spring', stiffness: 500}}
+                    onClick={() => cartItemAddHandler(product)}
                     className={classes.plus}
                   >
                     +
@@ -92,6 +220,7 @@ function Detail ({ product, productId }) {
                 <motion.button
                   whileTap={{ scale: [0.9, 1.1, 0.9, 1] }}
                   transition={{type:'spring', stiffness: 500}}
+                  onClick={() => cartItemAddHandler(product)}
                   className={classes['add-to-cart']}
                 >
                   Add to cart
