@@ -109,18 +109,16 @@ function Detail ({ product, productId }) {
     const response = await axios.get(`${apiUrl}/api/cart-products`);
     const carts = response.data.rows;
     const existingCartItem = carts.find(item => item.product_id === +newItem.id);
-console.log(existingCartItem)
+    
     let updatedTotalAmount;
 
     if (existingCartItem) {
       updatedTotalAmount = existingCartItem.totalAmount + +newItem.price;
 
       try {
-        const carts = await axios.get(`${apiUrl}/api/cart-products`);
-        
-        const updatedProduct = { ...newItem, amount: newItem.amount + 1 };
+        const updatedProduct = { ...existingCartItem, amount: existingCartItem.amount + 1 };
 
-        const putUrl = `${apiUrl}/api/cart-products/${itemToAdd.product_id}`;
+        const putUrl = `${apiUrl}/api/cart-products/${existingCartItem.product_id}`;
         const putData = {
             newProduct: updatedProduct,
             totalAmount: updatedTotalAmount.toFixed(2)
@@ -138,7 +136,7 @@ console.log(existingCartItem)
           });
         }
 
-        cartCtx.addItem({...newItem, price: +newItem.price, amount: 1});
+        cartCtx.addItem({...existingCartItem, price: +newItem.price, amount: 1});
     } catch (error) {
         
     }
