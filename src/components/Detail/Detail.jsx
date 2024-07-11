@@ -61,7 +61,7 @@ function Detail ({ product, productId }) {
     const carts = response.data.rows;
     const existingCartItem = carts.find(item => item.product_id === +id);
 
-    let updatedTotalAmount = +existingCartItem.totalAmount - +existingCartItem.price;;
+    let updatedTotalAmount;
     
     if (existingCartItem.length === 0) {
       updatedTotalAmount = 0;
@@ -70,6 +70,8 @@ function Detail ({ product, productId }) {
     let updatedItem;
 
     if (existingCartItem) {
+      updatedTotalAmount = +existingCartItem.totalAmount - +existingCartItem.price;
+
       if(existingCartItem.amount === 1) {
         try {
 
@@ -98,6 +100,7 @@ function Detail ({ product, productId }) {
         }
             
       } else {
+        updatedTotalAmount = +existingCartItem.totalAmount - +existingCartItem.price;
         updatedItem = {...existingCartItem, 
           amount: existingCartItem.amount - 1};
         try {   
