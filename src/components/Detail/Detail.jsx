@@ -118,7 +118,7 @@ function Detail ({ product, productId }) {
   const cartItemAddHandler = async (newItem) => {
     const response = await axios.get(`${apiUrl}/api/cart-products`);
     const carts = response.data.rows;
-    const existingCartItem = carts.find(item => item.product_id === +newItem.product_id);
+    const existingCartItem = carts.find(item => item.product_id === +newItem.id);
 
     let updatedTotalAmount;
 
