@@ -44,12 +44,12 @@ function Detail ({ product, productId }) {
         const carts = response.data.rows;
         const existingCartItem = carts.find(item => item.product_id === +product.id);
         setNewAmount(existingCartItem.amount);
-        
+
       } catch (error) {console.error(error)};
     }
 
     fetchCartProductAmount();
-  }, [product.id])
+  }, [product.id, setNewAmount])
   
   const cartCtx = useContext(CartContext);
 
