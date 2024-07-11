@@ -22,7 +22,7 @@ function DetailPage() {
         name: decodeURIComponent(name),
         description: decodeURIComponent(description),
         price,
-        amount
+        amount: decodeURIComponent(amount)
     }
 
     const cartCTX = useContext(CartContext);

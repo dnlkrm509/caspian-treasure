@@ -29,7 +29,7 @@ const ProductItem = (props) => {
             }
             
             fetchCartProductAmount();
-            
+
     }, [userId]);
 
     const price = `£${+props.price.toFixed(2)}`;
@@ -100,7 +100,7 @@ const ProductItem = (props) => {
     
     return (
         <li className={classes.product}>
-            <Link to={`/products/${props.id}?id=${props.id}&name=${encodeURIComponent(props.name)}&description=${encodeURIComponent(props.description)}&price=${props.price}&amount=${amount}`} >
+            <Link to={`/products/${props.id}?id=${props.id}&name=${encodeURIComponent(props.name)}&description=${encodeURIComponent(props.description)}&price=${props.price}&amount=${encodeURIComponent(amount)}`} >
                 <div>
                     <h3>{props.name}</h3>
                     <div className={classes.description}>{props.description}</div>
