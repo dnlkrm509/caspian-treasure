@@ -15,17 +15,18 @@ function DetailPage() {
     const name = query.get('name');
     const description = query.get('description');
     const price = query.get('price');
+    const amount = query .get('amount');
 
     const product = {
         id,
         name: decodeURIComponent(name),
         description: decodeURIComponent(description),
-        price
+        price,
+        amount
     }
 
     const cartCTX = useContext(CartContext);
 
-    const [cart, setCart] = useState([]);
     const [isFetching, setIsFetching] = useState(false);
     const [error, setError] = useState();
     
@@ -37,7 +38,7 @@ function DetailPage() {
 
             try {
                 const products = await axios.get(`${apiUrl}/api/cart-products`);
-                setCart(products.data.rows);
+                
                 cartCTX.setCart({ items: products.data.rows, totalAmount: +products.data.rows[ products.data.rows.length -1 ].totalAmount });
             } catch (error) {
                 setError({ message: "Failed to fetch cart products." });
@@ -51,11 +52,11 @@ function DetailPage() {
 
     return (
         <div>
-            {cart.map(p=>p.name)}
+            {amount}
             {isFetching && <LoadingSpinner />}
             {error && <Error title='An Error occurred!' body={error.message} />}
             {!isFetching && !error && (
-                <Detail product={product} cart={cart} productId={productId} />)}
+                <Detail product={product} productId={productId} />)}
         </div>
     )
 }
