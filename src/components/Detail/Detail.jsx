@@ -53,7 +53,7 @@ function Detail ({ product, cart, productId }) {
 
     const isExistingCartItem = item[0].product_id === +id;
 
-    let updatedTotalAmount = +item[0].totalAmount - +item[0].price;;
+    let updatedTotalAmount = +item[0].totalAmount - +item[0].price;
     
     if (item[0].length === 0) {
       updatedTotalAmount = 0;
