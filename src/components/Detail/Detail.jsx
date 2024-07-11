@@ -103,7 +103,7 @@ function Detail ({ product, productId }) {
         if (existingCartItem.length === 0) {
           updatedTotalAmount = 0;
         }
-        
+
         updatedItem = {...existingCartItem, 
           amount: existingCartItem.amount - 1};
         try {   
@@ -161,19 +161,9 @@ function Detail ({ product, productId }) {
 
         cartCtx.addItem({...existingCartItem, price: +newItem.price, amount: 1});
         setNewAmount(updatedProduct.amount);
-    } catch (error) {
+      } catch (error) {
         
-    }
-
-
-
-
-
-
-
-
-
-
+      }
 
     } else {
       updatedTotalAmount = +newItem.price;
@@ -201,9 +191,9 @@ function Detail ({ product, productId }) {
 
         cartCtx.addItem({ name: newItem.name, product_id: +newItem.id, amount: 1, description: newItem.description, price: +newItem.price });
         setNewAmount(updatedProduct.amount);
-    } catch (error) {
+      } catch (error) {
         
-    }
+      }
     }
 
   };
@@ -260,7 +250,7 @@ function Detail ({ product, productId }) {
                 </div>
                 <span className={classes.price}>{`£${product.price}`}</span>
               </motion.div>
-              <motion.div variants={fadeInUp} className={classes['btn-row']}>
+              <motion.div variants={fadeInUp} className={classes['btn']}>
                 <motion.button
                   whileTap={{ scale: [0.9, 1.1, 0.9, 1] }}
                   transition={{type:'spring', stiffness: 500}}

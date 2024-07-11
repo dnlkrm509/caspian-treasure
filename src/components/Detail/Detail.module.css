@@ -91,6 +91,28 @@ a:hover {
   font-size: 1.25rem;
 }
 
+.btn button {
+  font: inherit;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid #8a2b06;
+  padding: 0.5rem 2rem;
+  border-radius: 25px;
+  margin-left: 1rem;
+}
+
+.btn button:hover,
+.btn button:active {
+  background-color: #5a1a01;
+  border-color: #5a1a01;
+  color: white;
+}
+
+.btn .add-to-cart {
+  background-color: #8a2b06;
+  color: white;
+}
+
 @media (prefers-color-scheme: dark) {
   .product {
     border-color: #222;
@@ -119,4 +141,11 @@ a:hover {
       margin: 0.12rem;
       border-radius: 3px;
   }
+
+  .btn button {
+    padding: 0.2rem 1rem;
+    border-radius: 12px;
+    margin-top: 0.1rem;
+  }
+
 }
