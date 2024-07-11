@@ -226,7 +226,7 @@ function Detail ({ product, productId }) {
               <motion.div variants={fadeInUp}>
                 <h1 className={classes.category}>Caviar</h1>
               </motion.div>
-              <motion.h2 variants={fadeInUp}>{product.name}</motion.h2>
+              <motion.h2 variants={fadeInUp} className={classes.name}>{product.name}</motion.h2>
               <motion.p variants={fadeInUp} className={classes.description}>{product.description}</motion.p>
               <motion.div variants={fadeInUp} className={classes['qty-price']}>
                 <div className={classes.qty}>

@@ -28,6 +28,10 @@ a:hover {
 .go-back {
   align-self: flex-end;
 }
+
+.name {
+  font-weight: bold;
+}
   
 .description {
   line-height: 1.5;
