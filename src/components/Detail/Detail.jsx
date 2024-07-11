@@ -113,7 +113,7 @@ function Detail ({ product, productId }) {
     let updatedTotalAmount;
 
     if (existingCartItem) {
-      updatedTotalAmount = existingCartItem.totalAmount + +newItem.price;
+      updatedTotalAmount = +existingCartItem.totalAmount + +newItem.price;
 
       try {
         const updatedProduct = { ...existingCartItem, amount: existingCartItem.amount + 1 };
