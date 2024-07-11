@@ -36,7 +36,7 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
 function Detail ({ product, productId }) {
 
-  console.log(product.amount)
+  console.log(+product.amount)
   const [newAmount, setNewAmount] = useState(product.amount);
 
   const cartCtx = useContext(CartContext);
