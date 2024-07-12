@@ -5,6 +5,7 @@ import NavSmScreen from "../components/Nav/NavSmScreen";
 
 function ErrorPage() {
     const error = useRouteError();
+    console.log(error)
     const classes = error.data.isNextLine ? '' : 'flex flex-row gap-64';
     const pClasses = error.data.isNextLine ? '' : 'mt-[2%] ml-[3%]';
 
