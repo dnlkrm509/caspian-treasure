@@ -65,3 +65,7 @@ function DetailPage() {
 }
 
 export default DetailPage;
+
+export async function loader({ request, params }) {
+    console.log(request)
+}
