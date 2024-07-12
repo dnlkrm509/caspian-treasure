@@ -70,5 +70,5 @@ export default DetailPage;
 export async function loader({ request, params }) {
     const id = params.productId;
     const product = request.find(item => item.id === id);
-    return id
+    return params
 }
