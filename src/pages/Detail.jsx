@@ -67,10 +67,10 @@ function DetailPage() {
 
 export default DetailPage;
 
-export async function detailLoader() {
+export async function detailLoader({request}) {
     //const id = params.productId;
     
-    return 'id'
+    return request
     // try {
     //     const response = await axios.get(`${apiUrl}/api/products/products/${id}?id=${request.id}&name=${decodeURIComponent(request.name)}&description=${decodeURIComponent(request.description)}&price=${request.price}&amount=${decodeURIComponent(request.amount)}`);
     //     return response.data.rows;
