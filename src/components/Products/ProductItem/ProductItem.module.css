@@ -6,11 +6,11 @@
   border-bottom: 1px solid #ccc;
 }
 
-a {
+.product a {
     color: #222222;
 }
 
-a:hover {
+.product a:hover {
     color: #333131;
 }
 
