@@ -59,6 +59,7 @@ export default AvailableProducts;
 export async function loader () {
   try {
     const response = await axios.get(`${apiUrl}/api/products`);
+    console.log(response)
     return response.data.rows;
   } catch (error) {
     console.error('Error fetching data:', error)
