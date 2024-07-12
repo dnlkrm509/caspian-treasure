@@ -68,6 +68,9 @@ function DetailPage() {
 export default DetailPage;
 
 export async function detailLoader({ request, params }) {
+    const url = new URL(request.url);
+    const query = url.searchParams;
+    
     //const id = params.productId;
     const id = query.get('id');
     const name = query.get('name');
