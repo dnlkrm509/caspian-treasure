@@ -1,14 +1,49 @@
+import { useRouteError } from 'react-router-dom';
+
 import NavLgScreen from "../components/Nav/NavLgSreen";
 import NavSmScreen from "../components/Nav/NavSmScreen";
-import Error from "../components/UI/Error";
 
 function ErrorPage() {
+    const error = useRouteError();
+    const classes = error.data.isNextLine ? undefined : 'flex gap-64';
+    const pClasses = error.data.isNextLine ? undefined : 'mt-[2%] ml-[3%]';
+
+    let button;
+    if (error.data.button) {
+        button = <button
+                    onClick={props.onClick}
+                    className="flex-none p-4 rounded-[20px] bg-amber-200 hover:bg-amber-300 active:bg-amber-400
+                        focus:outline-none focus:ring focus:ring-amber-100"
+                >
+                    Try again
+                </button>
+    }
+
+
+    let title = 'An error occurred!';
+    let message = 'Something went wrong!';
+
+    if (error.status === 500) {
+        message = error.data.message;
+    }
+
+    if (error.status === 404) {
+        title = 'Not found';
+        message = 'Could not find resource or page.'
+    }
+
     return (
         <>
             <NavLgScreen />
             <NavSmScreen />
             <main className="fixed t-[50px]">
-                <Error title='An error occurred!' body='Could not find this page' isNextLine={true} />
+                <div className={classes}>
+                    {button}
+                    <div className="grow">
+                        <h1>{ title }</h1>
+                        <p className={pClasses}>{ message }</p>
+                    </div>
+                </div>
             </main>
         </>
     )
