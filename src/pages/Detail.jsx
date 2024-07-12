@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, json } from "react-router-dom";
 import Detail from "../components/Detail/Detail";
 import { useContext, useEffect } from "react";
 import CartContext from "../store/cart-context";
