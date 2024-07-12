@@ -1,4 +1,4 @@
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, useRouteLoaderData } from "react-router-dom";
 import Detail from "../components/Detail/Detail";
 import { useContext, useEffect, useState } from "react";
 import CartContext from "../store/cart-context";
@@ -9,6 +9,7 @@ import Error from '../components/UI/Error';
 const apiUrl = import.meta.env.VITE_API_URL;
 
 function DetailPage() {
+    const data = useRouteLoaderData('products');
     const { productId } = useParams();
     const query = new URLSearchParams(useLocation().search);
     const id = query.get('id');
@@ -29,6 +30,7 @@ function DetailPage() {
 
     const [isFetching, setIsFetching] = useState(false);
     const [error, setError] = useState();
+    console.log(data)
     
 
     useEffect(() => {
@@ -67,5 +69,5 @@ function DetailPage() {
 export default DetailPage;
 
 export async function loader({ request, params }) {
-    console.log(request)
+    return request
 }
