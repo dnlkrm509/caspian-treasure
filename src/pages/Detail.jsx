@@ -9,8 +9,8 @@ import Error from '../components/UI/Error';
 const apiUrl = import.meta.env.VITE_API_URL;
 
 function DetailPage() {
-    const data = useLoaderData();
-    console.log(data)
+    //const data = useLoaderData();
+    //console.log(data)
     const { productId } = useParams();
     const query = new URLSearchParams(useLocation().search);
     const id = query.get('id');
