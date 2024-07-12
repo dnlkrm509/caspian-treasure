@@ -31,11 +31,11 @@ export async function detailLoader({ request, params }) {
     const url = new URL(request.url);
     const query = url.searchParams;
 
-    const id = query.get('id');
-    const name = query.get('name');
-    const description = query.get('description');
-    const price = query.get('price');
-    const amount = query .get('amount');
+    const id = query.get('id') || '';
+    const name = query.get('name') || '';
+    const description = query.get('description') || '';
+    const price = query.get('price') || '';
+    const amount = query.get('amount') || '';
 
     const product = {
         id,
