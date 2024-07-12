@@ -58,7 +58,7 @@ const router = createBrowserRouter([
               <DetailPage />
             </Suspense>
             ),
-            loader: ({ request, params }) => import('./pages/Detail.jsx').then(module => module.detailLoader({ request, params }))
+            loader: (args) => import('./pages/Detail.jsx').then(module => module.detailLoader(args))
           }
         ]
       }
