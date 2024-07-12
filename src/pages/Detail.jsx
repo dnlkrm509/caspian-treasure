@@ -18,7 +18,7 @@ function DetailPage() {
                 totalAmount: +data.carts[data.carts.length - 1].totalAmount,
             });
         }
-    }, [data.carts, cartCTX]);
+    }, []);
 
     return (
         <Detail product={data.product} productId={data.productId} />
@@ -51,7 +51,7 @@ export async function detailLoader({ request, params }) {
 
     } catch (error) {
         console.error('Failed to fetch cart products:', error.message);
-        
+
         if (product.id) {
             return { product, productId: params.productId, carts: [] };
         } else {
