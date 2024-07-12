@@ -1,4 +1,4 @@
-import { useParams, useLocation, useRouteLoaderData } from "react-router-dom";
+import { useParams, useLocation, useLoaderData } from "react-router-dom";
 import Detail from "../components/Detail/Detail";
 import { useContext, useEffect, useState } from "react";
 import CartContext from "../store/cart-context";
@@ -9,7 +9,7 @@ import Error from '../components/UI/Error';
 const apiUrl = import.meta.env.VITE_API_URL;
 
 function DetailPage() {
-    const data = useRouteLoaderData('products');
+    const data = useLoaderData();
     console.log(data)
     const { productId } = useParams();
     const query = new URLSearchParams(useLocation().search);

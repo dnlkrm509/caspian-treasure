@@ -43,7 +43,6 @@ const router = createBrowserRouter([
         </Suspense>
       ) },
       { path: '/products',
-        id: 'products',
         children: [
           { index: true,
             element: (

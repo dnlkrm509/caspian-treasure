@@ -1,12 +1,12 @@
 import Card from '../UI/Card/Card';
 import classes from './AvailableProducts.module.css';
 import ProductItem from './ProductItem/ProductItem';
-import { useRouteLoaderData } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Error from '../UI/Error';
 
 const AvailableProducts = () => {
-    const products = useRouteLoaderData('products');
+    const products = useLoaderData();
 
     let productsList = <li><Error title='No Products found.' isNextLine={false} /></li>;
 
