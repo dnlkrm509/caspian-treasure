@@ -53,11 +53,14 @@ const router = createBrowserRouter([
             </Suspense>
           ),
           },
-          { path: ':productId', element: (
+          { path: ':productId',
+            element: (
             <Suspense fallback={<LoadingSpinner />}>
               <DetailPage />
             </Suspense>
-          )}
+            ),
+            loader: () => import('./components/Detail/Detail.jsx')
+          }
         ]
       }
     ]
