@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router-dom";
 import Detail from "../components/Detail/Detail";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import CartContext from "../store/cart-context";
 import axios from "axios";
 
@@ -11,7 +11,14 @@ function DetailPage() {
 
     const cartCTX = useContext(CartContext);
 
-    cartCTX.setCart({ items: data.carts, totalAmount: +data.carts[ data.carts.length -1 ].totalAmount });
+    useEffect(() => {
+        if (data.carts && data.carts.length > 0) {
+            cartCTX.setCart({
+                items: data.carts,
+                totalAmount: +data.carts[data.carts.length - 1].totalAmount,
+            });
+        }
+    }, [data.carts, cartCTX]);
 
     return (
         <Detail product={data.product} productId={data.productId} />
@@ -44,11 +51,11 @@ export async function detailLoader({ request, params }) {
 
     } catch (error) {
         if (product.id) {
-            return ;
+            return { product, productId: params.productId, carts: [] };
         } else {
             throw json( { isNextLine: true, message: 'Failed to fetch cart products.' }, {
                 status: 500
               } )
         }
     }
-}
+}   
