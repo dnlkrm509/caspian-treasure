@@ -52,16 +52,14 @@ const router = createBrowserRouter([
               <ProductsPage />
             </Suspense>
           ),
-      },
+          },
           { path: ':productId', element: (
             <Suspense fallback={<LoadingSpinner />}>
               <DetailPage />
             </Suspense>
-          ) }
-
+          )}
         ]
-       }
-      
+      }
     ]
   }
 ]);
