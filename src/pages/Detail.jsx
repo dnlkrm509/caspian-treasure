@@ -46,7 +46,7 @@ export async function detailLoader({ request, params }) {
     }
 
     try {
-        const products = await axios.get(`${apiUrl}/api/cart-products`);
+        const products = await axios.get(`${apiUrl}/api/cart-productsss`);
         return { product, productId: params.productId, carts: products.data.rows };
 
     } catch (error) {
