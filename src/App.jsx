@@ -3,7 +3,7 @@ import { lazy, Suspense } from 'react';
 
 import RootLayout from './pages/Root.jsx';
 import LoadingSpinner from './components/UI/LoadingSpinner/LoadingSpinner.jsx';
-import { loader as loaderProducts } from './components/Products/AvailableProducts.jsx';
+import { loader as loaderProducts } from './pages/Products.jsx';
 
 const HomePage = lazy(() => import('./pages/Home.jsx'));
 const AboutPage = lazy(() => import('./pages/About.jsx'));

@@ -1,12 +1,9 @@
 import Card from '../UI/Card/Card';
 import classes from './AvailableProducts.module.css';
 import ProductItem from './ProductItem/ProductItem';
-import { useRouteLoaderData, json } from 'react-router-dom';
+import { useRouteLoaderData } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import axios from 'axios';
 import Error from '../UI/Error';
-
-const apiUrl = import.meta.env.VITE_API_URL;
 
 const AvailableProducts = () => {
     const products = useRouteLoaderData('products');
@@ -41,15 +38,3 @@ const AvailableProducts = () => {
 };
 
 export default AvailableProducts;
-
-export async function loader () {
-  try {
-    const response = await axios.get(`${apiUrl}/api/products`);
-    return response.data.rows;
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    throw json( { isNextLine: false, button, message: 'Failed to fetch products.' }, {
-      status: 500
-    } )
-  }
-}

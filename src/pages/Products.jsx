@@ -4,7 +4,7 @@ import img from '../../public/image3.jpg';
 import { useContext, useEffect, useState } from "react";
 import CartContext from "../store/cart-context.js";
 import axios from "axios";
-
+import { json } from "react-router-dom";
 const apiUrl = import.meta.env.VITE_API_URL;
 
 function ProductsPage() {
@@ -44,3 +44,15 @@ function ProductsPage() {
 }
 
 export default ProductsPage;
+
+export async function loader () {
+    try {
+      const response = await axios.get(`${apiUrl}/api/products`);
+      return response.data.rows;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      throw json( { isNextLine: false, button, message: 'Failed to fetch products.' }, {
+        status: 500
+      } )
+    }
+}
