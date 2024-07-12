@@ -44,14 +44,14 @@ const router = createBrowserRouter([
       ) },
       { path: '/products',
         id: 'products',
-        loader: () => import('./pages/Products.jsx').then(module => module.loader()),
         children: [
           { index: true,
             element: (
-            <Suspense fallback={<LoadingSpinner />}>
-              <ProductsPage />
-            </Suspense>
-          ),
+              <Suspense fallback={<LoadingSpinner />}>
+                <ProductsPage />
+              </Suspense>
+            ),
+            loader: () => import('./pages/Products.jsx').then(module => module.loader())
           },
           { path: ':productId',
             element: (
@@ -59,7 +59,7 @@ const router = createBrowserRouter([
               <DetailPage />
             </Suspense>
             ),
-            loader: () => import('./components/Detail/Detail.jsx').then(module => module.loader())
+            loader: () => import('./pages/Detail.jsx').then(module => module.loader())
           }
         ]
       }
