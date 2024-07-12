@@ -67,7 +67,7 @@ function DetailPage() {
 
 export default DetailPage;
 
-export async function loader(props) {
+export async function detailLoader(props) {
     //const id = params.productId;
     
     return props
