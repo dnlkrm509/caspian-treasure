@@ -5,7 +5,6 @@ import NavSmScreen from "../components/Nav/NavSmScreen";
 
 function ErrorPage() {
     const error = useRouteError();
-    console.log(error)
     let classes = '';
     let pClasses = '';
 
