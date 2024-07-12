@@ -3,6 +3,7 @@ import { lazy, Suspense } from 'react';
 
 import RootLayout from './pages/Root.jsx';
 import LoadingSpinner from './components/UI/LoadingSpinner/LoadingSpinner.jsx';
+import { loader as loaderProducts } from './components/Products/AvailableProducts.jsx';
 
 const HomePage = lazy(() => import('./pages/Home.jsx'));
 const AboutPage = lazy(() => import('./pages/About.jsx'));
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
       </Suspense>
     ),
     children: [
-      { path: '/' , element: (
+      { index: true , element: (
         <Suspense fallback={<LoadingSpinner />}>
           <HomePage />
         </Suspense>
@@ -42,16 +43,26 @@ const router = createBrowserRouter([
           <CheckoutPage />
         </Suspense>
       ) },
-      { path: '/products', element: (
-        <Suspense fallback={<LoadingSpinner />}>
-          <ProductsPage />
-        </Suspense>
-      ) },
-      { path: '/products/:productId', element: (
-        <Suspense fallback={<LoadingSpinner />}>
-          <DetailPage />
-        </Suspense>
-      ) }
+      { path: '/products',
+        id: 'products',
+        children: [
+          { index: true,
+            element: (
+            <Suspense fallback={<LoadingSpinner />}>
+              <ProductsPage />
+            </Suspense>
+          ),
+        loader: loaderProducts
+      },
+          { path: ':productId', element: (
+            <Suspense fallback={<LoadingSpinner />}>
+              <DetailPage />
+            </Suspense>
+          ) }
+
+        ]
+       }
+      
     ]
   }
 ]);
