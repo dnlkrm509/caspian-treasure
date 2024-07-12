@@ -68,7 +68,7 @@ function DetailPage() {
 export default DetailPage;
 
 export async function loader({ request, params }) {
-    const id = params.productId;
+    //const id = params.productId;
     
     return params
     // try {
