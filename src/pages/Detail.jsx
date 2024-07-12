@@ -70,14 +70,14 @@ export default DetailPage;
 export async function loader({ request, params }) {
     const id = params.productId;
     
-    try {
-        const response = await axios.get(`${apiUrl}/api/products/products/${id}?id=${request.id}&name=${decodeURIComponent(request.name)}&description=${decodeURIComponent(request.description)}&price=${request.price}&amount=${decodeURIComponent(request.amount)}`);
-        return response.data.rows;
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        throw json( { isNextLine: false, message: 'Failed to fetch details for selected product.' }, {
-          status: 500
-        } )
-      }
-    return props
+    return params
+    // try {
+    //     const response = await axios.get(`${apiUrl}/api/products/products/${id}?id=${request.id}&name=${decodeURIComponent(request.name)}&description=${decodeURIComponent(request.description)}&price=${request.price}&amount=${decodeURIComponent(request.amount)}`);
+    //     return response.data.rows;
+    //   } catch (error) {
+    //     console.error('Error fetching data:', error);
+    //     throw json( { isNextLine: false, message: 'Failed to fetch details for selected product.' }, {
+    //       status: 500
+    //     } )
+    // }
 }
