@@ -14,7 +14,7 @@ function ErrorPage() {
     let message = 'Something went wrong!';
 
     if (error.status === 500) {
-        classes = error.data.isNextLine ? '' : 'flex flex-row gap-64';
+        classes = error.data.isNextLine ? 'flex' : 'flex flex-row gap-64';
         pClasses = error.data.isNextLine ? '' : 'mt-[2%] ml-[3%]';
     
         if (error.data.button) {

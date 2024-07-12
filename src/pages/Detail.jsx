@@ -1,10 +1,8 @@
 import { useLoaderData } from "react-router-dom";
 import Detail from "../components/Detail/Detail";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import CartContext from "../store/cart-context";
 import axios from "axios";
-import LoadingSpinner from "../components/UI/LoadingSpinner/LoadingSpinner";
-import Error from '../components/UI/Error';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -16,9 +14,7 @@ function DetailPage() {
     cartCTX.setCart({ items: data.carts, totalAmount: +data.carts[ data.carts.length -1 ].totalAmount });
 
     return (
-        <div>
-            <Detail product={data.product} productId={data.productId} />
-        </div>
+        <Detail product={data.product} productId={data.productId} />
     )
 }
 
