@@ -45,6 +45,7 @@ const router = createBrowserRouter([
       ) },
       { path: '/products',
         id: 'products',
+        loader: loaderProducts,
         children: [
           { index: true,
             element: (
@@ -52,7 +53,6 @@ const router = createBrowserRouter([
               <ProductsPage />
             </Suspense>
           ),
-        loader: loaderProducts
       },
           { path: ':productId', element: (
             <Suspense fallback={<LoadingSpinner />}>
