@@ -11,7 +11,8 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
 const AvailableProducts = () => {
   const products = useRouteLoaderData('products');
-  
+  console.log(products)
+
     //let productsList = <li><Error title='No Products found.' isNextLine={false} /></li>;
 
     //const btnClasses = error ? classes['try-again'] : '';
