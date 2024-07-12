@@ -9,8 +9,8 @@ import Error from '../components/UI/Error';
 const apiUrl = import.meta.env.VITE_API_URL;
 
 function DetailPage() {
-    //const data = useLoaderData();
-    //console.log(data)
+    const data = useLoaderData();
+    console.log(data)
     const { productId } = useParams();
     const query = new URLSearchParams(useLocation().search);
     const id = query.get('id');
@@ -67,10 +67,10 @@ function DetailPage() {
 
 export default DetailPage;
 
-export async function detailLoader(props) {
+export async function detailLoader() {
     //const id = params.productId;
     
-    return props
+    return 'id'
     // try {
     //     const response = await axios.get(`${apiUrl}/api/products/products/${id}?id=${request.id}&name=${decodeURIComponent(request.name)}&description=${decodeURIComponent(request.description)}&price=${request.price}&amount=${decodeURIComponent(request.amount)}`);
     //     return response.data.rows;
