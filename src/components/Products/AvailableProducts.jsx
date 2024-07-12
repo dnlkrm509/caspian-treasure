@@ -34,8 +34,6 @@ const AvailableProducts = () => {
       />
     ));
 
-    const ulClasses = isFetching ? classes.isLoading : '';
-
     return (
         
         <section className={classes.products}>
@@ -43,7 +41,7 @@ const AvailableProducts = () => {
             <motion.ul
               initial={{ opacity: 0, y: '3rem'}}
               animate={{opacity: 1, y: 0}}
-              className={`w-full ${ulClasses}`}
+              className={`w-full`}
             >
               {productsList}
             </motion.ul>
