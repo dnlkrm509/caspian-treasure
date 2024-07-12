@@ -50,6 +50,8 @@ export async function detailLoader({ request, params }) {
         return { product, productId: params.productId, carts: products.data.rows };
 
     } catch (error) {
+        console.error('Failed to fetch cart products:', error.message);
+        
         if (product.id) {
             return { product, productId: params.productId, carts: [] };
         } else {
