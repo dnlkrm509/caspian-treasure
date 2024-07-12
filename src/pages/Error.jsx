@@ -5,13 +5,12 @@ import NavSmScreen from "../components/Nav/NavSmScreen";
 
 function ErrorPage() {
     const error = useRouteError();
-    const classes = error.data.isNextLine ? undefined : 'flex gap-64';
-    const pClasses = error.data.isNextLine ? undefined : 'mt-[2%] ml-[3%]';
+    const classes = error.data.isNextLine ? '' : 'flex flex-row gap-64';
+    const pClasses = error.data.isNextLine ? '' : 'mt-[2%] ml-[3%]';
 
     let button;
     if (error.data.button) {
         button = <button
-                    onClick={props.onClick}
                     className="flex-none p-4 rounded-[20px] bg-amber-200 hover:bg-amber-300 active:bg-amber-400
                         focus:outline-none focus:ring focus:ring-amber-100"
                 >
