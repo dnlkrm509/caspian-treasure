@@ -1,34 +1,22 @@
 import Products from "../components/Products/Products.jsx";
 import classes from './Products.module.css';
 import img from '../../public/image3.jpg';
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import CartContext from "../store/cart-context.js";
 import axios from "axios";
-import { json } from "react-router-dom";
-const apiUrl = import.meta.env.VITE_API_URL;
+import { useRouteLoaderData, json } from "react-router-dom";
 
 function ProductsPage() {
+    const data = useRouteLoaderData('root');
     const cartCTX = useContext(CartContext);
-
-    const [isFetching, setIsFetching] = useState(false);
-    const [error, setError] = useState();
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        async function fetchCartProduct() {
-        setIsFetching(true);
+        cartCTX.setCart({
+            items: data,
+            totalAmount: +data[ data.length -1 ].totalAmount
+        });
 
-        try {
-            const products = await axios.get(`${apiUrl}/api/cart-products`);
-            cartCTX.setCart({ items: products.data.rows, totalAmount: +products.data.rows[ products.data.rows.length -1 ].totalAmount });
-        } catch (error) {
-            setError({ message: "Failed to fetch cart products." });
-        }
-
-        setIsFetching(false);
-        }
-
-        fetchCartProduct();
     }, [])
 
     return (

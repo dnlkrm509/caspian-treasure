@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import About from "../components/About/About.jsx";
 import { useRouteLoaderData } from 'react-router-dom';
 import CartContext from "../store/cart-context.js";

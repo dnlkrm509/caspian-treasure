@@ -1,32 +1,19 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import Contact from "../components/Contact/Contact";
 import CartContext from "../store/cart-context";
-import axios from "axios";
-
-const apiUrl = import.meta.env.VITE_API_URL;
+import { useRouteLoaderData } from 'react-router-dom';
 
 function ContactPage() {
+    const data = useRouteLoaderData('root');
     const cartCTX = useContext(CartContext);
-
-    const [isFetching, setIsFetching] = useState(false);
-    const [error, setError] = useState();
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        async function fetchCartProduct() {
-        setIsFetching(true);
+        cartCTX.setCart({
+            items: data,
+            totalAmount: +data[ data.length -1 ].totalAmount
+        });
 
-        try {
-            const products = await axios.get(`${apiUrl}/api/cart-products`);
-            cartCTX.setCart({ items: products.data.rows, totalAmount: +products.data.rows[ products.data.rows.length -1 ].totalAmount });
-        } catch (error) {
-            setError({ message: "Failed to fetch cart products." });
-        }
-
-        setIsFetching(false);
-        }
-
-        fetchCartProduct();
     }, [])
 
     return (
