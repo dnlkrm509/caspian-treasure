@@ -6,6 +6,8 @@ import CartContext from "../store/cart-context.js";
 import axios from "axios";
 import { useRouteLoaderData, json } from "react-router-dom";
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 function ProductsPage() {
     const data = useRouteLoaderData('root');
     const cartCTX = useContext(CartContext);
