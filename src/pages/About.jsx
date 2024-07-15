@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import About from "../components/About/About.jsx";
+import { useRouteLoaderData } from 'react-router-dom';
 import CartContext from "../store/cart-context.js";
-import axios from "axios";
-
-const apiUrl = import.meta.env.VITE_API_URL;
 
 function AboutPage() {
+    const data = useRouteLoaderData('root');
+    console.log(data);
     const cartCTX = useContext(CartContext);
 
     const [isFetching, setIsFetching] = useState(false);

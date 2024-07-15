@@ -16,11 +16,13 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
+    id: 'root',
     errorElement: (
       <Suspense fallback={<LoadingSpinner />}>
         <ErrorPage />
       </Suspense>
     ),
+    loader: import('./pages/Root.jsx').then(module => module.loader()),
     children: [
       { index: true , element: (
         <Suspense fallback={<LoadingSpinner />}>
