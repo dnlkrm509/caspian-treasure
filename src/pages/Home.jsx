@@ -34,22 +34,6 @@ function HomePage(props) {
       setIsFetching(true);
 
       try {
-//         INSERT INTO users (
-//           name,
-//           password,
-//           email,
-//           address,
-//           city,
-//           state,
-//           zip,
-//           country,
-//         )
-// INSERT INTO carts (
-//   user_id,
-//   product_id,
-//   amount,
-//   totalAmount
-// )
         const users = await axios.get(`${apiUrl}/api/users`);
         if (users.data.rows.length === 0) {
           await axios.post(`${apiUrl}/api/add-user`, {
@@ -58,17 +42,9 @@ function HomePage(props) {
           const newUsers = await axios.get(`${apiUrl}/api/users`);
           await axios.post(`${apiUrl}/api/cart-products`, { newProduct: [], userId: newUsers.id, totalAmount: '0.00' } );
         }
-        await axios.post(`${apiUrl}/api/cart-products`, { newProduct: [], userId: newUsers.id, totalAmount: '0.00' } );
-        if (!userId) {
-          const newUserId = Math.random().toString();
-          Cookies.set('userId', newUserId);
-          setUserId(newUserId);
-
-          
-        }
 
         const products = await axios.get(`${apiUrl}/api/cart-products`);
-        console.log(products)
+        console.log(products.data.rows)
         cartCTX.setCart({ items: products.data.rows, totalAmount: +products.data.rows[ products.data.rows.length -1 ].totalAmount });
       } catch (error) {
         setError({ message: "Failed to fetch cart products." });
