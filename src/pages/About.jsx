@@ -5,14 +5,14 @@ import CartContext from "../store/cart-context.js";
 
 function AboutPage() {
     const data = useRouteLoaderData('root');
-
+    console.log(data)
     const cartCTX = useContext(CartContext);
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         cartCTX.setCart({
             items: data,
-            totalAmount: +data[ data.length -1 ].totalAmount
+            //totalAmount: +data[ data.length -1 ].totalAmount
         });
 
     }, [])
