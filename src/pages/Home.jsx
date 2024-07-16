@@ -32,13 +32,12 @@ function HomePage(props) {
 
       try {
         const users = await axios.get(`${apiUrl}/api/users`);
-        console.log(users.data.rows[ users.data.rows.length - 1])
         if (users.data.rows.length === 0) {
           await axios.post(`${apiUrl}/api/users`, {
             name:'1', password:'1', email:'1', address:'1', city:'1', state:'1',zip:'1',country:'1'
           })
-          await axios.post(`${apiUrl}/api/cart-products`, { newProduct: [], userId: 1, totalAmount: '0.00' } );
         }
+        await axios.post(`${apiUrl}/api/cart-products`, { newProduct: [], userId: 1, totalAmount: '0.00' } );
 
         const carts = await axios.get(`${apiUrl}/api/cart-products`);
         console.log(carts.data.rows)
