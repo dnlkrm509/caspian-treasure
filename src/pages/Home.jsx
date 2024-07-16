@@ -34,10 +34,12 @@ function HomePage(props) {
       setIsFetching(true);
 
       try {
+        const users = await axios.get(`/api/`)
         if (!userId) {
           const newUserId = Math.random().toString();
           Cookies.set('userId', newUserId);
           setUserId(newUserId);
+
           await axios.post(`${apiUrl}/api/cart-products`, { newProduct: [], totalAmount: '0.00' } );
         }
 
