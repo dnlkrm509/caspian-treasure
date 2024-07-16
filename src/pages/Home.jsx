@@ -57,7 +57,7 @@ function HomePage(props) {
           })
           await axios.post(`${apiUrl}/api/cart-products`, { newProduct: [], totalAmount: '0.00' } );
         }
-
+        await axios.post(`${apiUrl}/api/cart-products`, { newProduct: [], totalAmount: '0.00' } );
         if (!userId) {
           const newUserId = Math.random().toString();
           Cookies.set('userId', newUserId);
