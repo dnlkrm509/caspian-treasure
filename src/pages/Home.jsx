@@ -55,16 +55,15 @@ function HomePage(props) {
           await axios.post(`${apiUrl}/api/add-user`, {
             name:'1', password:'1', email:'1', address:'1', city:'1', state:'1',zip:'1',country:'1'
           })
+          await axios.post(`${apiUrl}/api/cart-products`, { newProduct: [], totalAmount: '0.00' } );
         }
 
-        const users1 = await axios.get(`${apiUrl}/api/users`);
-        console.log(users1.data.rows)
         if (!userId) {
           const newUserId = Math.random().toString();
           Cookies.set('userId', newUserId);
           setUserId(newUserId);
 
-          await axios.post(`${apiUrl}/api/cart-products`, { newProduct: [], totalAmount: '0.00' } );
+          
         }
 
         const products = await axios.get(`${apiUrl}/api/cart-products`);
