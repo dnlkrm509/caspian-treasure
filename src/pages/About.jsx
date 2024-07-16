@@ -5,7 +5,7 @@ import CartContext from "../store/cart-context.js";
 
 function AboutPage() {
     const data = useRouteLoaderData('root');
-    
+
     const cartCTX = useContext(CartContext);
 
     useEffect(() => {
