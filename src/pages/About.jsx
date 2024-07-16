@@ -9,10 +9,10 @@ function AboutPage() {
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        console.log(data[ data.length -1 ].totalAmount)
+        console.log(+data[ data.length -1 ].totalAmount)
         cartCTX.setCart({
             items: data,
-            //totalAmount: +data[ data.length -1 ].totalAmount
+            totalAmount: +data[ data.length -1 ].totalAmount
         });
 
     }, [])
