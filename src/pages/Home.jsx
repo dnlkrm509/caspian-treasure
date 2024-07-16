@@ -40,7 +40,6 @@ function HomePage(props) {
         }
 
         const carts = await axios.get(`${apiUrl}/api/cart-products`);
-        console.log(carts.data.rows)
         cartCTX.setCart({ items: carts.data.rows, totalAmount: +carts.data.rows[ carts.data.rows.length -1 ].totalAmount });
       } catch (error) {
         setError({ message: "Failed to fetch cart products." });
