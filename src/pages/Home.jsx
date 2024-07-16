@@ -34,7 +34,23 @@ function HomePage(props) {
       setIsFetching(true);
 
       try {
-        const users = await axios.get(`/api/users`);
+//         INSERT INTO users (
+//           name,
+//           password,
+//           email,
+//           address,
+//           city,
+//           state,
+//           zip,
+//           country,
+//         )
+// INSERT INTO carts (
+//   user_id,
+//   product_id,
+//   amount,
+//   totalAmount
+// )
+        const users = await axios.get(`/api/products`);
         console.log(users)
         if (!userId) {
           const newUserId = Math.random().toString();
