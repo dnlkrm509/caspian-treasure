@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from "react";
-import Cookies from 'js-cookie';
 import axios from 'axios';
 
 import CartContext from "../../../store/cart-context.js";
@@ -11,30 +10,25 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
 const ProductItem = (props) => {
     const cartCtx = useContext(CartContext);
-    const [userId, setUserId] = useState(() => Cookies.get('userId') || '');
     const [amount, setAmount] = useState(0);
+    console.log(cartCtx)
 
     useEffect(() => {
-        if (!userId) {
-            const newUserId = Math.random().toString();
-            Cookies.set('userId', newUserId);
-            setUserId(newUserId);
+        async function fetchCartProductAmount(){
+            try {
+                const response = await axios.get(`${apiUrl}/api/cart-products`);
+                const cartProduct = response.data.rows.find(item => item.product_id === +props.id);
+                if (cartProduct) {
+                    setAmount(cartProduct.amount);
+                } else {
+                    setAmount(0);
+                }
+            } catch (err) { console.error(err) }
         }
-            async function fetchCartProductAmount(){
-                try {
-                    const response = await axios.get(`${apiUrl}/api/cart-products`);
-                    const cartProduct = response.data.rows.find(item => item.product_id === +props.id);
-                    if (cartProduct) {
-                        setAmount(cartProduct.amount);
-                    } else {
-                        setAmount(0);
-                    }
-                } catch (err) { console.error(err) }
-            }
-            
-            fetchCartProductAmount();
+        
+        fetchCartProductAmount();
 
-    }, [userId, props.id]);
+    }, [props.id]);
 
     const price = `£${+props.price.toFixed(2)}`;
 
