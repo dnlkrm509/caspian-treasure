@@ -40,7 +40,7 @@ function HomePage(props) {
             name:'1', password:'1', email:'1', address:'1', city:'1', state:'1',zip:'1',country:'1'
           })
           const newUsers = await axios.get(`${apiUrl}/api/users`);
-          await axios.post(`${apiUrl}/api/cart-products`, { newProduct: [], userId: newUsers.id, totalAmount: '0.00' } );
+          await axios.post(`${apiUrl}/api/cart-products`, { newProduct: [], userId: newUsers.data.rows.id, totalAmount: '0.00' } );
         }
 
         const products = await axios.get(`${apiUrl}/api/cart-products`);
