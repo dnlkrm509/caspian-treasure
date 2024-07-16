@@ -32,6 +32,7 @@ function HomePage(props) {
 
       try {
         const users = await axios.get(`${apiUrl}/api/users`);
+        console.log(users)
         if (users.data.rows.length === 0) {
           await axios.post(`${apiUrl}/api/users`, {
             name:'1', password:'1', email:'1', address:'1', city:'1', state:'1',zip:'1',country:'1'
