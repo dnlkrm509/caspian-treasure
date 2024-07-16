@@ -34,7 +34,8 @@ function HomePage(props) {
       setIsFetching(true);
 
       try {
-        const users = await axios.get(`/api/`)
+        const users = await axios.get(`/api/users`);
+        console.log(users)
         if (!userId) {
           const newUserId = Math.random().toString();
           Cookies.set('userId', newUserId);
