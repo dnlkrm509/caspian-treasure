@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from 'framer-motion';
 
-import Cookies from 'js-cookie';
 import Header from "../components/HomeHeader/Header";
 import CartProvider from "../store/CartProvider";
 import CartContext from "../store/cart-context";
@@ -11,8 +10,6 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
 function HomePage(props) {
   const cartCTX = useContext(CartContext);
-
-  const [userId, setUserId] = useState(() => Cookies.get('userId') || '');
 
   const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState();
@@ -40,12 +37,12 @@ function HomePage(props) {
             name:'1', password:'1', email:'1', address:'1', city:'1', state:'1',zip:'1',country:'1'
           })
           const newUsers = await axios.get(`${apiUrl}/api/users`);
-          await axios.post(`${apiUrl}/api/cart-products`, { newProduct: [], userId: newUsers.data.rows[0].id, totalAmount: '0.00' } );
+          await axios.post(`${apiUrl}/api/cart-products`, { newProduct: [], userId: newUsers.data.rows[ newUsers.data.rows.length - 1 ].id, totalAmount: '0.00' } );
         }
 
-        const products = await axios.get(`${apiUrl}/api/cart-products`);
-        console.log(products.data.rows)
-        cartCTX.setCart({ items: products.data.rows, totalAmount: +products.data.rows[ products.data.rows.length -1 ].totalAmount });
+        const carts = await axios.get(`${apiUrl}/api/cart-products`);
+        console.log(carts.data.rows)
+        cartCTX.setCart({ items: carts.data.rows, totalAmount: +carts.data.rows[ carts.data.rows.length -1 ].totalAmount });
       } catch (error) {
         setError({ message: "Failed to fetch cart products." });
       }
@@ -54,7 +51,7 @@ function HomePage(props) {
     }
 
     fetchCartProduct();
-  }, [userId])
+  }, [])
 
   return (
     <CartProvider>
