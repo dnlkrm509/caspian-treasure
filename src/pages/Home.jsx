@@ -50,8 +50,8 @@ function HomePage(props) {
 //   amount,
 //   totalAmount
 // )
-        const users = await axios.get(`/api/products`);
-        console.log(users)
+        const users = await axios.get(`${apiUrl}/api/users`);
+        console.log(users.data.rows)
         if (!userId) {
           const newUserId = Math.random().toString();
           Cookies.set('userId', newUserId);
