@@ -52,7 +52,7 @@ function HomePage(props) {
 // )
         const users = await axios.get(`${apiUrl}/api/users`);
         if (users.data.rows.length === 0) {
-          await axios.post(`${apiUrl}/api/add-users`, {
+          await axios.post(`${apiUrl}/api/add-user`, {
             name:'1', password:'1', email:'1', address:'1', city:'1', state:'1',zip:'1',country:'1'
           })
         }
