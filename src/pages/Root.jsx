@@ -42,7 +42,7 @@ export async function loader () {
     try {
       const users = await axios.get(`${apiUrl}/api/users`);
       const response = await axios.get(`${apiUrl}/api/cart-products`, {
-        params: { userId: users.data.rows[ newUsers.data.rows.length - 1 ].id }
+        params: { userId: users.data.rows[ users.data.rows.length - 1 ].id }
       });
       return response.data.rows;
     } catch (error) {
