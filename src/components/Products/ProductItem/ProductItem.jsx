@@ -82,8 +82,12 @@ const ProductItem = (props) => {
                     cartCtx.addItem({ ...product, description, price: props.price });
                 }
             } else {
+                const response = await axios.get(`${apiUrl}/api/users`);
+                const user = response.data.rows[ response.data.rows.length - 1 ];
+
                 await axios.post(`${apiUrl}/api/cart-products`, {
                     newProduct: product,
+                    user,
                     totalAmount: updatedTotalAmount.toFixed(2)
                 });
 
