@@ -87,7 +87,7 @@ const Cart = (props) => {
     };
 
     const cartItemAddHandler = async (newItem) => {
-
+console.log(newItem)
         const existingCartItemIndex = cartCtx.items.findIndex(item => (
             item.product_id === newItem.product_id
         ));
