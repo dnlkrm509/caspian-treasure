@@ -10,16 +10,17 @@ const AvailableProducts = () => {
 
     let productsList = <li><Error title='No Products found.' isNextLine={false} /></li>;
 
-
-    productsList = products.map((product) => (
-      <ProductItem
-        id={product.id} 
-        key={product.id} 
-        name={product.name} 
-        description={product.description}
-        price={+product.price}
-      />
-    ));
+    if (products.length > 0) {
+      productsList = products.map((product) => (
+        <ProductItem
+          id={product.id} 
+          key={product.id} 
+          name={product.name} 
+          description={product.description}
+          price={+product.price}
+        />
+      ))
+    };
 
     return (
         
