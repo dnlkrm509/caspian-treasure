@@ -23,6 +23,7 @@ const Cart = (props) => {
         ));
 
         const existingCartItem = cartCtx.items[existingCartItemIndex];
+        console.log(existingCartItem)
         
         let updatedTotalAmount = +cartCtx.totalAmount - existingCartItem.price;
         if (cartCtx.items.length === 0) {
@@ -99,7 +100,6 @@ const Cart = (props) => {
             const itemToAdd = cart.data.rows.find(item => item.product_id === existingCartItem.product_id);
             
             const updatedProduct = { priduct_id: newItem, amount: itemToAdd.amount + 1 };
-            console.log(updatedProduct)
 
             if (itemToAdd) {
                 const putUrl = `${apiUrl}/api/cart-products/${itemToAdd.product_id}`;
