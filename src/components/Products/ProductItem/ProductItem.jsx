@@ -42,12 +42,13 @@ const ProductItem = (props) => {
 
         const existingCartItemIndex = cartCtx.items.findIndex(item => item.product_id === product.product_id);
         const existingCartItem = cartCtx.items[existingCartItemIndex];
-        console.log('cart', cartCtx, 'existing cart item', existingCartItem, 'product.product_id:', product.product_id)
+        //console.log('cart', cartCtx, 'existing cart item', existingCartItem, 'product.product_id:', product.product_id)
         const updatedTotalAmount = cartCtx.totalAmount + props.price * amount;
 
         try {
             if (cartCtx.items.length > 0) {
                 const cart = await axios.get(`${apiUrl}/api/cart-products`);
+                console.log(cart)
                 if (existingCartItem) {
                     for (const row of cart.data.rows) {
                         if (row.product_id === product.product_id) {
