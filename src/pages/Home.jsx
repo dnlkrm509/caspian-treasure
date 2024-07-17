@@ -13,6 +13,13 @@ function HomePage(props) {
   const cartCTX = useContext(CartContext);
 
   const data = useLoaderData();
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    cartCTX.setCart({
+      items: data,
+      totalAmount: +data[ data.length -1 ].totalAmount
+    });
+  }, [])
 
   const { scrollY } = useScroll();
 
@@ -21,14 +28,6 @@ function HomePage(props) {
 
   const opacityContent = useTransform(scrollY, [550, 600, 650, 680], [0, 0.6, 0.7, 1]);
   const scaleContent = useTransform(scrollY, [550, 600], [1, 1.5]);
-
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    cartCTX.setCart({
-      items: data,
-      totalAmount: +data[ data.length -1 ].totalAmount
-    });
-  }, [])
 
   return (
     <CartProvider>

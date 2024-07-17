@@ -11,7 +11,6 @@ const apiUrl = import.meta.env.VITE_API_URL;
 const ProductItem = (props) => {
     const cartCtx = useContext(CartContext);
     const [amount, setAmount] = useState(0);
-    console.log(cartCtx)
 
     useEffect(() => {
         async function fetchCartProductAmount(){
@@ -33,12 +32,12 @@ const ProductItem = (props) => {
     const price = `£${+props.price.toFixed(2)}`;
 
     async function addToCartHandler(amount) {
+        const description = props.description;
+
         const product = {
             product_id: props.id,
             name: props.name,
-            amount: amount,
-            description: props.description,
-            price: props.price.toFixed(2)
+            amount: amount
         };
 
         const existingCartItemIndex = cartCtx.items.findIndex(item => item.product_id === product.product_id);
@@ -63,14 +62,14 @@ const ProductItem = (props) => {
                               });
                             }
 
-                            cartCtx.addItem({ ...product, price: props.price });
+                            cartCtx.addItem({ ...product, description, price: props.price });
                             break;
                         }
                     }
                 } else {
                     await axios.post(`${apiUrl}/api/cart-products`, {
                         newProduct: product,
-                        cart: cart.data.rows[ cart.data.rows.length - 1 ],
+                        userId: cart.data.rows[ cart.data.rows.length - 1 ].userID,
                         totalAmount: updatedTotalAmount.toFixed(2)
                     });
 
@@ -80,7 +79,7 @@ const ProductItem = (props) => {
                       });
                     }
 
-                    cartCtx.addItem({ ...product, price: props.price });
+                    cartCtx.addItem({ ...product, description, price: props.price });
                 }
             } else {
                 await axios.post(`${apiUrl}/api/cart-products`, {
@@ -88,7 +87,7 @@ const ProductItem = (props) => {
                     totalAmount: updatedTotalAmount.toFixed(2)
                 });
 
-                cartCtx.addItem({ ...product, price: props.price });
+                cartCtx.addItem({ ...product, description, price: props.price });
             }
 
         } catch (error) {
