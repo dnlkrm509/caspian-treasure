@@ -49,7 +49,6 @@ const ProductItem = (props) => {
                 if (existingCartItem) {
                     for (const row of cart.data.rows) {
                         if (row.product_id === product.product_id) {
-                            console.log(product.product_id)
                             const updatedProduct = { ...product, amount: existingCartItem.amount + amount };
                             await axios.put(`${apiUrl}/api/cart-products/${product.product_id}`, {
                                 newProduct: updatedProduct,
@@ -69,7 +68,6 @@ const ProductItem = (props) => {
                         }
                     }
                 } else {
-                    console.log(cart, 'product.product_id', product.product_id)
                     await axios.post(`${apiUrl}/api/cart-products`, {
                         newProduct: product,
                         userId: cart.data.rows[ cart.data.rows.length - 1 ].user_id,
