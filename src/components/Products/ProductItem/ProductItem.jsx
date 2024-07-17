@@ -42,6 +42,7 @@ const ProductItem = (props) => {
 
         const existingCartItemIndex = cartCtx.items.findIndex(item => item.product_id === product.product_id);
         const existingCartItem = cartCtx.items[existingCartItemIndex];
+        console.log(existingCartItem)
         const updatedTotalAmount = cartCtx.totalAmount + props.price * amount;
 
         try {
