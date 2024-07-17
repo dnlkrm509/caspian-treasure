@@ -36,13 +36,11 @@ const ProductItem = (props) => {
 
         const product = {
             product_id: props.id,
-            name: props.name,
             amount: amount
         };
 
         const existingCartItemIndex = cartCtx.items.findIndex(item => item.product_id === product.product_id);
         const existingCartItem = cartCtx.items[existingCartItemIndex];
-        //console.log('cart', cartCtx, 'existing cart item', existingCartItem, 'product.product_id:', product.product_id)
         const updatedTotalAmount = cartCtx.totalAmount + props.price * amount;
 
         try {
@@ -53,7 +51,7 @@ const ProductItem = (props) => {
                     for (const row of cart.data.rows) {
                         if (row.product_id === product.product_id) {
                             const updatedProduct = { ...product, amount: existingCartItem.amount + amount };
-                            await axios.post(`${apiUrl}/api/cart-products/${row.product_id}`, {
+                            await axios.post(`${apiUrl}/api/cart-products`, {
                                 newProduct: updatedProduct,
                                 userId: cart.data.rows[ cart.data.rows.length - 1 ].user_id,
                                 totalAmount: updatedTotalAmount.toFixed(2)
@@ -66,7 +64,7 @@ const ProductItem = (props) => {
                               });
                             }
 
-                            cartCtx.addItem({ ...product, description, price: props.price });
+                            cartCtx.addItem({ ...product, name: props.name, description, price: props.price });
                             break;
                         }
                     }
@@ -84,7 +82,7 @@ const ProductItem = (props) => {
                       });
                     }
 
-                    cartCtx.addItem({ ...product, description, price: props.price });
+                    cartCtx.addItem({ ...product, name: props.name, description, price: props.price });
                 }
             } else {
                 const response = await axios.get(`${apiUrl}/api/users`);
@@ -96,7 +94,7 @@ const ProductItem = (props) => {
                     totalAmount: updatedTotalAmount.toFixed(2)
                 });
 
-                cartCtx.addItem({ ...product, description, price: props.price });
+                cartCtx.addItem({ ...product, name: props.name, description, price: props.price });
             }
 
         } catch (error) {
