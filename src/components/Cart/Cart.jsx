@@ -38,7 +38,7 @@ const Cart = (props) => {
 
                 if (itemToDelete) {
                   await axios.delete(`${apiUrl}/api/cart-products/${itemToDelete.product_id}`, {
-                    userId: cart.data.rows[ cart.data.rows.length - 1 ].user_id,
+                    data: { userId: itemToDelete.user_id },
                   });
                   if (cartCtx.items.length === 0) {
                     updatedTotalAmount = 0;
