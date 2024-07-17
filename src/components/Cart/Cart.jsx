@@ -23,9 +23,8 @@ const Cart = (props) => {
         ));
 
         const existingCartItem = cartCtx.items[existingCartItemIndex];
-        console.log(existingCartItem)
         
-        let updatedTotalAmount = +cartCtx.totalAmount - existingCartItem.price;
+        let updatedTotalAmount = +cartCtx.totalAmount - +existingCartItem.price;
         if (cartCtx.items.length === 0) {
             updatedTotalAmount = 0;
         }
@@ -38,7 +37,9 @@ const Cart = (props) => {
                 const itemToDelete = cart.data.rows.find(item => item.product_id === id);
 
                 if (itemToDelete) {
-                  await axios.delete(`${apiUrl}/api/cart-products/${itemToDelete.product_id}`);
+                  await axios.delete(`${apiUrl}/api/cart-products/${itemToDelete.product_id}`, {
+                    userId: cart.data.rows[ cart.data.rows.length - 1 ].user_id,
+                  });
                   if (cartCtx.items.length === 0) {
                     updatedTotalAmount = 0;
                   }
@@ -47,7 +48,8 @@ const Cart = (props) => {
                 for (const row of cart.data.rows) {
                   if (row.product_id !== id) {
                     await axios.put(`${apiUrl}/api/cart-products/${row.product_id}`, {
-                      totalAmount: updatedTotalAmount.toFixed(2)
+                      totalAmount: updatedTotalAmount.toFixed(2),
+                      userId: cart.data.rows[ cart.data.rows.length - 1 ].user_id,
                     });
                   }
                 }
@@ -69,12 +71,14 @@ const Cart = (props) => {
                 
                 await axios.put(`${apiUrl}/api/cart-products/${itemToDelete.product_id}`, {
                     newProduct: updatedItem,
+                    userId: cart.data.rows[ cart.data.rows.length - 1 ].user_id,
                     totalAmount: `${updatedTotalAmount.toFixed(2)}`
                 });
 
                 for (const row of cart.data.rows) {
                   await axios.put(`${apiUrl}/api/cart-products/${row.product_id}`, {
-                    totalAmount: updatedTotalAmount.toFixed(2)
+                    totalAmount: updatedTotalAmount.toFixed(2),
+                    userId: cart.data.rows[ cart.data.rows.length - 1 ].user_id,
                   });
                 }
             
