@@ -1,18 +1,18 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 import Header from "../components/HomeHeader/Header";
 import CartProvider from "../store/CartProvider";
 import CartContext from "../store/cart-context";
 import axios from "axios";
+import { useLoaderData, json } from "react-router-dom";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
 function HomePage(props) {
   const cartCTX = useContext(CartContext);
 
-  const [isFetching, setIsFetching] = useState(false);
-  const [error, setError] = useState();
+  const data = useLoaderData();
 
   const { scrollY } = useScroll();
 
@@ -24,31 +24,10 @@ function HomePage(props) {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [])
-
-  useEffect(() => {
-    async function fetchCartProduct() {
-      setIsFetching(true);
-
-      try {
-        const users = await axios.get(`${apiUrl}/api/users`);
-        if (users.data.rows.length === 0) {
-          await axios.post(`${apiUrl}/api/users`, {
-            name:'1', password:'1', email:'1', address:'1', city:'1', state:'1',zip:'1',country:'1'
-          })
-          await axios.post(`${apiUrl}/api/cart-products`, { newProduct: [], userId: 11, totalAmount: '0.00' } );
-        }
-
-        const carts = await axios.get(`${apiUrl}/api/cart-products`);
-        cartCTX.setCart({ items: carts.data.rows, totalAmount: +carts.data.rows[ carts.data.rows.length -1 ].totalAmount });
-      } catch (error) {
-        setError({ message: "Failed to fetch cart products." });
-      }
-
-      setIsFetching(false);
-    }
-
-    fetchCartProduct();
+    cartCTX.setCart({
+      items: data,
+      totalAmount: +data[ data.length -1 ].totalAmount
+    });
   }, [])
 
   return (
@@ -76,3 +55,23 @@ function HomePage(props) {
 }
 
 export default HomePage;
+
+export async function loader () {
+  try {
+    const users = await axios.get(`${apiUrl}/api/users`);
+    if (users.data.rows.length === 0) {
+      await axios.post(`${apiUrl}/api/users`, {
+        name:'1', password:'1', email:'1', address:'1', city:'1', state:'1',zip:'1',country:'1'
+      })
+      await axios.post(`${apiUrl}/api/cart-products`, { newProduct: [], userId: 11, totalAmount: '0.00' } );
+    }
+
+    const carts = await axios.get(`${apiUrl}/api/cart-products`);
+    return carts.data.rows;
+
+  } catch (error) {
+    throw json( { isNextLine: true, message: 'Failed to fetch cart products.' }, {
+      status: 500
+    } )
+  }
+}
