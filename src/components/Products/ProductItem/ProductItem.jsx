@@ -53,12 +53,14 @@ const ProductItem = (props) => {
                             const updatedProduct = { ...product, amount: existingCartItem.amount + amount };
                             await axios.put(`${apiUrl}/api/cart-products/${row.product_id}`, {
                                 newProduct: updatedProduct,
+                                userId: cart.data.rows[ cart.data.rows.length - 1 ].userID,
                                 totalAmount: updatedTotalAmount.toFixed(2)
                             });
 
                             for (const row of cart.data.rows) {
                               await axios.put(`${apiUrl}/api/cart-products/${row.product_id}`, {
-                                totalAmount: updatedTotalAmount.toFixed(2)
+                                totalAmount: updatedTotalAmount.toFixed(2),
+                                userId: cart.data.rows[ cart.data.rows.length - 1 ].userID,
                               });
                             }
 
@@ -75,7 +77,8 @@ const ProductItem = (props) => {
 
                     for (const row of cart.data.rows) {
                       await axios.put(`${apiUrl}/api/cart-products/${row.product_id}`, {
-                        totalAmount: updatedTotalAmount.toFixed(2)
+                        totalAmount: updatedTotalAmount.toFixed(2),
+                        userId: cart.data.rows[ cart.data.rows.length - 1 ].userID,
                       });
                     }
 
