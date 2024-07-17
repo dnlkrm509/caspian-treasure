@@ -92,7 +92,7 @@ const Cart = (props) => {
         ));
 
         const existingCartItem = cartCtx.items[existingCartItemIndex];
-        const updatedTotalAmount = cartCtx.totalAmount + existingCartItem.price;
+        const updatedTotalAmount = cartCtx.totalAmount + +existingCartItem.price;
 
         try {
             const cart = await axios.get(`${apiUrl}/api/cart-products`);
