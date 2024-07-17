@@ -99,12 +99,13 @@ const Cart = (props) => {
             const cart = await axios.get(`${apiUrl}/api/cart-products`);
             const itemToAdd = cart.data.rows.find(item => item.product_id === existingCartItem.product_id);
             
-            const updatedProduct = { ...newItem, amount: existingCartItem.amount + 1 };
+            const updatedProduct = { priduct_id: newItem, amount: existingCartItem.amount + 1 };
 
             if (itemToAdd) {
                 const putUrl = `${apiUrl}/api/cart-products/${itemToAdd.product_id}`;
                 const putData = {
                     newProduct: updatedProduct,
+                    userId: cart.data.rows[ cart.data.rows.length - 1 ].user_id,
                     totalAmount: updatedTotalAmount.toFixed(2)
                 };
     
@@ -119,7 +120,8 @@ const Cart = (props) => {
 
             for (const row of cart.data.rows) {
               await axios.put(`${apiUrl}/api/cart-products/${row.product_id}`, {
-                totalAmount: updatedTotalAmount.toFixed(2)
+                totalAmount: updatedTotalAmount.toFixed(2),
+                userId: cart.data.rows[ cart.data.rows.length - 1 ].user_id,
               });
             }
 
