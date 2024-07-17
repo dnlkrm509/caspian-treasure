@@ -34,7 +34,7 @@ const fadeInUp = {
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
-function Detail ({ product, productId }) {
+function Detail ({ product }) {
   const [newAmount, setNewAmount] = useState(product.amount);
 
   const cartCtx = useContext(CartContext);
@@ -42,7 +42,10 @@ function Detail ({ product, productId }) {
   useEffect(() => {
     async function fetchCartProductAmount() {
       try {
-        const response = await axios.get(`${apiUrl}/api/cart-products`);
+        const users = await axios.get(`${apiUrl}/api/users`);
+        const response = await axios.get(`${apiUrl}/api/cart-products`, {
+          params: { userId: users.data.rows[ users.data.rows.length - 1 ].id }
+        });
         const carts = response.data.rows;
         const existingCartItem = carts.find(item => item.product_id === +product.id);
         if (existingCartItem) {
@@ -54,10 +57,13 @@ function Detail ({ product, productId }) {
     }
 
     fetchCartProductAmount();
-  }, [cartCtx])
+  }, [])
 
   const cartItemRemoveHandler = async (id) => {
-    const response = await axios.get(`${apiUrl}/api/cart-products`);
+    const users = await axios.get(`${apiUrl}/api/users`);
+    const response = await axios.get(`${apiUrl}/api/cart-products`, {
+      params: { userId: users.data.rows[ users.data.rows.length - 1 ].id }
+    });
     const carts = response.data.rows;
     const existingCartItem = carts.find(item => item.product_id === +id);
 
@@ -75,7 +81,9 @@ function Detail ({ product, productId }) {
         try {
 
           if (existingCartItem) {
-            await axios.delete(`${apiUrl}/api/cart-products/${existingCartItem.product_id}`);
+            await axios.delete(`${apiUrl}/api/cart-products/${existingCartItem.product_id}`, {
+              data: { userId: existingCartItem.user_id },
+            });
             if (carts.length === 0) {
               updatedTotalAmount = 0;
             }
@@ -84,7 +92,8 @@ function Detail ({ product, productId }) {
             for (const row of carts) {
               if (row.product_id !== parseInt(id)) {
                 await axios.put(`${apiUrl}/api/cart-products/${row.product_id}`, {
-                  totalAmount: updatedTotalAmount.toFixed(2)
+                  totalAmount: updatedTotalAmount.toFixed(2),
+                  userId: existingCartItem.user_id
                 });
               }
             }
@@ -109,12 +118,14 @@ function Detail ({ product, productId }) {
         try {   
           await axios.put(`${apiUrl}/api/cart-products/${existingCartItem.product_id}`, {
             newProduct: updatedItem,
+            userId: existingCartItem.user_id,
             totalAmount: `${updatedTotalAmount.toFixed(2)}`
           });
 
           for (const row of carts) {
             await axios.put(`${apiUrl}/api/cart-products/${row.product_id}`, {
-              totalAmount: updatedTotalAmount.toFixed(2)
+              totalAmount: updatedTotalAmount.toFixed(2),
+              userId: existingCartItem.user_id
             });
           }
             
@@ -129,7 +140,10 @@ function Detail ({ product, productId }) {
   };
 
   const cartItemAddHandler = async (newItem) => {
-    const response = await axios.get(`${apiUrl}/api/cart-products`);
+    const users = await axios.get(`${apiUrl}/api/users`);
+    const response = await axios.get(`${apiUrl}/api/cart-products`, {
+      params: { userId: users.data.rows[ users.data.rows.length - 1 ].id }
+    });
     const carts = response.data.rows;
     const existingCartItem = carts.find(item => item.product_id === +newItem.id);
     
@@ -144,6 +158,7 @@ function Detail ({ product, productId }) {
         const putUrl = `${apiUrl}/api/cart-products/${existingCartItem.product_id}`;
         const putData = {
             newProduct: updatedProduct,
+            userId: existingCartItem.user_id,
             totalAmount: updatedTotalAmount.toFixed(2)
         };
 
@@ -155,7 +170,8 @@ function Detail ({ product, productId }) {
 
         for (const row of carts) {
           await axios.put(`${apiUrl}/api/cart-products/${row.product_id}`, {
-            totalAmount: updatedTotalAmount.toFixed(2)
+            totalAmount: updatedTotalAmount.toFixed(2),
+            userId: existingCartItem.user_id
           });
         }
 
@@ -174,6 +190,7 @@ function Detail ({ product, productId }) {
         const postUrl = `${apiUrl}/api/cart-products`;
         const postData = {
             newProduct: updatedProduct,
+            userId: users.data.rows[ users.data.rows.length - 1 ].user_id,
             totalAmount: updatedTotalAmount.toFixed(2)
         };
 
@@ -185,7 +202,8 @@ function Detail ({ product, productId }) {
 
         for (const row of carts) {
           await axios.put(`${apiUrl}/api/cart-products/${row.product_id}`, {
-            totalAmount: updatedTotalAmount.toFixed(2)
+            totalAmount: updatedTotalAmount.toFixed(2),
+            userId: users.data.rows[ users.data.rows.length - 1 ].user_id,
           });
         }
 

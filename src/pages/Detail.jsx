@@ -21,7 +21,7 @@ function DetailPage() {
     }, []);
 
     return (
-        <Detail product={data.product} productId={data.productId} />
+        <Detail product={data.product} />
     )
 }
 
