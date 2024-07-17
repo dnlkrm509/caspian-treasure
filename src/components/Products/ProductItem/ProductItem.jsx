@@ -46,7 +46,7 @@ const ProductItem = (props) => {
         try {
             if (cartCtx.items.length > 0) {
                 const cart = await axios.get(`${apiUrl}/api/cart-products`);
-                console.log(cart)
+                console.log(cart, 'product.product_id', product.product_id)
                 if (existingCartItem) {
                     for (const row of cart.data.rows) {
                         if (row.product_id === product.product_id) {
