@@ -83,7 +83,7 @@ const ProductItem = (props) => {
                 }
             } else {
                 const response = await axios.get(`${apiUrl}/api/users`);
-                const user = response.data.rows[ response.data.rows.length - 1 ];
+                const user = response.data.rows[0];
 
                 await axios.post(`${apiUrl}/api/cart-products`, {
                     newProduct: product,
