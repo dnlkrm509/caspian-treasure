@@ -87,7 +87,6 @@ const Cart = (props) => {
     };
 
     const cartItemAddHandler = async (newItem) => {
-console.log(newItem)
         const existingCartItemIndex = cartCtx.items.findIndex(item => (
             item.product_id === newItem.product_id
         ));
@@ -98,6 +97,7 @@ console.log(newItem)
         try {
             const cart = await axios.get(`${apiUrl}/api/cart-products`);
             const itemToAdd = cart.data.rows.find(item => item.product_id === existingCartItem.product_id);
+            console.log('item to add', itemToAdd)
             
             const updatedProduct = { priduct_id: newItem, amount: existingCartItem.amount + 1 };
 
