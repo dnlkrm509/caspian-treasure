@@ -58,7 +58,7 @@ export async function loader() {
       users = await axios.get(`${apiUrl}/api/users`);
     }
 
-    if (!users.data.data.rows || users.data.rows.length === 0) {
+    if (!users.data.rows || users.data.rows.length === 0) {
       throw new Error('No users found');
     }
 
