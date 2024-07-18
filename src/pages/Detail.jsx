@@ -12,13 +12,19 @@ function DetailPage() {
     const cartCTX = useContext(CartContext);
 
     useEffect(() => {
-        if (data.carts && data.carts.length > 0) {
-            cartCTX.setCart({
-                items: data.carts,
-                totalAmount: +data.carts[data.carts.length - 1].totalAmount,
-            });
+        if (data && data.length > 0) {
+          cartCTX.setCart({
+            items: data,
+            totalAmount: +data[data.length - 1].totalAmount
+          });
+        } else {
+          // Handle the case where data is empty
+          cartCTX.setCart({
+            items: [],
+            totalAmount: 0
+          });
         }
-    }, []);
+    }, [data]);
 
     return (
         <Detail product={data.product} />
@@ -29,13 +35,11 @@ export default DetailPage;
 
 export async function detailLoader({ request, params }) {
     const url = new URL(request.url);
-    const query = url.searchParams;
-
-    const id = query.get('id') || '';
-    const name = query.get('name') || '';
-    const description = query.get('description') || '';
-    const price = query.get('price') || '';
-    const amount = query.get('amount') || '';
+    const id = url.searchParams.get('id') || '';
+    const name = url.searchParams.get('name') || '';
+    const description = url.searchParams.get('description') || '';
+    const price = url.searchParams.get('price') || '';
+    const amount = url.searchParams.get('amount') || '';
 
     const product = {
         id,
@@ -43,21 +47,32 @@ export async function detailLoader({ request, params }) {
         description: decodeURIComponent(description),
         price,
         amount: decodeURIComponent(amount)
-    }
+    };
 
     try {
-        const products = await axios.get(`${apiUrl}/api/cart-products`);
-        return { product, productId: params.productId, carts: products.data.rows };
+        const usersResponse = await axios.get(`${apiUrl}/api/users`);
+        const users = usersResponse.data.rows;
 
+        if (!users || users.length === 0) {
+            throw new Error('No users found');
+        }
+
+        const userId = users[users.length - 1].id;
+
+        const productsResponse = await axios.get(`${apiUrl}/api/cart-products`, {
+            params: { userId }
+        });
+
+        return { product, productId: params.productId, carts: productsResponse.data.rows };
     } catch (error) {
         console.error('Failed to fetch cart products:', error.message);
 
         if (product.id) {
             return { product, productId: params.productId, carts: [] };
         } else {
-            throw json( { isNextLine: true, message: 'Failed to fetch cart products.' }, {
+            throw json({ isNextLine: true, message: 'Failed to fetch cart products.' }, {
                 status: 500
-              } )
+            });
         }
     }
 }   

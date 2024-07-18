@@ -15,11 +15,19 @@ function HomePage(props) {
   const data = useLoaderData();
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    cartCTX.setCart({
-      items: data,
-      totalAmount: +data[ data.length -1 ].totalAmount
-    });
-  }, [])
+    if (data && data.length > 0) {
+      cartCTX.setCart({
+        items: data,
+        totalAmount: +data[data.length - 1].totalAmount
+      });
+    } else {
+      // Handle the case where data is empty
+      cartCTX.setCart({
+        items: [],
+        totalAmount: 0
+      });
+    }
+  }, [data])
 
   const { scrollY } = useScroll();
 
@@ -55,26 +63,48 @@ function HomePage(props) {
 
 export default HomePage;
 
-export async function loader () {
+export async function loader() {
   try {
-    const users = await axios.get(`${apiUrl}/api/users`);
+    let users = await axios.get(`${apiUrl}/api/users`);
+
     if (users.data.rows.length === 0) {
       await axios.post(`${apiUrl}/api/users`, {
-        name:'1', password:'1', email:'1', address:'1', city:'1', state:'1',zip:'1',country:'1'
-      })
+        name: 'Default User',
+        password: 'password',
+        email: 'default@example.com',
+        address: '123 Default St',
+        city: 'Default City',
+        state: 'Default State',
+        zip: '12345',
+        country: 'Default Country'
+      });
+
+      users = await axios.get(`${apiUrl}/api/users`);
     }
 
-    const carts = await axios.get(`${apiUrl}/api/cart-products`);
+    const userId = users.data.rows[users.data.rows.length - 1].id;
+
+    let carts = await axios.get(`${apiUrl}/api/cart-products`, {
+      params: { userId }
+    });
+
     if (carts.data.rows.length === 0) {
-      const newUsers = await axios.get(`${apiUrl}/api/users`);
-      await axios.post(`${apiUrl}/api/cart-products`, { newProduct: [], userId: newUsers.data.rows[ newUsers.data.rows.length - 1 ].id, totalAmount: '0.00' } );
-    }
-    
-    return carts.data.rows;
+      await axios.post(`${apiUrl}/api/cart-products`, {
+        newProduct: [],
+        userId,
+        totalAmount: '0.00'
+      });
 
+      carts = await axios.get(`${apiUrl}/api/cart-products`, {
+        params: { userId }
+      });
+    }
+
+    return carts.data.rows;
   } catch (error) {
-    throw json( { isNextLine: true, message: 'Failed to fetch cart products.' }, {
+    console.error('Failed to fetch cart products:', error.message);
+    throw json({ isNextLine: true, message: 'Failed to fetch cart products.' }, {
       status: 500
-    } )
+    });
   }
 }

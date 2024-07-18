@@ -38,17 +38,34 @@ function RootLayout() {
 
 export default RootLayout;
 
-export async function loader () {
-    try {
-      const users = await axios.get(`${apiUrl}/api/users`);
-      const response = await axios.get(`${apiUrl}/api/cart-products`, {
-        params: { userId: users.data.rows[ users.data.rows.length - 1 ].id }
-      });
-      return response.data.rows;
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      throw json( { isNextLine: true, message: 'Failed to fetch cart products.' }, {
-        status: 500
-      } )
+export async function loader() {
+  try {
+    // Fetch all users
+    const usersResponse = await axios.get(`${apiUrl}/api/users`);
+    const users = usersResponse.data.rows;
+
+    if (!users || users.length === 0) {
+      throw new Error('No users found');
     }
+
+    // Get the last user ID from the users list
+    const userId = users[users.length - 1].id;
+
+    // Fetch cart products for the last user
+    const cartResponse = await axios.get(`${apiUrl}/api/cart-products`, {
+      params: { userId }
+    });
+
+    // Return the cart products data
+    return cartResponse.data.rows;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    // Throw a custom error response to handle in your frontend
+    throw json(
+      { isNextLine: true, message: 'Failed to fetch cart products.' },
+      {
+        status: 500,
+      }
+    );
+  }
 }
