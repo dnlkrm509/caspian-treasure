@@ -70,7 +70,7 @@ export async function loader() {
 
     if (cartResponse.data.rows.length === 0) {
       await axios.post(`${apiUrl}/api/cart-products`, {
-        newProduct: [],
+        newProduct: {},
         userId,
         totalAmount: '0.00'
       });
