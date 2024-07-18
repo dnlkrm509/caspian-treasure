@@ -55,9 +55,7 @@ function Detail ({ product }) {
         const userId = users[users.length - 1].id;
 
         // Fetch cart products for the last user
-        const response = await axios.get(`${apiUrl}/api/cart-products`, {
-          params: { userId }
-        });
+        const response = await axios.get(`${apiUrl}/api/cart-products`);
 
         const carts = response.data.rows;
         const existingCartItem = carts.find(item => item.product_id === +product.id);
@@ -165,9 +163,7 @@ function Detail ({ product }) {
       console.error('No users found');
       return;
     }
-    const response = await axios.get(`${apiUrl}/api/cart-products`, {
-      params: { userId: users.data.rows[ users.data.rows.length - 1 ].id }
-    });
+    const response = await axios.get(`${apiUrl}/api/cart-products`);
     const carts = response.data.rows;
     const existingCartItem = carts.find(item => item.product_id === +newItem.id);
     

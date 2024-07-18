@@ -66,9 +66,7 @@ export async function loader() {
     const userId = users.data.rows[users.data.rows.length - 1].id;
 
     // Fetch cart products for the last user
-    let cartResponse = await axios.get(`${apiUrl}/api/cart-products`, {
-      params: { userId }
-    });
+    let cartResponse = await axios.get(`${apiUrl}/api/cart-products`);
 
     if (cartResponse.data.rows.length === 0) {
       await axios.post(`${apiUrl}/api/cart-products`, {
@@ -77,9 +75,7 @@ export async function loader() {
         totalAmount: '0.00'
       });
 
-      cartResponse = await axios.get(`${apiUrl}/api/cart-products`, {
-        params: { userId }
-      });
+      cartResponse = await axios.get(`${apiUrl}/api/cart-products`);
     }
     // Return the cart products data
     return cartResponse.data.rows;
