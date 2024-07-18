@@ -72,7 +72,7 @@ export async function loader() {
     }
 
     const userId = users.data.rows[users.data.rows.length - 1].id;
-
+console.log(userId)
     let carts = await axios.get(`${apiUrl}/api/cart-products`, {
       params: { userId }
     });
