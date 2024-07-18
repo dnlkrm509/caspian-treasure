@@ -13,7 +13,7 @@ function DetailPage() {
     const cartCTX = useContext(CartContext);
 
     useEffect(() => {
-        if (data && data.length > 0) {
+        if (data && data.carts.length > 0) {
           cartCTX.setCart({
             items: data.carts,
             totalAmount: +data.carts[data.carts.length - 1].totalAmount
