@@ -72,6 +72,7 @@ export async function loader() {
       await axios.post(`${apiUrl}/api/cart-products`, {
         newProduct: { product_id: 8, amount: 0 },
         userId,
+        cart: true,
         totalAmount: '0.00'
       });
 
