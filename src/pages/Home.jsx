@@ -88,6 +88,8 @@ export async function loader() {
       params: { userId }
     });
 
+    console.log(carts)
+
     if (carts.data.rows.length === 0) {
       await axios.post(`${apiUrl}/api/cart-products`, {
         newProduct: [],
