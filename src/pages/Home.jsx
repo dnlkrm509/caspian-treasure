@@ -72,10 +72,9 @@ export async function loader() {
     }
 
     const userId = users.data.rows[users.data.rows.length - 1].id;
-    console.log(userId)
 
     const carts = await axios.get(`${apiUrl}/api/cart-products`);
-    console.log(carts)
+
     return carts.data.rows;
   } catch (error) {
     console.error('Failed to fetch cart products:', error.message);
