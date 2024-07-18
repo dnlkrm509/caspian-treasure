@@ -73,21 +73,9 @@ export async function loader() {
 
     const userId = users.data.rows[users.data.rows.length - 1].id;
 
-    let carts = await axios.get(`${apiUrl}/api/cart-products`, {
+    const carts = await axios.get(`${apiUrl}/api/cart-products`, {
       params: { userId }
     });
-
-    if (carts.data.rows.length === 0) {
-      await axios.post(`${apiUrl}/api/cart-products`, {
-        newProduct: [],
-        userId,
-        totalAmount: '0.00'
-      });
-
-      carts = await axios.get(`${apiUrl}/api/cart-products`, {
-        params: { userId }
-      });
-    }
 
     return carts.data.rows;
   } catch (error) {
