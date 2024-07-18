@@ -66,6 +66,7 @@ export async function loader() {
     // Get the last user ID from the users list
     const userId = users[users.length - 1].id;
 
+    console.log(userId)
     // Fetch cart products for the last user
     const cartResponse = await axios.get(`${apiUrl}/api/cart-products`, {
       params: { userId }
