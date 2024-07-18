@@ -8,6 +8,7 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
 function DetailPage() {
     const data = useLoaderData();
+    console.log(data)
 
     const cartCTX = useContext(CartContext);
 
