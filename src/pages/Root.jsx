@@ -41,8 +41,7 @@ export default RootLayout;
 export async function loader() {
   try {
     // Fetch all users
-    const usersResponse = await axios.get(`${apiUrl}/api/users`);
-    let users = usersResponse.data.rows;
+    let users = await axios.get(`${apiUrl}/api/users`);
 
     if (users.data.rows.length === 0) {
       await axios.post(`${apiUrl}/api/users`, {
@@ -59,14 +58,13 @@ export async function loader() {
       users = await axios.get(`${apiUrl}/api/users`);
     }
 
-    if (!users || users.length === 0) {
+    if (!users.data.data.rows || users.data.rows.length === 0) {
       throw new Error('No users found');
     }
 
     // Get the last user ID from the users list
-    const userId = users[users.length - 1].id;
+    const userId = users.data.rows[users.data.rows.length - 1].id;
 
-    console.log(userId)
     // Fetch cart products for the last user
     const cartResponse = await axios.get(`${apiUrl}/api/cart-products`, {
       params: { userId }

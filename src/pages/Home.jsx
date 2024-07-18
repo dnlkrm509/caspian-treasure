@@ -67,12 +67,12 @@ export async function loader() {
   try {
     let users = await axios.get(`${apiUrl}/api/users`);
 
-    if (!users || users.length === 0) {
+    if (!users.data.rows || users.data.rows.length === 0) {
       throw new Error('No users found');
     }
 
     const userId = users.data.rows[users.data.rows.length - 1].id;
-    
+
     let carts = await axios.get(`${apiUrl}/api/cart-products`, {
       params: { userId }
     });
