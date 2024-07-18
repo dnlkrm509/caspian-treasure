@@ -69,7 +69,6 @@ export async function loader() {
     let cartResponse = await axios.get(`${apiUrl}/api/cart-products`);
 
     if (cartResponse.data.rows.length === 0) {
-      console.log(cartResponse.data.rows)
       await axios.post(`${apiUrl}/api/cart-products`, {
         newProduct: { product_id: 8, amount: 0 },
         userId,
