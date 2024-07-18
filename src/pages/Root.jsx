@@ -42,7 +42,22 @@ export async function loader() {
   try {
     // Fetch all users
     const usersResponse = await axios.get(`${apiUrl}/api/users`);
-    const users = usersResponse.data.rows;
+    let users = usersResponse.data.rows;
+
+    if (users.data.rows.length === 0) {
+      await axios.post(`${apiUrl}/api/users`, {
+        name: 'Default User',
+        password: 'password',
+        email: 'default@example.com',
+        address: '123 Default St',
+        city: 'Default City',
+        state: 'Default State',
+        zip: '12345',
+        country: 'Default Country'
+      });
+
+      users = await axios.get(`${apiUrl}/api/users`);
+    }
 
     if (!users || users.length === 0) {
       throw new Error('No users found');
