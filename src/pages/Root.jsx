@@ -68,9 +68,8 @@ export async function loader() {
     // Fetch cart products for the last user
     let cartResponse = await axios.get(`${apiUrl}/api/cart-products`);
 
-    console.log(cartResponse.data.rows)
-
     if (cartResponse.data.rows.length === 0) {
+      console.log(cartResponse.data.rows)
       await axios.post(`${apiUrl}/api/cart-products`, {
         newProduct: { product_id: 8, amount: 0 },
         userId,
