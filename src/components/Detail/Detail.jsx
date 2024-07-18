@@ -79,9 +79,7 @@ function Detail ({ product }) {
       console.error('No users found');
       return;
     }
-    const response = await axios.get(`${apiUrl}/api/cart-products`, {
-      params: { userId: users.data.rows[ users.data.rows.length - 1 ].id }
-    });
+    const response = await axios.get(`${apiUrl}/api/cart-products`);
     const carts = response.data.rows;
     const existingCartItem = carts.find(item => item.product_id === +id);
 
@@ -210,7 +208,7 @@ function Detail ({ product }) {
         const postUrl = `${apiUrl}/api/cart-products`;
         const postData = {
             newProduct: updatedProduct,
-            userId: users.data.rows[ users.data.rows.length - 1 ].user_id,
+            userId: users.data.rows[ users.data.rows.length - 1 ].id,
             totalAmount: updatedTotalAmount.toFixed(2)
         };
 
