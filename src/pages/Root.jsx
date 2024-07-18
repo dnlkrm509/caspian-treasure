@@ -70,13 +70,15 @@ export async function loader() {
 
     if (cartResponse.data.rows.length === 0) {
       await axios.post(`${apiUrl}/api/cart-products`, {
-        newProduct: {},
+        newProduct: { product_id: 8, amount: 0 },
         userId,
         totalAmount: '0.00'
       });
 
       cartResponse = await axios.get(`${apiUrl}/api/cart-products`);
     }
+
+    console.log(cartResponse.data.rows)
     // Return the cart products data
     return cartResponse.data.rows;
   } catch (error) {
