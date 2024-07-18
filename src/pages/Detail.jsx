@@ -15,8 +15,8 @@ function DetailPage() {
     useEffect(() => {
         if (data && data.length > 0) {
           cartCTX.setCart({
-            items: data,
-            totalAmount: +data[data.length - 1].totalAmount
+            items: data.carts,
+            totalAmount: +data.carts[data.carts.length - 1].totalAmount
           });
         } else {
           // Handle the case where data is empty
