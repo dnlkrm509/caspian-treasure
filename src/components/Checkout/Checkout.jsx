@@ -258,7 +258,6 @@ const CheckoutForm = (props) => {
             console.log("Confirmation to be used:", confirmation); // Debugging log
             
             await axios.post(`${apiUrl}/api/orders`, {
-              newProduct: item,
               customerId,
               confirmation
             })
