@@ -61,10 +61,11 @@ const CheckoutForm = (props) => {
     country: 'GB' // Default country to UK
   });
 
+  let orders;
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const orders = await axios.get(`${apiUrl}/api/orders`);
+        orders = await axios.get(`${apiUrl}/api/orders`);
         setOrder(orders.data);
       } catch (err) {
         console.error(err);
@@ -72,7 +73,7 @@ const CheckoutForm = (props) => {
     };
 
     fetchOrders();
-  }, []);
+  }, [orders]);
 
   const cartCTX = useContext(CartContext);
 
@@ -262,21 +263,16 @@ const CheckoutForm = (props) => {
               confirmation
             })
 
-            const newOrdersResponse = await axios.get(`${apiUrl}/api/orders`);
-            const newOrders = newOrdersResponse.data;
-            const newLastOrder = newOrders.rows[newOrders.rows.length - 1];
-    
+            
             // Get the last order ID from the orders list
-            const orderId = newLastOrder.id;
-console.log(orderId)
+            const orderId = order.rows[ order.rows.length - 1 ].id;
+
             const carts = await axios.get(`${apiUrl}/api/cart-products`);
 
             await axios.post(`${apiUrl}/api/order-detail`, {
               newProduct: carts.data.rows[ carts.data.rows.length - 1 ].product_id,
               orderId
             })
-
-            setOrder(newOrders);
 
 
 
