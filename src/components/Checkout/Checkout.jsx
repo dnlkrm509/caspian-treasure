@@ -221,14 +221,14 @@ const CheckoutForm = (props) => {
         });
   
         const customers = await axios.get(`${apiUrl}/api/customers`);
-
+        console.log(customers)
         if (!customers.data.rows || customers.data.rows.length === 0) {
           throw new Error('No customers found');
         }
     
         // Get the last customer ID from the customers list
         const customerId = customers.data.rows[customers.data.rows.length - 1].user_id;
-        console.log(customerId)
+        
         await axios.post(`${apiUrl}/api/customers`, {
           customerId
         });
