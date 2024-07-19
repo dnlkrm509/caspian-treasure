@@ -199,43 +199,88 @@ const CheckoutForm = (props) => {
 
 
       try {
+        await axios.post(`${apiUrl}/api/users`, {
+          ...customerDetails,
+          password: '12345'
+        });
+  
+        const users = await axios.get(`${apiUrl}/api/users`);
+
+        if (!users.data.rows || users.data.rows.length === 0) {
+          throw new Error('No users found');
+        }
+    
+        // Get the last user ID from the users list
+        const userId = users.data.rows[users.data.rows.length - 1].id;
+
+        
+        await axios.post(`${apiUrl}/api/customers`, {
+          userId
+        });
+  
+        const customers = await axios.get(`${apiUrl}/api/customers`);
+
+        if (!customers.data.rows || customers.data.rows.length === 0) {
+          throw new Error('No customers found');
+        }
+    
+        // Get the last customer ID from the customers list
+        const customerId = customers.data.rows[customers.data.rows.length - 1].user_id;
+        
+        await axios.post(`${apiUrl}/api/customers`, {
+          customerId
+        });
+
+        
         const ordersResponse = await axios.get(`${apiUrl}/api/orders`);
+        
+        if (!ordersResponse.data.rows || ordersResponse.data.rows.length === 0) {
+          throw new Error('No orders found');
+        }
+        
         const orders = ordersResponse.data.rows;
 
         console.log("Fetched orders:", orders); // Debugging log
 
         for (const item of cartCTX.items) {
           try {
-            let orderId = null;
-            if (orders[ orders.length - 1 ].order_id !== undefined) {
+            let confirmation = null;
+            if (orders[ orders.length - 1 ].confirmation !== undefined) {
               const lastOrder = orders[orders.length - 1];
               console.log("Last order fetched:", lastOrder); // Debugging log
 
-              if (lastOrder.customer_email === customerDetails.email) {
-                orderId = lastOrder.order_id;
+              if (lastOrder.email === customerDetails.email) {
+                confirmation = lastOrder.confirmation;
               }
             }
 
-            console.log("Order ID to be used:", orderId); // Debugging log
+            console.log("Confirmation to be used:", confirmation); // Debugging log
             
             await axios.post(`${apiUrl}/api/orders`, {
               newProduct: item,
-              ...customerDetails,
-              orderId,
-              totalAmount: cartCTX.totalAmount
+              customerId,
+              confirmation
             })
 
             const newOrdersResponse = await axios.get(`${apiUrl}/api/orders`);
             const newOrders = newOrdersResponse.data;
             const newLastOrder = newOrders.rows[newOrders.rows.length - 1];
+    
+            // Get the last order ID from the orders list
+            const orderId = newLastOrder.id;
+
+            await axios.post(`${apiUrl}/api/order-detail`, {
+              newProduct: item,
+              orderId
+            })
+
             setOrder(newOrders);
 
+
+
             await axios.post(`${apiUrl}/api/message-to`, {
-              ...item,
-              productName: item.name,
-              ...customerDetails,
-              orderId: newLastOrder.order_id,
-              totalAmount: cartCTX.totalAmount
+              customerId: newLastOrder.customerId,
+              productId: newLastOrder.product_id
             })
 
             await axios.delete(`${apiUrl}/api/all-cart-products/${item.product_id}`);
@@ -327,7 +372,7 @@ const CheckoutForm = (props) => {
                 <option value="eur">EUR</option>
               </select>
             </label>
-            <input type="hidden" name="orderId" value={order ? order.rows[order.rows.length - 1].order_id : ''} />
+            <input type="hidden" name="confirmation" value={newLastOrder.confirmation} />
             {cartCTX.items.map((item) => (
               <div key={item.product_id}>
                 <input type="hidden" name="productId" value={item.product_id} ></input>
