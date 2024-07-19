@@ -61,11 +61,10 @@ const CheckoutForm = (props) => {
     country: 'GB' // Default country to UK
   });
 
-  let orders;
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        orders = await axios.get(`${apiUrl}/api/orders`);
+        const orders = await axios.get(`${apiUrl}/api/orders`);
         setOrder(orders.data);
       } catch (err) {
         console.error(err);
@@ -73,7 +72,7 @@ const CheckoutForm = (props) => {
     };
 
     fetchOrders();
-  }, [orders]);
+  }, []);
 
   const cartCTX = useContext(CartContext);
 
@@ -215,19 +214,20 @@ const CheckoutForm = (props) => {
     
         // Get the last user ID from the users list
         const userId = users.data.rows[users.data.rows.length - 1].id;
-        
+        console.log(userId)
         await axios.post(`${apiUrl}/api/customers`, {
           userId
         });
   
         const customers = await axios.get(`${apiUrl}/api/customers`);
-
+console.log(customers)
         if (!customers.data.rows || customers.data.rows.length === 0) {
           throw new Error('No customers found');
         }
     
         // Get the last customer ID from the customers list
         const customerId = customers.data.rows[customers.data.rows.length - 1].user_id;
+        console.log(customerId)
         
         await axios.post(`${apiUrl}/api/customers`, {
           userId: customerId
@@ -263,9 +263,12 @@ const CheckoutForm = (props) => {
               confirmation
             })
 
-            
+            const newOrdersResponse = await axios.get(`${apiUrl}/api/orders`);
+            const newOrders = newOrdersResponse.data;
+            const newLastOrder = newOrders.rows[newOrders.rows.length - 1];
+    
             // Get the last order ID from the orders list
-            const orderId = order.rows[ order.rows.length - 1 ].id;
+            const orderId = newLastOrder.id;
 
             const carts = await axios.get(`${apiUrl}/api/cart-products`);
 
@@ -273,6 +276,8 @@ const CheckoutForm = (props) => {
               newProduct: carts.data.rows[ carts.data.rows.length - 1 ].product_id,
               orderId
             })
+
+            setOrder(newOrders);
 
 
 
