@@ -374,7 +374,7 @@ const CheckoutForm = (props) => {
                 <option value="eur">EUR</option>
               </select>
             </label>
-            <input type="hidden" name="confirmation" value={newLastOrder.confirmation} />
+            <input type="hidden" name="confirmation" value={order ? order.data.rows[ order.data.rows.length - 1 ].confirmation : ''} />
             {cartCTX.items.map((item) => (
               <div key={item.product_id}>
                 <input type="hidden" name="productId" value={item.product_id} ></input>
