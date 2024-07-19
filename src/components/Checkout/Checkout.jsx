@@ -214,20 +214,19 @@ const CheckoutForm = (props) => {
     
         // Get the last user ID from the users list
         const userId = users.data.rows[users.data.rows.length - 1].id;
-        console.log(userId)
+        
         await axios.post(`${apiUrl}/api/customers`, {
           userId
         });
   
         const customers = await axios.get(`${apiUrl}/api/customers`);
-console.log(customers)
+
         if (!customers.data.rows || customers.data.rows.length === 0) {
           throw new Error('No customers found');
         }
     
         // Get the last customer ID from the customers list
         const customerId = customers.data.rows[customers.data.rows.length - 1].user_id;
-        console.log(customerId)
         
         await axios.post(`${apiUrl}/api/customers`, {
           userId: customerId
@@ -251,7 +250,7 @@ console.log(customers)
               const lastOrder = orders[orders.length - 1];
               console.log("Last order fetched:", lastOrder); // Debugging log
 
-              if (lastOrder.email === customerDetails.email) {
+              if (users.data.rows[users.data.rows.length - 1].email === customerDetails.email) {
                 confirmation = lastOrder.confirmation;
               }
             }
