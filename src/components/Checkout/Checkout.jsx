@@ -272,7 +272,7 @@ const CheckoutForm = (props) => {
             const carts = await axios.get(`${apiUrl}/api/cart-products`);
 
             await axios.post(`${apiUrl}/api/order-detail`, {
-              newProduct: carts.data.rows[ carts.data.rows.length - 1 ].product_id,
+              newProduct: { product_id: carts.data.rows[ carts.data.rows.length - 1 ].product_id, },
               orderId
             })
 
