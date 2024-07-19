@@ -214,15 +214,13 @@ const CheckoutForm = (props) => {
     
         // Get the last user ID from the users list
         const userId = users.data.rows[users.data.rows.length - 1].id;
-        console.log(userId)
         
         await axios.post(`${apiUrl}/api/customers`, {
           userId
         });
   
         const customers = await axios.get(`${apiUrl}/api/customers`);
-        console.log(customers)
-        
+
         if (!customers.data.rows || customers.data.rows.length === 0) {
           throw new Error('No customers found');
         }
@@ -231,7 +229,7 @@ const CheckoutForm = (props) => {
         const customerId = customers.data.rows[customers.data.rows.length - 1].user_id;
         
         await axios.post(`${apiUrl}/api/customers`, {
-          customerId
+          userId: customerId
         });
 
         
