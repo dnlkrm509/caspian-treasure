@@ -257,10 +257,10 @@ const CheckoutForm = (props) => {
 
             console.log("Confirmation to be used:", confirmation); // Debugging log
             
-            // Create new order if confirmation is not null
-            if (confirmation) {
-              await axios.post(`${apiUrl}/api/orders`, { customerId, confirmation });
-            }
+            await axios.post(`${apiUrl}/api/orders`, {
+              customerId,
+              confirmation
+            })
 
             const newOrdersResponse = await axios.get(`${apiUrl}/api/orders`);
             const newOrders = newOrdersResponse.data;
