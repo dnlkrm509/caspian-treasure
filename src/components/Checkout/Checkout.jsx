@@ -281,12 +281,12 @@ const CheckoutForm = (props) => {
 
 
             await axios.post(`${apiUrl}/api/message-to`, {
-              customerId: newLastOrder.customerId,
-              productId: newLastOrder.product_id
+              customerId: customerId,
+              productId: carts.data.rows[ carts.data.rows.length - 1 ].product_id,
             })
 
             await axios.delete(`${apiUrl}/api/all-cart-products/${item.product_id}`, {
-              data: { userId: newLastOrder.customer_id }
+              data: { userId }
             });
             
           } catch (error) {
