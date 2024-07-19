@@ -72,7 +72,7 @@ const CheckoutForm = (props) => {
     };
 
     fetchOrders();
-  }, [order]);
+  }, []);
 
   const cartCTX = useContext(CartContext);
 
