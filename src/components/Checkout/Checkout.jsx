@@ -78,7 +78,9 @@ const CheckoutForm = (props) => {
 
   if (paymentSuccessful) {
     setTimeout(() => {
-      props.onHide();
+      if (props.onHide) {
+        props.onHide();
+      }
     }, 1000);
   }
 
@@ -226,7 +228,7 @@ const CheckoutForm = (props) => {
     
         // Get the last customer ID from the customers list
         const customerId = customers.data.rows[customers.data.rows.length - 1].user_id;
-        
+        console.log(customerId)
         await axios.post(`${apiUrl}/api/customers`, {
           customerId
         });
