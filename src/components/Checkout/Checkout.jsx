@@ -285,7 +285,6 @@ const CheckoutForm = (props) => {
               productId: item.product_id,
             })
 
-            console.log('Deleting product with ID:', item.product_id, 'for user ID:', userId);
             await axios.delete(`${apiUrl}/api/all-cart-products/${item.product_id}`, {
               data: { userId }
             });
