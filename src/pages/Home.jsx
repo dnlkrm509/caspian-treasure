@@ -4,8 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import Header from "../components/HomeHeader/Header";
 import CartProvider from "../store/CartProvider";
 import CartContext from "../store/cart-context";
-import axios from "axios";
-import { useRouteLoaderData, json } from "react-router-dom";
+import { useRouteLoaderData } from "react-router-dom";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
