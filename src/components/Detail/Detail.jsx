@@ -97,9 +97,7 @@ function Detail ({ product }) {
         try {
 
           if (existingCartItem) {
-            await axios.delete(`${apiUrl}/api/cart-products/${existingCartItem.product_id}`, {
-              data: { userId: existingCartItem.user_id },
-            });
+            await axios.delete(`${apiUrl}/api/cart-products/${existingCartItem.user_id}/${existingCartItem.product_id}`);
             if (carts.length === 0) {
               updatedTotalAmount = 0;
             }
