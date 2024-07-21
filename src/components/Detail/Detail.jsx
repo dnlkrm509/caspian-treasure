@@ -71,7 +71,7 @@ function Detail ({ product }) {
     }
 
     fetchCartProductAmount();
-  }, [newAmount])
+  }, [])
 
   const cartItemRemoveHandler = async (id) => {
     // Fetch all users
@@ -87,6 +87,8 @@ function Detail ({ product }) {
     
     const response = await axios.get(`${apiUrl}/api/cart-products/${userId}`);
     const carts = response.data.rows;
+    console.log(carts)
+
     const existingCartItem = carts.find(item => item.product_id === +id);
 
     let updatedTotalAmount;
