@@ -230,7 +230,7 @@ function Detail ({ product }) {
         for (const row of carts) {
           await axios.put(`${apiUrl}/api/cart-products/${row.product_id}`, {
             totalAmount: updatedTotalAmount.toFixed(2),
-            userId: users[ users.length - 1 ].user_id,
+            userId: users[ users.length - 1 ].id,
           });
         }
 
