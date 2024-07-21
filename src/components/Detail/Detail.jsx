@@ -71,7 +71,7 @@ function Detail ({ product }) {
     }
 
     fetchCartProductAmount();
-  }, [newAmount])
+  }, [])
 
   const cartItemRemoveHandler = async (id) => {
     // Fetch all users
@@ -223,10 +223,9 @@ function Detail ({ product }) {
         };
 
         const response = await axios.post(postUrl, postData);
-        console.log('PUT request response:', response.data);
+        console.log('POST request response:', response.data);
 
-        console.log('Successfully updated the product on the server');
-
+        console.log('Successfully added the new product on the server');
 
         for (const row of carts) {
           await axios.put(`${apiUrl}/api/cart-products/${row.product_id}`, {
@@ -236,6 +235,7 @@ function Detail ({ product }) {
         }
 
         cartCtx.addItem({ name: newItem.name, product_id: +newItem.id, amount: 1, description: newItem.description, price: +newItem.price });
+        console.log('Successfully added the new product on cart context');
         setNewAmount(updatedProduct.amount);
       } catch (error) {
         
