@@ -215,7 +215,7 @@ function Detail ({ product }) {
       try {
         const updatedProduct = { name: newItem.name, product_id: +newItem.id, amount: 1, description: newItem.description, price: +newItem.price };
 
-        const postUrl = `${apiUrl}/api/cart-products`;
+        const postUrl = `${apiUrl}/api/cart-products/${userId}`;
         const postData = {
             newProduct: updatedProduct,
             userId: users.data.rows[ users.data.rows.length - 1 ].id,
