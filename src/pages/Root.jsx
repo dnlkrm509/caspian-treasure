@@ -76,7 +76,7 @@ export async function loader() {
         totalAmount: '0.00'
       });
 
-      cartResponse = await axios.get(`${apiUrl}/api/cart-products`);
+      cartResponse = await axios.get(`${apiUrl}/api/cart-products/${userId}`);
     }
 
     
