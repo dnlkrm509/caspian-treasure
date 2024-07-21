@@ -133,6 +133,7 @@ const Cart = (props) => {
     
             const response = await axios.get(`${apiUrl}/api/cart-products/${userId}`);
             const itemToAdd = response.data.rows.find(item => item.product_id === existingCartItem.product_id);
+            console.log(itemToAdd)
             
             const updatedProduct = { priduct_id: newItem, amount: itemToAdd.amount + 1 };
 
@@ -140,7 +141,7 @@ const Cart = (props) => {
                 const putUrl = `${apiUrl}/api/cart-products/${itemToAdd.product_id}`;
                 const putData = {
                     newProduct: updatedProduct,
-                    userId: response.data.rows[ response.data.rows.length - 1 ].user_id,
+                    userId: itemToAdd.user_id,
                     totalAmount: updatedTotalAmount.toFixed(2)
                 };
     
