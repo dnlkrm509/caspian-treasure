@@ -71,7 +71,7 @@ function Detail ({ product }) {
     }
 
     fetchCartProductAmount();
-  }, [existingCartItem])
+  }, [newAmount])
 
   const cartItemRemoveHandler = async (id) => {
     // Fetch all users
