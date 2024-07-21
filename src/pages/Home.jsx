@@ -5,14 +5,14 @@ import Header from "../components/HomeHeader/Header";
 import CartProvider from "../store/CartProvider";
 import CartContext from "../store/cart-context";
 import axios from "axios";
-import { useLoaderData, json } from "react-router-dom";
+import { useRouteLoaderData, json } from "react-router-dom";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
 function HomePage(props) {
   const cartCTX = useContext(CartContext);
 
-  const data = useLoaderData();
+  const data = useRouteLoaderData('root');
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     if (data && data.length > 0) {
@@ -27,6 +27,7 @@ function HomePage(props) {
         totalAmount: 0
       });
     }
+
   }, [data])
 
   const { scrollY } = useScroll();
@@ -62,25 +63,3 @@ function HomePage(props) {
 }
 
 export default HomePage;
-
-export async function loader() {
-  try {
-    let users = await axios.get(`${apiUrl}/api/users`);
-
-    if (!users.data.rows || users.data.rows.length === 0) {
-      throw new Error('No users found');
-    }
-
-    const userId = users.data.rows[users.data.rows.length - 1].id;
-    console.log('user id:', userId)
-
-    const carts = await axios.get(`${apiUrl}/api/cart-products/${userId}`);
-
-    return carts.data.rows;
-  } catch (error) {
-    console.error('Failed to fetch cart products:', error.message);
-    throw json({ isNextLine: true, message: 'Failed to fetch cart products.' }, {
-      status: 500
-    });
-  }
-}

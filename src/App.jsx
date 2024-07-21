@@ -29,7 +29,6 @@ const router = createBrowserRouter([
           <HomePage />
         </Suspense>
       ),
-      loader: () => import('./pages/Home.jsx').then(module => module.loader()),
     },
       { path: '/about', element: (
         <Suspense fallback={<LoadingSpinner />}>
