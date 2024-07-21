@@ -33,8 +33,19 @@ const Cart = (props) => {
 
         if(existingCartItem.amount === 1) {
             try {
-                const cart = await axios.get(`${apiUrl}/api/cart-products`);
-                const itemToDelete = cart.data.rows.find(item => item.product_id === id);
+                // Fetch all users
+                const usersResponse = await axios.get(`${apiUrl}/api/users`);
+                const users = usersResponse.data.rows;
+                if (!users || users.length === 0) {
+                  console.error('No users found');
+                  return;
+                }
+
+                // Get the last user ID from the users list
+                const userId = users[users.length - 1].id;
+    
+                const response = await axios.get(`${apiUrl}/api/cart-products/${userId}`);
+                const itemToDelete = response.data.rows.find(item => item.product_id === id);
 
                 if (itemToDelete) {
                   await axios.delete(`${apiUrl}/api/cart-products/${itemToDelete.user_id}/${itemToDelete.product_id}`);
@@ -43,11 +54,11 @@ const Cart = (props) => {
                   }
 
                 
-                for (const row of cart.data.rows) {
+                for (const row of response.data.rows) {
                   if (row.product_id !== id) {
                     await axios.put(`${apiUrl}/api/cart-products/${row.product_id}`, {
                       totalAmount: updatedTotalAmount.toFixed(2),
-                      userId: cart.data.rows[ cart.data.rows.length - 1 ].user_id,
+                      userId: response.data.rows[ response.data.rows.length - 1 ].user_id,
                     });
                   }
                 }
@@ -64,19 +75,30 @@ const Cart = (props) => {
             updatedItem = {...existingCartItem, 
                 amount: existingCartItem.amount - 1};
             try {
-                const cart = await axios.get(`${apiUrl}/api/cart-products`);
-                const itemToDelete = cart.data.rows.find(item => item.product_id === id);
+                // Fetch all users
+                const usersResponse = await axios.get(`${apiUrl}/api/users`);
+                const users = usersResponse.data.rows;
+                if (!users || users.length === 0) {
+                  console.error('No users found');
+                  return;
+                }
+
+                // Get the last user ID from the users list
+                const userId = users[users.length - 1].id;
+    
+                const response = await axios.get(`${apiUrl}/api/cart-products/${userId}`);
+                const itemToDelete = response.data.rows.find(item => item.product_id === id);
                 
                 await axios.put(`${apiUrl}/api/cart-products/${itemToDelete.product_id}`, {
                     newProduct: updatedItem,
-                    userId: cart.data.rows[ cart.data.rows.length - 1 ].user_id,
+                    userId: response.data.rows[ response.data.rows.length - 1 ].user_id,
                     totalAmount: `${updatedTotalAmount.toFixed(2)}`
                 });
 
-                for (const row of cart.data.rows) {
+                for (const row of response.data.rows) {
                   await axios.put(`${apiUrl}/api/cart-products/${row.product_id}`, {
                     totalAmount: updatedTotalAmount.toFixed(2),
-                    userId: cart.data.rows[ cart.data.rows.length - 1 ].user_id,
+                    userId: response.data.rows[ response.data.rows.length - 1 ].user_id,
                   });
                 }
             
@@ -98,8 +120,19 @@ const Cart = (props) => {
         const updatedTotalAmount = cartCtx.totalAmount + +existingCartItem.price;
 
         try {
-            const cart = await axios.get(`${apiUrl}/api/cart-products`);
-            const itemToAdd = cart.data.rows.find(item => item.product_id === existingCartItem.product_id);
+            // Fetch all users
+            const usersResponse = await axios.get(`${apiUrl}/api/users`);
+            const users = usersResponse.data.rows;
+            if (!users || users.length === 0) {
+              console.error('No users found');
+              return;
+            }
+
+            // Get the last user ID from the users list
+            const userId = users[users.length - 1].id;
+    
+            const response = await axios.get(`${apiUrl}/api/cart-products/${userId}`);
+            const itemToAdd = response.data.rows.find(item => item.product_id === existingCartItem.product_id);
             
             const updatedProduct = { priduct_id: newItem, amount: itemToAdd.amount + 1 };
 
@@ -107,7 +140,7 @@ const Cart = (props) => {
                 const putUrl = `${apiUrl}/api/cart-products/${itemToAdd.product_id}`;
                 const putData = {
                     newProduct: updatedProduct,
-                    userId: cart.data.rows[ cart.data.rows.length - 1 ].user_id,
+                    userId: response.data.rows[ response.data.rows.length - 1 ].user_id,
                     totalAmount: updatedTotalAmount.toFixed(2)
                 };
     
@@ -120,10 +153,10 @@ const Cart = (props) => {
             }
 
 
-            for (const row of cart.data.rows) {
+            for (const row of response.data.rows) {
               await axios.put(`${apiUrl}/api/cart-products/${row.product_id}`, {
                 totalAmount: updatedTotalAmount.toFixed(2),
-                userId: cart.data.rows[ cart.data.rows.length - 1 ].user_id,
+                userId: response.data.rows[ response.data.rows.length - 1 ].user_id,
               });
             }
 

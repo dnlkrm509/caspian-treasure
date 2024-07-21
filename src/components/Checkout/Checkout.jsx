@@ -269,7 +269,7 @@ const CheckoutForm = (props) => {
             // Get the last order ID from the orders list
             const orderId = newLastOrder.id;
 
-            const carts = await axios.get(`${apiUrl}/api/cart-products`);
+            const carts = await axios.get(`${apiUrl}/api/cart-products/${userId}`);
 
             await axios.post(`${apiUrl}/api/order-detail`, {
               newProduct: { product_id: carts.data.rows[ carts.data.rows.length - 1 ].product_id, },

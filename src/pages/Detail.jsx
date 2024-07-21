@@ -59,7 +59,7 @@ export async function detailLoader({ request, params }) {
 
         const userId = users[users.length - 1].id;
 
-        const productsResponse = await axios.get(`${apiUrl}/api/cart-products`);
+        const productsResponse = await axios.get(`${apiUrl}/api/cart-products/${userId}`);
 
         return { product, productId: params.productId, carts: productsResponse.data.rows };
     } catch (error) {

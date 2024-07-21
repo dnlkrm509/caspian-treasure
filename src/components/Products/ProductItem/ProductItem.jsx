@@ -15,7 +15,18 @@ const ProductItem = (props) => {
     useEffect(() => {
         async function fetchCartProductAmount(){
             try {
-                const response = await axios.get(`${apiUrl}/api/cart-products`);
+                // Fetch all users
+                const usersResponse = await axios.get(`${apiUrl}/api/users`);
+                const users = usersResponse.data.rows;
+                if (!users || users.length === 0) {
+                  console.error('No users found');
+                  return;
+                }
+
+                // Get the last user ID from the users list
+                const userId = users[users.length - 1].id;
+    
+                const response = await axios.get(`${apiUrl}/api/cart-products/${userId}`);
                 const cartProduct = response.data.rows.find(item => item.product_id === +props.id);
                 if (cartProduct) {
                     setAmount(cartProduct.amount);
@@ -45,7 +56,18 @@ const ProductItem = (props) => {
 
         try {
             if (cartCtx.items.length > 0) {
-                const cart = await axios.get(`${apiUrl}/api/cart-products`);
+                // Fetch all users
+                const usersResponse = await axios.get(`${apiUrl}/api/users`);
+                const users = usersResponse.data.rows;
+                if (!users || users.length === 0) {
+                  console.error('No users found');
+                  return;
+                }
+
+                // Get the last user ID from the users list
+                const userId = users[users.length - 1].id;
+    
+                const cart = await axios.get(`${apiUrl}/api/cart-products/${userId}`);
                 if (existingCartItem) {
                     for (const row of cart.data.rows) {
                         if (row.product_id === product.product_id) {

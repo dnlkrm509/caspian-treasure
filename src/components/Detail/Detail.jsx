@@ -55,7 +55,7 @@ function Detail ({ product }) {
         const userId = users[users.length - 1].id;
 
         // Fetch cart products for the last user
-        const response = await axios.get(`${apiUrl}/api/cart-products`);
+        const response = await axios.get(`${apiUrl}/api/cart-products/${userId}`);
 
         const carts = response.data.rows;
         const existingCartItem = carts.find(item => item.product_id === +product.id);
@@ -74,12 +74,18 @@ function Detail ({ product }) {
   }, [])
 
   const cartItemRemoveHandler = async (id) => {
-    const users = await axios.get(`${apiUrl}/api/users`);
+    // Fetch all users
+    const usersResponse = await axios.get(`${apiUrl}/api/users`);
+    const users = usersResponse.data.rows;
     if (!users || users.length === 0) {
       console.error('No users found');
       return;
     }
-    const response = await axios.get(`${apiUrl}/api/cart-products`);
+
+    // Get the last user ID from the users list
+    const userId = users[users.length - 1].id;
+    
+    const response = await axios.get(`${apiUrl}/api/cart-products/${userId}`);
     const carts = response.data.rows;
     const existingCartItem = carts.find(item => item.product_id === +id);
 
@@ -154,12 +160,18 @@ function Detail ({ product }) {
   };
 
   const cartItemAddHandler = async (newItem) => {
-    const users = await axios.get(`${apiUrl}/api/users`);
+    // Fetch all users
+    const usersResponse = await axios.get(`${apiUrl}/api/users`);
+    const users = usersResponse.data.rows;
     if (!users || users.length === 0) {
       console.error('No users found');
       return;
     }
-    const response = await axios.get(`${apiUrl}/api/cart-products`);
+
+    // Get the last user ID from the users list
+    const userId = users[users.length - 1].id;
+    
+    const response = await axios.get(`${apiUrl}/api/cart-products/${userId}`);
     const carts = response.data.rows;
     const existingCartItem = carts.find(item => item.product_id === +newItem.id);
     
