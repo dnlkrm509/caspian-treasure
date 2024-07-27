@@ -5,7 +5,7 @@ function Error(props) {
     return (
         <div className={classes}>
             <div className="grow">
-                <h1>{ props.title }</h1>
+                <h1 className="text-base md:text-2xl lg:text-4xl">{ props.title }</h1>
                 <p className={pClasses}>{ props.body }</p>
             </div>
         </div>
